@@ -16,13 +16,7 @@ public class RegoleDelGioco extends javax.swing.JFrame {
      */
     public RegoleDelGioco() {
         initComponents();
-        jLabel1.setText("<html>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida lacus tellus, in aliquet mauris ultrices vitae. Quisque blandit dignissim tortor quis molestie. Suspendisse id dui ultricies, hendrerit elit sed, rhoncus arcu. Etiam aliquam dui non sollicitudin vehicula. Donec vitae erat nisi. Integer ullamcorper ipsum augue, sed elementum ex maximus ac. Phasellus hendrerit tellus vel tincidunt sodales. Sed a semper magna. Phasellus suscipit ullamcorper sapien sed dictum. Fusce vel purus vulputate dui pulvinar sollicitudin. Duis ante ligula, faucibus convallis ante vel, mattis condimentum justo. Etiam eget turpis ornare, faucibus turpis a, aliquet massa.\n" +
-"\n" +
-"Mauris vestibulum sagittis nisi, tincidunt dapibus risus finibus vitae. Phasellus lacinia ex a metus laoreet ullamcorper. Praesent pharetra eget ante quis malesuada. Cras accumsan aliquet est. Aliquam vel nibh at libero gravida aliquam. Donec at nisl ac erat malesuada accumsan ut a sem. Maecenas vel tellus sed dolor varius vestibulum a vitae quam. Suspendisse at sollicitudin nunc. Quisque sed mi pretium, pulvinar metus a, faucibus libero. Integer aliquet orci sed tellus pharetra, at semper est convallis. In vestibulum, turpis ac tincidunt finibus, velit enim hendrerit nunc, sit amet vestibulum massa ante quis metus. Phasellus porta arcu vel dapibus maximus.\n" +
-"\n" +
-"Duis semper dictum ex id placerat. Morbi eget lectus non nibh convallis pulvinar "
-                + "quis eu est. Etiam sed varius turpis, at aliquam tortor."
-                + " Mauris eu ipsum non nunc pretium convallis. Ut sed velit eu mauris blandit aliquam quis ac lectus. Morbi dapibus mauris at mi sollicitudin, eget euismod justo vulputate. Etiam blandit diam ac rhoncus interdum. Nam rutrum quam at est iaculis blandit. Etiam semper bibendum orci nec sodales. Vestibulum porttitor nulla eget arcu pharetra vehicula. Curabitur lacinia mauris velit, eu faucibus eros gravida quis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean scelerisque, lorem in vestibulum ullamcorper, turpis nibh tempor mauris, nec vehicula odio massa eget ante. In ullamcorper molestie arcu, ut ultricies est mollis nec.</html>");
+        jLabel1.setText("Regole del gioco");
     }
 
     /**
