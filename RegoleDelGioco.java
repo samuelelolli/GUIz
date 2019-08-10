@@ -16,7 +16,7 @@ public class RegoleDelGioco extends javax.swing.JFrame {
      */
     public RegoleDelGioco() {
         initComponents();
-        jLabel1.setText("Regole del giuoco");
+        jLabel1.setText("Regole del gioco");
     }
 
     /**
