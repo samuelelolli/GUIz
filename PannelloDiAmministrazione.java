@@ -27,21 +27,115 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDomande = new javax.swing.JTable();
+        cmbOpzioni = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        lblImporta = new javax.swing.JLabel();
+        btnImporta = new javax.swing.JButton();
+        chbDifficolta = new javax.swing.JCheckBox();
+        jTextField1 = new javax.swing.JTextField();
+        lblNumeroDomande = new javax.swing.JLabel();
+        btnSalva = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1000, 568));
+
+        tblDomande.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Id", "Testo", "Tipo", "Tempo", "Opzioni"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDomande);
+
+        cmbOpzioni.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancella", "Aggiungi", "Esporta" }));
+        cmbOpzioni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbOpzioniActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Modifica");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        lblImporta.setText("Importa domande da file esterno");
+
+        btnImporta.setText("Importa");
+
+        chbDifficolta.setText("Permetti all'utente di selezionare il livello di difficoltà");
+
+        lblNumeroDomande.setText("Domande a partita");
+
+        btnSalva.setText("Salva");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbOpzioni, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chbDifficolta)
+                            .addComponent(lblImporta)
+                            .addComponent(btnImporta)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNumeroDomande)
+                            .addComponent(btnSalva))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbOpzioni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(33, 33, 33)
+                .addComponent(lblImporta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnImporta)
+                .addGap(18, 18, 18)
+                .addComponent(chbDifficolta)
+                .addGap(18, 18, 18)
+                .addComponent(lblNumeroDomande)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSalva)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbOpzioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpzioniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbOpzioniActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +173,16 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImporta;
+    private javax.swing.JButton btnSalva;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox chbDifficolta;
+    private javax.swing.JComboBox<String> cmbOpzioni;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblImporta;
+    private javax.swing.JLabel lblNumeroDomande;
+    private javax.swing.JTable tblDomande;
     // End of variables declaration//GEN-END:variables
 }
