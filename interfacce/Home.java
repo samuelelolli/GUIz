@@ -94,7 +94,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        new LoginPannello().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
