@@ -1,4 +1,4 @@
-package guiz.interfacce;
+package guiz;
 
 import guiz.modelli.Domanda;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ public class RepositoryDomande {
     private final ArrayList<Domanda> domande;
     
     private RepositoryDomande() {
-        LettoreXMLDomande lettore = new LettoreXMLDomande("C:\\Users\\daniele\\Documents\\GUIz\\domande.xml");
+        LettoreXMLDomande lettore = new LettoreXMLDomande("C:\\GUIz\\domande.xml");
         domande = lettore.leggiDomande();
     }
     
