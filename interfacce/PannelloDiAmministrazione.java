@@ -5,17 +5,81 @@
  */
 package guiz.interfacce;
 
+import guiz.RepositoryDomande;
+import guiz.modelli.Domanda;
+import guiz.modelli.DomandaATempo;
+import guiz.modelli.DomandaChiusa;
+import guiz.modelli.DomandaPerdiTutto;
+import guiz.modelli.OpzioneDomandaChiusa;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author notebook
  */
 public class PannelloDiAmministrazione extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PannelloDiAmministrazione
-     */
+    private final int INDICE_TABELLA_ID = 0;
+    private final int INDICE_TABELLA_TESTO = 1;
+    private final int INDICE_TABELLA_TIPO = 2;
+    private final int INDICE_TABELLA_RISPOSTA = 3;
+    private final int INDICE_TABELLA_OPZIONI = 4;
+    private final int INDICE_TABELLA_TEMPO = 5;
+
+    private void initTableRowCount(int count){
+        DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
+        model.setRowCount(count);
+        tblDomande.setModel(model);
+    }
+    
+    private void initTabella() {
+        ArrayList<Domanda> domande = RepositoryDomande.getInstance().getDomande();
+        
+        initTableRowCount(domande.size());
+        
+        int riga = 0;  
+        for (Domanda d : domande) {
+            tblDomande.getModel().setValueAt(d.getId(), riga, INDICE_TABELLA_ID);
+            tblDomande.getModel().setValueAt(d.getTesto(), riga, INDICE_TABELLA_TESTO);
+            if (d instanceof DomandaChiusa) {
+                DomandaChiusa dc = (DomandaChiusa) d;
+                tblDomande.getModel().setValueAt("Chiusa", riga, INDICE_TABELLA_TIPO);
+                
+                StringBuilder builderOpzioni = new StringBuilder("");
+                for (OpzioneDomandaChiusa opzione : dc.getOpzioni()) {
+                    builderOpzioni.append(opzione.getTesto());
+                    builderOpzioni.append(" - ");
+                    builderOpzioni.append(opzione.isEsatta() ? "corretta" : "sbagliata");
+                    if (!opzione.equals(dc.getOpzioni().get(dc.getOpzioni().size() - 1))) {
+                        builderOpzioni.append(", ");
+                    }
+                }
+
+                tblDomande.getModel().setValueAt(builderOpzioni.toString(), riga, INDICE_TABELLA_OPZIONI);
+            }
+
+            if (d instanceof DomandaPerdiTutto) {
+                DomandaPerdiTutto dpt = (DomandaPerdiTutto) d;
+                tblDomande.getModel().setValueAt("Perdi tutto", riga, INDICE_TABELLA_TIPO);
+                tblDomande.getModel().setValueAt(dpt.getRisposta(), riga, INDICE_TABELLA_RISPOSTA);
+            }
+
+            if (d instanceof DomandaATempo) {
+                DomandaATempo dt = (DomandaATempo) d;
+                tblDomande.getModel().setValueAt("A tempo", riga, INDICE_TABELLA_TIPO);
+                tblDomande.getModel().setValueAt(dt.getRisposta(), riga, INDICE_TABELLA_RISPOSTA);
+                long durataSecondi = dt.getTempo().toMillis() / 1000;
+                tblDomande.getModel().setValueAt(durataSecondi + " second" + (durataSecondi > 1 ? "i" : "o"), riga, INDICE_TABELLA_TEMPO);
+            }
+
+            riga++;
+        }
+    }
+
     public PannelloDiAmministrazione() {
         initComponents();
+        initTabella();
     }
 
     /**
@@ -49,7 +113,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Testo", "Tipo", "Tempo", "Opzioni"
+                "Id", "Testo", "Tipo", "Risposta", "Opzioni", "Tempo",
             }
         ));
         jScrollPane1.setViewportView(tblDomande);
