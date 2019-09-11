@@ -2,7 +2,7 @@ package guiz;
 
 import guiz.modelli.Domanda;
 import java.util.ArrayList;
-import xmlutils.LettoreXMLDomande;
+import guiz.xmlutils.LettoreXMLDomande;
 
 public class RepositoryDomande {
     private final ArrayList<Domanda> domande;
