@@ -18,7 +18,7 @@ import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import guiz.Home;
+import guiz.interfacce.Home;
 /**
  *
  * @author notebook
