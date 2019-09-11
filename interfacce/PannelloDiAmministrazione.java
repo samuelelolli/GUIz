@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package guiz;
+package guiz.interfacce;
 
 /**
  *
@@ -40,7 +40,6 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         btnSalva = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 568));
 
         tblDomande.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

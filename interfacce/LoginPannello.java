@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package guiz;
+package guiz.interfacce;
 
 import javax.swing.JOptionPane;
 
@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class LoginPannello extends javax.swing.JFrame {
 
-    private String password = "Password";
+    private String password = "";
     
     public LoginPannello() {
         initComponents();
@@ -31,6 +31,12 @@ public class LoginPannello extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         lblPassword = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         lblPassword.setText("Inserire la password");
 
@@ -70,15 +76,34 @@ public class LoginPannello extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean validatePassword(String passwordTyped){
+        return password.equals(passwordTyped);
+    }
+    
+    private void goToPanel(){
+        new PannelloDiAmministrazione().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }
+    
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        if (password.equals(String.valueOf(txtPassword.getPassword()))){
-            new PannelloDiAmministrazione().setVisible(true);
-            this.setVisible(false);
-            this.dispose();
+        if (validatePassword(String.valueOf(txtPassword.getPassword()))){
+            goToPanel();
         }
         else
             JOptionPane.showMessageDialog(this, "Password sbagliata", "Errore", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnOKActionPerformed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if (evt.getKeyChar() == '\n')
+        {
+            if (validatePassword(String.valueOf(txtPassword.getPassword()))){
+                goToPanel();
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Password sbagliata", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments
