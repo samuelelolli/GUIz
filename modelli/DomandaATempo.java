@@ -6,6 +6,9 @@ public class DomandaATempo extends Domanda {
     private String risposta;
     private Duration tempo;
 
+    public DomandaATempo() {
+    }
+    
     public DomandaATempo(String testo, String risposta, Duration tempo) {
         this.testo = testo;
         this.risposta = risposta;

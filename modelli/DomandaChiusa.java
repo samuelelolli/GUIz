@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class DomandaChiusa extends Domanda {
     private ArrayList<OpzioneDomandaChiusa> opzioni;
 
+    public DomandaChiusa() {
+        this.opzioni = new ArrayList<>();
+    }    
+    
     public DomandaChiusa(ArrayList<OpzioneDomandaChiusa> opzioni) {
         this.opzioni = opzioni;
     }

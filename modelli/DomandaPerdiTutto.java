@@ -3,6 +3,9 @@ package guiz.modelli;
 public class DomandaPerdiTutto extends Domanda {
     private String risposta;
 
+    public DomandaPerdiTutto() {
+    }
+    
     public DomandaPerdiTutto(String testo, String risposta) {
         this.testo = testo;
         this.risposta = risposta;
