@@ -6,6 +6,9 @@
 package guiz.interfacce;
 
 import guiz.RepositoryDomande;
+import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaATempo;
+import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaChiusa;
+import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaPerdiTutto;
 import guiz.modelli.Domanda;
 import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaChiusa;
@@ -13,6 +16,7 @@ import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.OpzioneDomandaChiusa;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -27,25 +31,25 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     private final int INDICE_TABELLA_OPZIONI = 4;
     private final int INDICE_TABELLA_TEMPO = 5;
 
-    private void initTableRowCount(int count){
+    private void initTableRowCount(int count) {
         DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
         model.setRowCount(count);
         tblDomande.setModel(model);
     }
-    
+
     private void initTabella() {
         ArrayList<Domanda> domande = RepositoryDomande.getInstance().getDomande();
-        
+
         initTableRowCount(domande.size());
-        
-        int riga = 0;  
+
+        int riga = 0;
         for (Domanda d : domande) {
             tblDomande.getModel().setValueAt(d.getId(), riga, INDICE_TABELLA_ID);
             tblDomande.getModel().setValueAt(d.getTesto(), riga, INDICE_TABELLA_TESTO);
             if (d instanceof DomandaChiusa) {
                 DomandaChiusa dc = (DomandaChiusa) d;
                 tblDomande.getModel().setValueAt("Chiusa", riga, INDICE_TABELLA_TIPO);
-                
+
                 StringBuilder builderOpzioni = new StringBuilder("");
                 for (OpzioneDomandaChiusa opzione : dc.getOpzioni()) {
                     builderOpzioni.append(opzione.getTesto());
@@ -95,7 +99,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDomande = new javax.swing.JTable();
         cmbOpzioni = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnModifica = new javax.swing.JButton();
         lblImporta = new javax.swing.JLabel();
         btnImporta = new javax.swing.JButton();
         chbDifficolta = new javax.swing.JCheckBox();
@@ -125,10 +129,10 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Modifica");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnModifica.setText("Modifica");
+        btnModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnModificaActionPerformed(evt);
             }
         });
 
@@ -151,7 +155,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnModifica)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbOpzioni, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -173,7 +177,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbOpzioni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnModifica))
                 .addGap(33, 33, 33)
                 .addComponent(lblImporta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,9 +200,28 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbOpzioniActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
+        int selectedRow = tblDomande.getSelectedRow();
+        TableModel model = tblDomande.getModel();
+        int idDomanda = Integer.parseInt(model.getValueAt(selectedRow, INDICE_TABELLA_ID).toString());
+
+        if (selectedRow >= 0) {
+            switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) {
+                case "Chiusa":
+                    DomandaChiusa domandaChiusa = (DomandaChiusa) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
+                    new AggiungiModificaDomandaChiusa(domandaChiusa).setVisible(true);
+                    break;
+                case "Perdi tutto":                    
+                    DomandaPerdiTutto domandaPerdiTutto = (DomandaPerdiTutto) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
+                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto).setVisible(true);
+                    break;
+                case "A tempo":
+                    DomandaATempo domandaATempo = (DomandaATempo) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
+                    new AggiungiModificaDomandaATempo(domandaATempo).setVisible(true);
+                    break;
+            }
+        }
+    }//GEN-LAST:event_btnModificaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,11 +260,11 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImporta;
+    private javax.swing.JButton btnModifica;
     private javax.swing.JButton btnSalva;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chbDifficolta;
     private javax.swing.JComboBox<String> cmbOpzioni;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImporta;

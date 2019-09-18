@@ -20,6 +20,14 @@ public class RepositoryDomande {
         return domande;
     }
     
+    public Domanda getDomandaWhereIdIs(int id){
+        for (Domanda d : domande)
+            if (id == d.getId())
+                return d;
+        
+        return null;
+    }
+    
     private static class RepositoryDomandeHolder {
         private static final RepositoryDomande INSTANCE = new RepositoryDomande();
     }
