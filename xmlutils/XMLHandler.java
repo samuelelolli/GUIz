@@ -175,13 +175,13 @@ public class XMLHandler {
         if (domanda instanceof DomandaChiusa) {
             nuovaDomanda.setAttribute("tipo", "chiusa");
             Element opzioni = doc.createElement("opzioni");
-            for (OpzioneDomandaChiusa opzione : ((DomandaChiusa) domanda).getOpzioni()){
+            for (OpzioneDomandaChiusa opzione : ((DomandaChiusa) domanda).getOpzioni()) {
                 Element nodoOpzione = doc.createElement("opzione");
                 nodoOpzione.setAttribute("giusta", opzione.isEsatta() ? "si" : "no");
                 nodoOpzione.appendChild(doc.createTextNode(opzione.getTesto()));
                 opzioni.appendChild(nodoOpzione);
             }
-            
+
             nuovaDomanda.appendChild(opzioni);
         }
 
@@ -189,7 +189,7 @@ public class XMLHandler {
             nuovaDomanda.setAttribute("tipo", "perdi_tutto");
             Element risposta = doc.createElement("risposta");
             risposta.appendChild(doc.createTextNode(((DomandaPerdiTutto) domanda).getRisposta()));
-            
+
             nuovaDomanda.appendChild(risposta);
         }
 
@@ -199,13 +199,26 @@ public class XMLHandler {
             risposta.appendChild(doc.createTextNode(((DomandaATempo) domanda).getRisposta()));
             Element tempo = doc.createElement("tempo");
             tempo.appendChild(doc.createTextNode(String.valueOf(((DomandaATempo) domanda).getTempo().toMillis())));
-            
+
             nuovaDomanda.appendChild(risposta);
             nuovaDomanda.appendChild(tempo);
         }
 
         doc.getFirstChild().appendChild(nuovaDomanda);
         salva();
+    }
+
+    public void rimuoviDomanda(long id) {
+        NodeList nList = doc.getElementsByTagName("id");
+        for (int i = 0; i < nList.getLength(); i++) {
+            Node node = nList.item(i);
+            
+            if (Long.parseLong(node.getFirstChild().getNodeValue()) == id) {
+                node.getParentNode().getParentNode().removeChild(node.getParentNode());
+                salva();
+                return;
+            }
+        }
     }
 
     private void salva() {

@@ -29,6 +29,11 @@ public class RepositoryDomande {
         handler.aggiungiDomanda(domanda);
     }
     
+    public void rimuoviDomanda(Domanda domanda){
+        domande.remove(domanda);
+        handler.rimuoviDomanda(domanda.getId());
+    }
+    
     public static RepositoryDomande getInstance() {
         return RepositoryDomandeHolder.INSTANCE;
     }

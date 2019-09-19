@@ -190,17 +190,30 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbOpzioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpzioniActionPerformed
-        if ("Aggiungi".equals(cmbOpzioni.getSelectedItem().toString())){
-            new AggiungiHub(tblDomande).setVisible(true);
+        switch(cmbOpzioni.getSelectedItem().toString()){
+            case "Aggiungi":
+                new AggiungiHub(tblDomande).setVisible(true);
+                break;
+                
+            case "Cancella":
+                int selectedRow = tblDomande.getSelectedRow();
+                if (selectedRow >= 0){
+                    RepositoryDomande.getInstance().rimuoviDomanda(RepositoryDomande.getInstance().getDomande().get(selectedRow));
+                    
+                    DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
+                    model.removeRow(selectedRow);
+                    tblDomande.setModel(model);
+                }
+                break;
         }
     }//GEN-LAST:event_cmbOpzioniActionPerformed
 
     private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
         int selectedRow = tblDomande.getSelectedRow();
         TableModel model = tblDomande.getModel();
-        int idDomanda = Integer.parseInt(model.getValueAt(selectedRow, INDICE_TABELLA_ID).toString());
-
+        
         if (selectedRow >= 0) {
+            int idDomanda = Integer.parseInt(model.getValueAt(selectedRow, INDICE_TABELLA_ID).toString());
             switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) {
                 case "Chiusa":
                     DomandaChiusa domandaChiusa = (DomandaChiusa) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
