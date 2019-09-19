@@ -26,18 +26,15 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtTesto" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="457" max="32767" attributes="0"/>
-                      <Component id="btnSalva" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="txtRisposta" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtTestoOpzione" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblTesto" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblRisposta" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="lblTestoOpzione" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="chbCorretta" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="252" max="32767" attributes="0"/>
+                      <Component id="btnSalva" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -47,28 +44,32 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <Component id="lblTestoOpzione" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblTesto" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtTesto" min="-2" max="-2" attributes="0"/>
+              <Component id="txtTestoOpzione" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="lblRisposta" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtRisposta" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="chbCorretta" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalva" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnSalva" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblTesto">
+    <Component class="javax.swing.JTextField" name="txtTestoOpzione">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTestoOpzione">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Testo"/>
+        <Property name="text" type="java.lang.String" value="Testo opzione"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTesto">
+    <Component class="javax.swing.JCheckBox" name="chbCorretta">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Corretta"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSalva">
       <Properties>
@@ -77,13 +78,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvaActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtRisposta">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblRisposta">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Risposta"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

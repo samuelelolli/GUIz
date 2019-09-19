@@ -6,7 +6,7 @@ public class DomandaChiusa extends Domanda {
     private ArrayList<OpzioneDomandaChiusa> opzioni;
 
     public DomandaChiusa() {
-        this.opzioni = new ArrayList<>();
+        this.opzioni = new ArrayList<>(10);
     }    
     
     public DomandaChiusa(ArrayList<OpzioneDomandaChiusa> opzioni) {

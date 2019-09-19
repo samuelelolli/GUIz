@@ -12,18 +12,23 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-public class LettoreXMLDomande {
+public class XMLHandler {
 
     private String filePath;
     private Document doc;
 
-    public LettoreXMLDomande(String filePath) {
+    public XMLHandler(String filePath) {
         this.filePath = filePath;
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -154,5 +159,71 @@ public class LettoreXMLDomande {
         }
 
         return domande;
+    }
+
+    public void aggiungiDomanda(Domanda domanda) throws Exception {
+        Element nuovaDomanda = doc.createElement("domanda");
+
+        Element id = doc.createElement("id");
+        id.appendChild(doc.createTextNode(String.valueOf(domanda.getId())));
+        Element testo = doc.createElement("testo");
+        testo.appendChild(doc.createTextNode(domanda.getTesto()));
+
+        nuovaDomanda.appendChild(id);
+        nuovaDomanda.appendChild(testo);
+
+        if (domanda instanceof DomandaChiusa) {
+            nuovaDomanda.setAttribute("tipo", "chiusa");
+            Element opzioni = doc.createElement("opzioni");
+            for (OpzioneDomandaChiusa opzione : ((DomandaChiusa) domanda).getOpzioni()){
+                Element nodoOpzione = doc.createElement("opzione");
+                nodoOpzione.setAttribute("giusta", opzione.isEsatta() ? "si" : "no");
+                nodoOpzione.appendChild(doc.createTextNode(opzione.getTesto()));
+                opzioni.appendChild(nodoOpzione);
+            }
+            
+            nuovaDomanda.appendChild(opzioni);
+        }
+
+        if (domanda instanceof DomandaPerdiTutto) {
+            nuovaDomanda.setAttribute("tipo", "perdi_tutto");
+            Element risposta = doc.createElement("risposta");
+            risposta.appendChild(doc.createTextNode(((DomandaPerdiTutto) domanda).getRisposta()));
+            
+            nuovaDomanda.appendChild(risposta);
+        }
+
+        if (domanda instanceof DomandaATempo) {
+            nuovaDomanda.setAttribute("tipo", "a_tempo");
+            Element risposta = doc.createElement("risposta");
+            risposta.appendChild(doc.createTextNode(((DomandaATempo) domanda).getRisposta()));
+            Element tempo = doc.createElement("tempo");
+            tempo.appendChild(doc.createTextNode(String.valueOf(((DomandaATempo) domanda).getTempo().toMillis())));
+            
+            nuovaDomanda.appendChild(risposta);
+            nuovaDomanda.appendChild(tempo);
+        }
+
+        doc.getFirstChild().appendChild(nuovaDomanda);
+        salva();
+    }
+
+    private void salva() {
+
+        try {
+            TransformerFactory transformerFactory = TransformerFactory
+                    .newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "5");
+
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filePath));
+            transformer.transform(source, result);
+
+        } catch (Exception ignored) {
+            ignored.printStackTrace();
+        }
     }
 }

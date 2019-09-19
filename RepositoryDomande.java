@@ -2,14 +2,31 @@ package guiz;
 
 import guiz.modelli.Domanda;
 import java.util.ArrayList;
-import guiz.xmlutils.LettoreXMLDomande;
+import guiz.xmlutils.XMLHandler;
 
 public class RepositoryDomande {
     private final ArrayList<Domanda> domande;
+    private XMLHandler handler;
     
     private RepositoryDomande() {
-        LettoreXMLDomande lettore = new LettoreXMLDomande("C:\\GUIz\\domande.xml");
-        domande = lettore.leggiDomande();
+        handler = new XMLHandler("C:\\GUIz\\domande.xml");
+        domande = handler.leggiDomande();
+    }
+   
+    private long idDaInserire(){
+        long max = domande.get(0).getId();
+        
+        for (Domanda d : domande){
+            if (d.getId() > max) max = d.getId();
+        }
+        
+        return max + 1;
+    }
+    
+    public void aggiungiDomanda(Domanda domanda) throws Exception{
+        domanda.setId(idDaInserire());
+        domande.add(domanda);
+        handler.aggiungiDomanda(domanda);
     }
     
     public static RepositoryDomande getInstance() {

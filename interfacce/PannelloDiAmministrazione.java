@@ -5,7 +5,9 @@
  */
 package guiz.interfacce;
 
+import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
+import guiz.interfacce.aggiungimodifica.AggiungiHub;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaATempo;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaChiusa;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaPerdiTutto;
@@ -14,6 +16,7 @@ import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaChiusa;
 import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.OpzioneDomandaChiusa;
+import java.time.Duration;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -24,12 +27,12 @@ import javax.swing.table.TableModel;
  */
 public class PannelloDiAmministrazione extends javax.swing.JFrame {
 
-    private final int INDICE_TABELLA_ID = 0;
-    private final int INDICE_TABELLA_TESTO = 1;
-    private final int INDICE_TABELLA_TIPO = 2;
-    private final int INDICE_TABELLA_RISPOSTA = 3;
-    private final int INDICE_TABELLA_OPZIONI = 4;
-    private final int INDICE_TABELLA_TEMPO = 5;
+    public final static int INDICE_TABELLA_ID = 0;
+    public final static int INDICE_TABELLA_TESTO = 1;
+    public final static int INDICE_TABELLA_TIPO = 2;
+    public final static int INDICE_TABELLA_RISPOSTA = 3;
+    public final static int INDICE_TABELLA_OPZIONI = 4;
+    public final static int INDICE_TABELLA_TEMPO = 5;
 
     private void initTableRowCount(int count) {
         DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
@@ -50,17 +53,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                 DomandaChiusa dc = (DomandaChiusa) d;
                 tblDomande.getModel().setValueAt("Chiusa", riga, INDICE_TABELLA_TIPO);
 
-                StringBuilder builderOpzioni = new StringBuilder("");
-                for (OpzioneDomandaChiusa opzione : dc.getOpzioni()) {
-                    builderOpzioni.append(opzione.getTesto());
-                    builderOpzioni.append(" - ");
-                    builderOpzioni.append(opzione.isEsatta() ? "corretta" : "sbagliata");
-                    if (!opzione.equals(dc.getOpzioni().get(dc.getOpzioni().size() - 1))) {
-                        builderOpzioni.append(", ");
-                    }
-                }
-
-                tblDomande.getModel().setValueAt(builderOpzioni.toString(), riga, INDICE_TABELLA_OPZIONI);
+                tblDomande.getModel().setValueAt(GUIzUtils.formatOpzioni(dc.getOpzioni()), riga, INDICE_TABELLA_OPZIONI);
             }
 
             if (d instanceof DomandaPerdiTutto) {
@@ -197,7 +190,9 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbOpzioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpzioniActionPerformed
-        // TODO add your handling code here:
+        if ("Aggiungi".equals(cmbOpzioni.getSelectedItem().toString())){
+            new AggiungiHub(tblDomande).setVisible(true);
+        }
     }//GEN-LAST:event_cmbOpzioniActionPerformed
 
     private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
@@ -209,15 +204,15 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) {
                 case "Chiusa":
                     DomandaChiusa domandaChiusa = (DomandaChiusa) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaChiusa(domandaChiusa).setVisible(true);
+                    new AggiungiModificaDomandaChiusa(domandaChiusa, tblDomande).setVisible(true);
                     break;
-                case "Perdi tutto":                    
+                case "Perdi tutto":
                     DomandaPerdiTutto domandaPerdiTutto = (DomandaPerdiTutto) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto).setVisible(true);
+                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto, tblDomande).setVisible(true);
                     break;
                 case "A tempo":
                     DomandaATempo domandaATempo = (DomandaATempo) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaATempo(domandaATempo).setVisible(true);
+                    new AggiungiModificaDomandaATempo(domandaATempo, tblDomande).setVisible(true);
                     break;
             }
         }

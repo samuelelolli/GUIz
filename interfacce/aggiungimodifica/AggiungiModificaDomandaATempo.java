@@ -5,30 +5,39 @@
  */
 package guiz.interfacce.aggiungimodifica;
 
+import guiz.RepositoryDomande;
+import guiz.interfacce.PannelloDiAmministrazione;
 import guiz.modelli.DomandaATempo;
+import java.time.Duration;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author daniele
  */
 public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
+
     private DomandaATempo domanda;
     private boolean inModifica;
-    
+    private JTable tableToUpdate;
+
     private AggiungiModificaDomandaATempo() {
         initComponents();
     }
-    
-    public AggiungiModificaDomandaATempo(DomandaATempo d){
+
+    public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table) {
         this();
         domanda = d;
+        tableToUpdate = table;
         inModifica = (d != null);
-        
-        if (inModifica){
+
+        if (inModifica) {
             txtTesto.setText(domanda.getTesto());
             txtRisposta.setText(domanda.getRisposta());
             spnTempo.setValue(domanda.getTempo().toMillis());
         }
+       
     }
 
     /**
@@ -43,7 +52,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
         txtTesto = new javax.swing.JTextField();
         spnTempo = new javax.swing.JSpinner();
         lblTesto = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSalva = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtRisposta = new javax.swing.JTextField();
         lblRisposta = new javax.swing.JLabel();
@@ -52,10 +61,10 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
 
         lblTesto.setText("Testo");
 
-        jButton1.setText("Salva");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalva.setText("Salva");
+        btnSalva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalvaActionPerformed(evt);
             }
         });
 
@@ -74,7 +83,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(spnTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 358, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(btnSalva))
                     .addComponent(txtRisposta)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,54 +109,41 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnSalva))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
+        if (txtTesto.getText().trim().isEmpty()) return;
+        
+        if (!inModifica) {
+            DomandaATempo daInserire = new DomandaATempo(txtTesto.getText(), txtRisposta.getText(), Duration.ofMillis(Long.parseLong(spnTempo.getValue().toString())));
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+            try {
+                RepositoryDomande.getInstance().aggiungiDomanda(daInserire);
+                DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
+                String[] row = new String[6];
+
+                row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(daInserire.getId());
+                row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = daInserire.getRisposta();
+                long durataSecondi = daInserire.getTempo().toMillis() / 1000;
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TEMPO] = String.valueOf(durataSecondi + " second" + (durataSecondi > 1 ? "i" : "o"));
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = daInserire.getTesto();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = "A tempo";
+
+                model.addRow(row);
+                tableToUpdate.setModel(model);
+                this.dispose();
+            } catch (Exception ignored) {
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaATempo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaATempo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaATempo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaATempo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AggiungiModificaDomandaATempo().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_btnSalvaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSalva;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblRisposta;
     private javax.swing.JLabel lblTesto;

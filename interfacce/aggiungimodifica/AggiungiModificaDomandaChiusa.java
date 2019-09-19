@@ -5,9 +5,16 @@
  */
 package guiz.interfacce.aggiungimodifica;
 
+import guiz.GUIzUtils;
+import guiz.RepositoryDomande;
+import guiz.interfacce.PannelloDiAmministrazione;
 import guiz.modelli.DomandaChiusa;
 import guiz.modelli.OpzioneDomandaChiusa;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,25 +24,30 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
 
     private DomandaChiusa domanda;
     private boolean inModifica;
+    private JTable tableToUpdate;
 
     private AggiungiModificaDomandaChiusa() {
         initComponents();
     }
 
-    public AggiungiModificaDomandaChiusa(DomandaChiusa d) {
+    public AggiungiModificaDomandaChiusa(DomandaChiusa d, JTable table) {
         this();
         domanda = d;
         inModifica = (d != null);
+        tableToUpdate = table;
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        lstOpzioni.setModel(model);
 
         if (inModifica) {
-            DefaultListModel<String> model = new DefaultListModel<>();
-            lstOpzioni.setModel(model);
-
             txtTesto.setText(domanda.getTesto());
             for (OpzioneDomandaChiusa opzione : domanda.getOpzioni()) {
                 model.addElement(opzione.getTesto());
             }
+        } else {
+            domanda = new DomandaChiusa();
         }
+
     }
 
     /**
@@ -72,12 +84,32 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
         chbCorretta.setEnabled(false);
 
         btnSalva.setText("Salva");
+        btnSalva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvaActionPerformed(evt);
+            }
+        });
 
         btnPiu.setText("+");
+        btnPiu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPiuActionPerformed(evt);
+            }
+        });
 
         btnMeno.setText("-");
+        btnMeno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenoActionPerformed(evt);
+            }
+        });
 
         btnModifica.setText("Modifica");
+        btnModifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,24 +125,20 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTesto)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(btnPiu)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnModifica))
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(43, 43, 43)
+                                .addComponent(btnMeno)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 380, Short.MAX_VALUE)
+                                .addComponent(btnSalva))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(43, 43, 43)
-                                        .addComponent(btnMeno)))
+                                        .addComponent(btnPiu)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnModifica))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(chbCorretta)
-                                        .addGap(0, 166, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(btnSalva)))))
+                                .addComponent(chbCorretta)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -123,16 +151,16 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnModifica)
-                            .addComponent(btnMeno)
-                            .addComponent(btnPiu)
-                            .addComponent(btnSalva)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
+                        .addGap(81, 81, 81)
                         .addComponent(chbCorretta)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModifica)
+                    .addComponent(btnMeno)
+                    .addComponent(btnPiu)
+                    .addComponent(btnSalva))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -147,40 +175,53 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lstOpzioniValueChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaChiusa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaChiusa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaChiusa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaChiusa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnPiuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPiuActionPerformed
+        new AggiungiModificaOpzioneDomandaChiusa(null, lstOpzioni, domanda, -1, null).setVisible(true);
+    }//GEN-LAST:event_btnPiuActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AggiungiModificaDomandaChiusa().setVisible(true);
+    private void btnMenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenoActionPerformed
+        int selectedIndex = lstOpzioni.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            DefaultListModel model = (DefaultListModel) lstOpzioni.getModel();
+            model.remove(selectedIndex);
+            domanda.getOpzioni().remove(selectedIndex);
+
+            lstOpzioni.setModel(model);
+            chbCorretta.setSelected(false);
+        }
+    }//GEN-LAST:event_btnMenoActionPerformed
+
+    private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
+        int selectedIndex = lstOpzioni.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            new AggiungiModificaOpzioneDomandaChiusa(domanda.getOpzioni().get(selectedIndex), lstOpzioni, domanda, selectedIndex, chbCorretta).setVisible(true);
+        }
+    }//GEN-LAST:event_btnModificaActionPerformed
+
+    private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
+        if (txtTesto.getText().trim().isEmpty()) return;
+
+        if (!inModifica) {
+            domanda.setTesto(txtTesto.getText());
+            try {
+                RepositoryDomande.getInstance().aggiungiDomanda(domanda);
+                DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
+                String[] row = new String[6];
+                
+                row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(domanda.getId());
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = domanda.getTesto();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = "Chiusa";
+                row[PannelloDiAmministrazione.INDICE_TABELLA_OPZIONI] = GUIzUtils.formatOpzioni(domanda.getOpzioni());
+                model.addRow(row);
+                tableToUpdate.setModel(model);
+                
+            } catch (Exception ignored) {
             }
-        });
-    }
+        }
+        
+        this.dispose();
+    }//GEN-LAST:event_btnSalvaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMeno;

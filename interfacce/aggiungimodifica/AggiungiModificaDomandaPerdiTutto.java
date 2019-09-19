@@ -5,7 +5,13 @@
  */
 package guiz.interfacce.aggiungimodifica;
 
+import guiz.RepositoryDomande;
+import guiz.interfacce.PannelloDiAmministrazione;
+import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaPerdiTutto;
+import java.time.Duration;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,20 +21,26 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
 
     private DomandaPerdiTutto domanda;
     private boolean inModifica;
+    private JTable tableToUpdate;
 
     private AggiungiModificaDomandaPerdiTutto() {
         initComponents();
     }
 
-    public AggiungiModificaDomandaPerdiTutto(DomandaPerdiTutto d) {
+    public AggiungiModificaDomandaPerdiTutto(DomandaPerdiTutto d, JTable table) {
         this();
         domanda = d;
         inModifica = (d != null);
+        tableToUpdate = table;
 
         if (inModifica) {
             txtTesto.setText(domanda.getTesto());
             txtRisposta.setText(domanda.getRisposta());
         }
+    }
+
+    AggiungiModificaDomandaPerdiTutto(Object object, JTable tableToUpdate) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -51,6 +63,11 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
         lblTesto.setText("Testo");
 
         btnSalva.setText("Salva");
+        btnSalva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvaActionPerformed(evt);
+            }
+        });
 
         lblRisposta.setText("Risposta");
 
@@ -92,40 +109,29 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaPerdiTutto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaPerdiTutto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaPerdiTutto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AggiungiModificaDomandaPerdiTutto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
+        if (txtTesto.getText().trim().isEmpty()) return;
+        
+        if (!inModifica) {
+            DomandaPerdiTutto daInserire = new DomandaPerdiTutto(txtTesto.getText(), txtRisposta.getText());
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AggiungiModificaDomandaPerdiTutto().setVisible(true);
+            try {
+                RepositoryDomande.getInstance().aggiungiDomanda(daInserire);
+                DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
+                String[] row = new String[6];
+
+                row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(daInserire.getId());
+                row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = daInserire.getRisposta();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = daInserire.getTesto();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = "Perdi tutto";
+
+                model.addRow(row);
+                tableToUpdate.setModel(model);
+                this.dispose();
+            } catch (Exception ignored) {
             }
-        });
-    }
+        }
+    }//GEN-LAST:event_btnSalvaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalva;
