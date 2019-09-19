@@ -22,6 +22,7 @@ public class AggiungiHub extends javax.swing.JFrame {
     public AggiungiHub(JTable table) {
         initComponents();
         tableToUpdate = table;
+        setLocationRelativeTo(null);
     }
 
     /**

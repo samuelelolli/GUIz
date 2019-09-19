@@ -18,6 +18,7 @@ public class NuovaPartita extends javax.swing.JFrame {
         initComponents();
         jLabel1.setText("<html>Ciao"+
     "a tutti</html>");
+        setLocationRelativeTo(null);
           
     }
 
