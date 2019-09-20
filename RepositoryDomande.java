@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import guiz.xmlutils.XMLHandler;
 
 public class RepositoryDomande {
+     private static final RepositoryDomande INSTANCE = new RepositoryDomande();
     private final ArrayList<Domanda> domande;
     private XMLHandler handler;
     
@@ -35,7 +36,7 @@ public class RepositoryDomande {
     }
     
     public static RepositoryDomande getInstance() {
-        return RepositoryDomandeHolder.INSTANCE;
+        return INSTANCE;
     }
 
     public ArrayList<Domanda> getDomande() {
@@ -48,11 +49,5 @@ public class RepositoryDomande {
                 return d;
         
         return null;
-    }
-    
-    private static class RepositoryDomandeHolder {
-        private static final RepositoryDomande INSTANCE = new RepositoryDomande();
-    }
-    
-    
+    }    
 }
