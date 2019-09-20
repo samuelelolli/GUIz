@@ -27,6 +27,7 @@ public class AggiungiModificaOpzioneDomandaChiusa extends javax.swing.JFrame {
 
     private AggiungiModificaOpzioneDomandaChiusa() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public AggiungiModificaOpzioneDomandaChiusa(OpzioneDomandaChiusa opzione, JList<String> toUpdate, DomandaChiusa domandaToUpdate, int selectedIndex, JCheckBox checkBoxToUpdate) {

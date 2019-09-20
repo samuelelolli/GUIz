@@ -28,6 +28,7 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
 
     private AggiungiModificaDomandaChiusa() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public AggiungiModificaDomandaChiusa(DomandaChiusa d, JTable table) {

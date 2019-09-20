@@ -24,6 +24,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
 
     private AggiungiModificaDomandaATempo() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table) {

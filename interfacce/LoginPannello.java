@@ -17,6 +17,7 @@ public class LoginPannello extends javax.swing.JFrame {
     
     public LoginPannello() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

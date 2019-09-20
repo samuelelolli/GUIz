@@ -77,6 +77,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     public PannelloDiAmministrazione() {
         initComponents();
         initTabella();
+        setLocationRelativeTo(null);
     }
 
     /**

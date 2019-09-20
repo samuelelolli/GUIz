@@ -25,6 +25,7 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
 
     private AggiungiModificaDomandaPerdiTutto() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public AggiungiModificaDomandaPerdiTutto(DomandaPerdiTutto d, JTable table) {
