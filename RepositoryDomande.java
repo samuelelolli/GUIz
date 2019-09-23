@@ -15,6 +15,8 @@ public class RepositoryDomande {
     }
    
     private long idDaInserire(){
+        if (domande.isEmpty()) return 1;
+        
         long max = domande.get(0).getId();
         
         for (Domanda d : domande){

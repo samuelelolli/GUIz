@@ -3,6 +3,8 @@ package guiz.modelli;
 import java.util.ArrayList;
 
 public class DomandaChiusa extends Domanda {
+    public static final String labelTipo = "Chiusa";
+    
     private ArrayList<OpzioneDomandaChiusa> opzioni;
 
     public DomandaChiusa() {
@@ -19,5 +21,10 @@ public class DomandaChiusa extends Domanda {
 
     public void setOpzioni(ArrayList<OpzioneDomandaChiusa> opzioni) {
         this.opzioni = opzioni;
+    }
+
+    @Override
+    public String getTipo() {
+        return labelTipo;
     }
 }

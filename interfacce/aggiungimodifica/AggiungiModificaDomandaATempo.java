@@ -38,7 +38,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
             txtRisposta.setText(domanda.getRisposta());
             spnTempo.setValue(domanda.getTempo().toMillis());
         }
-       
+
     }
 
     /**
@@ -118,8 +118,13 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
-        if (txtTesto.getText().trim().isEmpty()) return;
-        
+        if (Long.parseLong(spnTempo.getValue().toString()) <= 0) {
+            return;
+        }
+        if (txtTesto.getText().trim().isEmpty() || txtRisposta.getText().trim().isEmpty()) {
+            return;
+        }
+
         if (!inModifica) {
             DomandaATempo daInserire = new DomandaATempo(txtTesto.getText(), txtRisposta.getText(), Duration.ofMillis(Long.parseLong(spnTempo.getValue().toString())));
 
@@ -133,7 +138,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
                 long durataSecondi = daInserire.getTempo().toMillis() / 1000;
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TEMPO] = String.valueOf(durataSecondi + " second" + (durataSecondi > 1 ? "i" : "o"));
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = daInserire.getTesto();
-                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = "A tempo";
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = daInserire.getTipo();
 
                 model.addRow(row);
                 tableToUpdate.setModel(model);

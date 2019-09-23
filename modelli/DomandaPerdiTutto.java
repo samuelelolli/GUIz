@@ -1,6 +1,8 @@
 package guiz.modelli;
 
 public class DomandaPerdiTutto extends Domanda {
+    public static final String labelTipo = "Perdi tutto";
+    
     private String risposta;
 
     public DomandaPerdiTutto() {
@@ -17,5 +19,10 @@ public class DomandaPerdiTutto extends Domanda {
 
     public void setRisposta(String risposta) {
         this.risposta = risposta;
+    }
+
+    @Override
+    public String getTipo() {
+        return labelTipo;
     }
 }

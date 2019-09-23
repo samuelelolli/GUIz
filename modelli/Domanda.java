@@ -3,6 +3,8 @@ package guiz.modelli;
 public abstract class Domanda {
     protected String testo;
     protected long id;
+    
+    public abstract String getTipo();
 
     public String getTesto() {
         return testo;

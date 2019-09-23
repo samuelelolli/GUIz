@@ -111,8 +111,10 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
-        if (txtTesto.getText().trim().isEmpty()) return;
-        
+        if (txtTesto.getText().trim().isEmpty() || txtRisposta.getText().trim().isEmpty()) {
+            return;
+        }
+
         if (!inModifica) {
             DomandaPerdiTutto daInserire = new DomandaPerdiTutto(txtTesto.getText(), txtRisposta.getText());
 
@@ -124,7 +126,7 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
                 row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(daInserire.getId());
                 row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = daInserire.getRisposta();
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = daInserire.getTesto();
-                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = "Perdi tutto";
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = daInserire.getTipo();
 
                 model.addRow(row);
                 tableToUpdate.setModel(model);
