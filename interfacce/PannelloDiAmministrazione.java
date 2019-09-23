@@ -7,6 +7,7 @@ package guiz.interfacce;
 
 import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
+import guiz.SettingsRepository;
 import guiz.interfacce.aggiungimodifica.AggiungiHub;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaATempo;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaChiusa;
@@ -74,9 +75,15 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         }
     }
 
+    private void initImpostazioni(){
+        spnDomandeAPartita.setValue(SettingsRepository.getInstance().domandeAPartita());
+        chbDifficolta.setSelected(SettingsRepository.getInstance().puoScegliereDomandeAPartita());
+    }
+    
     public PannelloDiAmministrazione() {
         initComponents();
         initTabella();
+        initImpostazioni();
         setLocationRelativeTo(null);
     }
 
@@ -97,9 +104,9 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         lblImporta = new javax.swing.JLabel();
         btnImporta = new javax.swing.JButton();
         chbDifficolta = new javax.swing.JCheckBox();
-        jTextField1 = new javax.swing.JTextField();
         lblNumeroDomande = new javax.swing.JLabel();
         btnSalva = new javax.swing.JButton();
+        spnDomandeAPartita = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -162,9 +169,10 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                             .addComponent(chbDifficolta)
                             .addComponent(lblImporta)
                             .addComponent(btnImporta)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNumeroDomande)
-                            .addComponent(btnSalva))
+                            .addComponent(btnSalva)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblNumeroDomande, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -186,10 +194,10 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblNumeroDomande)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnSalva)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,7 +246,11 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificaActionPerformed
 
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
-        // TODO add your handling code here:
+        boolean puoSceglere = chbDifficolta.isSelected();
+        int domandeAPartita = Integer.valueOf(spnDomandeAPartita.getValue().toString());
+        
+        SettingsRepository.getInstance().modificaDomandaAPartita(domandeAPartita);
+        SettingsRepository.getInstance().modificaPuoScegliereDomandeAPartita(puoSceglere);
     }//GEN-LAST:event_btnSalvaActionPerformed
 
     /**
@@ -284,9 +296,9 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     private javax.swing.JCheckBox chbDifficolta;
     private javax.swing.JComboBox<String> cmbOpzioni;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImporta;
     private javax.swing.JLabel lblNumeroDomande;
+    private javax.swing.JSpinner spnDomandeAPartita;
     private javax.swing.JTable tblDomande;
     // End of variables declaration//GEN-END:variables
 }

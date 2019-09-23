@@ -1,0 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package guiz;
+
+import guiz.xmlutils.SettingsHandler;
+
+public class SettingsRepository {
+    private static final SettingsRepository INSTANCE = new SettingsRepository();
+    
+    SettingsHandler handler = new SettingsHandler("C:\\GUIz\\impostazioni.xml");
+    
+    int domandeAPartita;
+    boolean puoModificareDomandeAPartita;
+    
+    private SettingsRepository() {
+    }
+    
+    public static SettingsRepository getInstance() {
+        return INSTANCE;
+    }
+    
+    public Boolean puoScegliereDomandeAPartita(){
+        return handler.puoScegliereDomandeAPartita();
+    }
+    
+    public Integer domandeAPartita(){
+        return handler.domandeAPartita();
+    }
+    
+    public void modificaPuoScegliereDomandeAPartita(boolean puoScegliere){
+        this.puoModificareDomandeAPartita = puoScegliere;
+        handler.modificaPuoScegliereDomandeAPartita(puoScegliere);
+    }
+    
+    public void modificaDomandaAPartita(int numeroDomande){
+        this.domandeAPartita = numeroDomande;
+        handler.modificaDomandaAPartita(numeroDomande);
+    }
+    
+}
