@@ -218,6 +218,11 @@ public class XMLHandler {
             }
         }
     }
+    
+    public void modificaDomanda(Domanda d) throws Exception{
+        rimuoviDomanda(d.getId());
+        aggiungiDomanda(d);
+    }
 
     private void salva() {
 

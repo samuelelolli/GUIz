@@ -139,6 +139,11 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         lblNumeroDomande.setText("Domande a partita");
 
         btnSalva.setText("Salva");
+        btnSalva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,19 +223,23 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) {
                 case DomandaChiusa.labelTipo:
                     DomandaChiusa domandaChiusa = (DomandaChiusa) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaChiusa(domandaChiusa, tblDomande).setVisible(true);
+                    new AggiungiModificaDomandaChiusa(domandaChiusa, tblDomande, selectedRow).setVisible(true);
                     break;
                 case DomandaPerdiTutto.labelTipo:
                     DomandaPerdiTutto domandaPerdiTutto = (DomandaPerdiTutto) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto, tblDomande).setVisible(true);
+                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto, tblDomande, selectedRow).setVisible(true);
                     break;
                 case DomandaATempo.labelTipo:
                     DomandaATempo domandaATempo = (DomandaATempo) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaATempo(domandaATempo, tblDomande).setVisible(true);
+                    new AggiungiModificaDomandaATempo(domandaATempo, tblDomande, selectedRow).setVisible(true);
                     break;
             }
         }
     }//GEN-LAST:event_btnModificaActionPerformed
+
+    private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvaActionPerformed
 
     /**
      * @param args the command line arguments
