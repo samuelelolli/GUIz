@@ -3,6 +3,8 @@ package guiz.modelli;
 import java.time.Duration;
 
 public class DomandaATempo extends Domanda {
+    public static final String labelTipo = "A tempo";
+    
     private String risposta;
     private Duration tempo;
 
@@ -30,4 +32,11 @@ public class DomandaATempo extends Domanda {
     public void setTempo(Duration tempo) {
         this.tempo = tempo;
     }
+
+    @Override
+    public String getTipo() {
+        return labelTipo;
+    }
+    
+    
 }

@@ -201,6 +201,15 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
 
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
         if (txtTesto.getText().trim().isEmpty()) return;
+        if (lstOpzioni.getModel().getSize() == 0) return;
+        boolean correctFound = false;
+        for (OpzioneDomandaChiusa opt : domanda.getOpzioni()){
+            if (opt.isEsatta()){
+                correctFound = true;
+                break;
+            }
+        }
+        if (!correctFound) return;
 
         if (!inModifica) {
             domanda.setTesto(txtTesto.getText());
@@ -211,7 +220,7 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
                 
                 row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(domanda.getId());
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = domanda.getTesto();
-                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = "Chiusa";
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = domanda.getTipo();
                 row[PannelloDiAmministrazione.INDICE_TABELLA_OPZIONI] = GUIzUtils.formatOpzioni(domanda.getOpzioni());
                 model.addRow(row);
                 tableToUpdate.setModel(model);

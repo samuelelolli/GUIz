@@ -143,15 +143,15 @@ public class XMLHandler {
                 String tipo = element.getAttribute("tipo");
 
                 switch (tipo) {
-                    case "chiusa":
+                    case DomandaChiusa.labelTipo:
                         domande.add(estraiDomandaChiusa(node));
                         break;
 
-                    case "perdi_tutto":
+                    case DomandaPerdiTutto.labelTipo:
                         domande.add(estraiDomandaPerdiTutto(node));
                         break;
 
-                    case "a_tempo":
+                    case DomandaATempo.labelTipo:
                         domande.add(estraiDomandaATempo(node));
                         break;
                 }
@@ -171,9 +171,9 @@ public class XMLHandler {
 
         nuovaDomanda.appendChild(id);
         nuovaDomanda.appendChild(testo);
+        nuovaDomanda.setAttribute("tipo", domanda.getTipo());
 
         if (domanda instanceof DomandaChiusa) {
-            nuovaDomanda.setAttribute("tipo", "chiusa");
             Element opzioni = doc.createElement("opzioni");
             for (OpzioneDomandaChiusa opzione : ((DomandaChiusa) domanda).getOpzioni()) {
                 Element nodoOpzione = doc.createElement("opzione");
@@ -186,7 +186,6 @@ public class XMLHandler {
         }
 
         if (domanda instanceof DomandaPerdiTutto) {
-            nuovaDomanda.setAttribute("tipo", "perdi_tutto");
             Element risposta = doc.createElement("risposta");
             risposta.appendChild(doc.createTextNode(((DomandaPerdiTutto) domanda).getRisposta()));
 
@@ -194,7 +193,6 @@ public class XMLHandler {
         }
 
         if (domanda instanceof DomandaATempo) {
-            nuovaDomanda.setAttribute("tipo", "a_tempo");
             Element risposta = doc.createElement("risposta");
             risposta.appendChild(doc.createTextNode(((DomandaATempo) domanda).getRisposta()));
             Element tempo = doc.createElement("tempo");
@@ -212,7 +210,7 @@ public class XMLHandler {
         NodeList nList = doc.getElementsByTagName("id");
         for (int i = 0; i < nList.getLength(); i++) {
             Node node = nList.item(i);
-            
+
             if (Long.parseLong(node.getFirstChild().getNodeValue()) == id) {
                 node.getParentNode().getParentNode().removeChild(node.getParentNode());
                 salva();

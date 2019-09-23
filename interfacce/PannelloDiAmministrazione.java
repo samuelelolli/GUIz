@@ -49,22 +49,22 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         for (Domanda d : domande) {
             tblDomande.getModel().setValueAt(d.getId(), riga, INDICE_TABELLA_ID);
             tblDomande.getModel().setValueAt(d.getTesto(), riga, INDICE_TABELLA_TESTO);
+            tblDomande.getModel().setValueAt(d.getTipo(), riga, INDICE_TABELLA_TIPO);
+            
             if (d instanceof DomandaChiusa) {
                 DomandaChiusa dc = (DomandaChiusa) d;
-                tblDomande.getModel().setValueAt("Chiusa", riga, INDICE_TABELLA_TIPO);
+                
 
                 tblDomande.getModel().setValueAt(GUIzUtils.formatOpzioni(dc.getOpzioni()), riga, INDICE_TABELLA_OPZIONI);
             }
 
             if (d instanceof DomandaPerdiTutto) {
                 DomandaPerdiTutto dpt = (DomandaPerdiTutto) d;
-                tblDomande.getModel().setValueAt("Perdi tutto", riga, INDICE_TABELLA_TIPO);
                 tblDomande.getModel().setValueAt(dpt.getRisposta(), riga, INDICE_TABELLA_RISPOSTA);
             }
 
             if (d instanceof DomandaATempo) {
                 DomandaATempo dt = (DomandaATempo) d;
-                tblDomande.getModel().setValueAt("A tempo", riga, INDICE_TABELLA_TIPO);
                 tblDomande.getModel().setValueAt(dt.getRisposta(), riga, INDICE_TABELLA_RISPOSTA);
                 long durataSecondi = dt.getTempo().toMillis() / 1000;
                 tblDomande.getModel().setValueAt(durataSecondi + " second" + (durataSecondi > 1 ? "i" : "o"), riga, INDICE_TABELLA_TEMPO);
@@ -216,15 +216,15 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         if (selectedRow >= 0) {
             int idDomanda = Integer.parseInt(model.getValueAt(selectedRow, INDICE_TABELLA_ID).toString());
             switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) {
-                case "Chiusa":
+                case DomandaChiusa.labelTipo:
                     DomandaChiusa domandaChiusa = (DomandaChiusa) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
                     new AggiungiModificaDomandaChiusa(domandaChiusa, tblDomande).setVisible(true);
                     break;
-                case "Perdi tutto":
+                case DomandaPerdiTutto.labelTipo:
                     DomandaPerdiTutto domandaPerdiTutto = (DomandaPerdiTutto) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
                     new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto, tblDomande).setVisible(true);
                     break;
-                case "A tempo":
+                case DomandaATempo.labelTipo:
                     DomandaATempo domandaATempo = (DomandaATempo) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
                     new AggiungiModificaDomandaATempo(domandaATempo, tblDomande).setVisible(true);
                     break;
