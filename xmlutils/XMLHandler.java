@@ -7,6 +7,7 @@ import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.OpzioneDomandaChiusa;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.Duration;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
@@ -33,7 +34,15 @@ public class XMLHandler {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(new File(filePath));
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+                try (PrintWriter out = new PrintWriter(file)) {
+                    out.print("<domande><domanda></domanda></domande>");
+                }
+            }
+
+            doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
         } catch (IOException | ParserConfigurationException | SAXException ex) {
         }
@@ -218,8 +227,8 @@ public class XMLHandler {
             }
         }
     }
-    
-    public void modificaDomanda(Domanda d) throws Exception{
+
+    public void modificaDomanda(Domanda d) throws Exception {
         rimuoviDomanda(d.getId());
         aggiungiDomanda(d);
     }
