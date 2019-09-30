@@ -5,6 +5,7 @@
  */
 package guiz.interfacce.aggiungimodifica;
 
+import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
 import guiz.interfacce.PannelloDiAmministrazione;
 import guiz.modelli.DomandaATempo;
@@ -21,6 +22,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
     private DomandaATempo domanda;
     private boolean inModifica;
     private JTable tableToUpdate;
+    private int rowToUpdate;
 
     private AggiungiModificaDomandaATempo() {
         initComponents();
@@ -38,7 +40,11 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
             txtRisposta.setText(domanda.getRisposta());
             spnTempo.setValue(domanda.getTempo().toMillis());
         }
+    }
 
+    public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table, int rowToUpdate) {
+        this(d, table);
+        this.rowToUpdate = rowToUpdate;
     }
 
     /**
@@ -125,27 +131,34 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
             return;
         }
 
-        if (!inModifica) {
-            DomandaATempo daInserire = new DomandaATempo(txtTesto.getText(), txtRisposta.getText(), Duration.ofMillis(Long.parseLong(spnTempo.getValue().toString())));
+        DomandaATempo nuovaDomanda = new DomandaATempo(txtTesto.getText(), txtRisposta.getText(), Duration.ofMillis(Long.parseLong(spnTempo.getValue().toString())));
+        DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
 
-            try {
-                RepositoryDomande.getInstance().aggiungiDomanda(daInserire);
-                DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
+        try {
+            if (!inModifica) {
+
+                RepositoryDomande.getInstance().aggiungiDomanda(nuovaDomanda);
+
                 String[] row = new String[6];
-
-                row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(daInserire.getId());
-                row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = daInserire.getRisposta();
-                long durataSecondi = daInserire.getTempo().toMillis() / 1000;
-                row[PannelloDiAmministrazione.INDICE_TABELLA_TEMPO] = String.valueOf(durataSecondi + " second" + (durataSecondi > 1 ? "i" : "o"));
-                row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = daInserire.getTesto();
-                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = daInserire.getTipo();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(nuovaDomanda.getId());
+                row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = nuovaDomanda.getRisposta();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TEMPO] = GUIzUtils.formatTempo(nuovaDomanda.getTempo());
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = nuovaDomanda.getTesto();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = nuovaDomanda.getTipo();
 
                 model.addRow(row);
-                tableToUpdate.setModel(model);
-                this.dispose();
-            } catch (Exception ignored) {
+            } else {
+                nuovaDomanda.setId(domanda.getId());
+                RepositoryDomande.getInstance().modificaDomanda(nuovaDomanda);
+                model.setValueAt(nuovaDomanda.getTesto(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_TESTO);
+                model.setValueAt(nuovaDomanda.getRisposta(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA);
+                model.setValueAt(GUIzUtils.formatTempo(nuovaDomanda.getTempo()), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_TEMPO);
             }
+        } catch (Exception ignored) {
         }
+
+        tableToUpdate.setModel(model);
+        this.dispose();
     }//GEN-LAST:event_btnSalvaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

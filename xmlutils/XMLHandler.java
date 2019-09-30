@@ -7,8 +7,12 @@ import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.OpzioneDomandaChiusa;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,9 +37,25 @@ public class XMLHandler {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(new File(filePath));
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+                initXMLFile();
+            } else {
+                if (file.length() == 0) {
+                    initXMLFile();
+                }
+            }
+            doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
-        } catch (IOException | ParserConfigurationException | SAXException ex) {
+        } catch (Exception ex) {
+        }
+    }
+
+    private void initXMLFile() throws Exception {
+        try (PrintWriter out = new PrintWriter(new File(filePath))) {
+            out.print("<domande></domande>");
+            out.close();
         }
     }
 
@@ -161,7 +181,7 @@ public class XMLHandler {
         return domande;
     }
 
-    public void aggiungiDomanda(Domanda domanda) throws Exception {
+    private void aggiungiDomandaADocument(Domanda domanda) {
         Element nuovaDomanda = doc.createElement("domanda");
 
         Element id = doc.createElement("id");
@@ -203,6 +223,17 @@ public class XMLHandler {
         }
 
         doc.getFirstChild().appendChild(nuovaDomanda);
+    }
+
+    public void aggiungiDomanda(Domanda domanda) throws Exception {
+        aggiungiDomandaADocument(domanda);
+        salva();
+    }
+
+    public void aggiungiDomande(List<Domanda> domande) throws Exception {
+        for (Domanda d : domande) {
+            aggiungiDomandaADocument(d);
+        }
         salva();
     }
 
@@ -217,6 +248,11 @@ public class XMLHandler {
                 return;
             }
         }
+    }
+
+    public void modificaDomanda(Domanda d) throws Exception {
+        rimuoviDomanda(d.getId());
+        aggiungiDomanda(d);
     }
 
     private void salva() {

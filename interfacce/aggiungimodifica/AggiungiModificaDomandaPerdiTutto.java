@@ -10,6 +10,8 @@ import guiz.interfacce.PannelloDiAmministrazione;
 import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaPerdiTutto;
 import java.time.Duration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,13 +24,14 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
     private DomandaPerdiTutto domanda;
     private boolean inModifica;
     private JTable tableToUpdate;
+    private int rowToUpdate;
 
     private AggiungiModificaDomandaPerdiTutto() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    public AggiungiModificaDomandaPerdiTutto(DomandaPerdiTutto d, JTable table) {
+    AggiungiModificaDomandaPerdiTutto(DomandaPerdiTutto d, JTable table) {
         this();
         domanda = d;
         inModifica = (d != null);
@@ -40,8 +43,9 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
         }
     }
 
-    AggiungiModificaDomandaPerdiTutto(Object object, JTable tableToUpdate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AggiungiModificaDomandaPerdiTutto(DomandaPerdiTutto d, JTable table, int index) {
+        this(d, table);
+        rowToUpdate = index;
     }
 
     /**
@@ -115,25 +119,35 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
             return;
         }
 
-        if (!inModifica) {
-            DomandaPerdiTutto daInserire = new DomandaPerdiTutto(txtTesto.getText(), txtRisposta.getText());
+        DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
+        DomandaPerdiTutto nuovaDomanda = new DomandaPerdiTutto(txtTesto.getText(), txtRisposta.getText());
 
-            try {
-                RepositoryDomande.getInstance().aggiungiDomanda(daInserire);
-                DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
+        try {
+            if (!inModifica) {
+                
+
+                RepositoryDomande.getInstance().aggiungiDomanda(nuovaDomanda);
                 String[] row = new String[6];
 
-                row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(daInserire.getId());
-                row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = daInserire.getRisposta();
-                row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = daInserire.getTesto();
-                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = daInserire.getTipo();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(nuovaDomanda.getId());
+                row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = nuovaDomanda.getRisposta();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = nuovaDomanda.getTesto();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = nuovaDomanda.getTipo();
 
                 model.addRow(row);
-                tableToUpdate.setModel(model);
-                this.dispose();
-            } catch (Exception ignored) {
+
+            } else {
+                nuovaDomanda.setId(domanda.getId());
+                RepositoryDomande.getInstance().modificaDomanda(nuovaDomanda);
+                model.setValueAt(nuovaDomanda.getTesto(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_TESTO);
+                model.setValueAt(nuovaDomanda.getRisposta(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA);
+
             }
+        } catch (Exception ignored) {
         }
+
+        tableToUpdate.setModel(model);
+        this.dispose();
     }//GEN-LAST:event_btnSalvaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

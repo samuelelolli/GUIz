@@ -7,6 +7,7 @@ package guiz.interfacce;
 
 import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
+import guiz.SettingsRepository;
 import guiz.interfacce.aggiungimodifica.AggiungiHub;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaATempo;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaDomandaChiusa;
@@ -16,8 +17,14 @@ import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaChiusa;
 import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.OpzioneDomandaChiusa;
+import java.io.File;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -50,11 +57,9 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             tblDomande.getModel().setValueAt(d.getId(), riga, INDICE_TABELLA_ID);
             tblDomande.getModel().setValueAt(d.getTesto(), riga, INDICE_TABELLA_TESTO);
             tblDomande.getModel().setValueAt(d.getTipo(), riga, INDICE_TABELLA_TIPO);
-            
+
             if (d instanceof DomandaChiusa) {
                 DomandaChiusa dc = (DomandaChiusa) d;
-                
-
                 tblDomande.getModel().setValueAt(GUIzUtils.formatOpzioni(dc.getOpzioni()), riga, INDICE_TABELLA_OPZIONI);
             }
 
@@ -74,9 +79,15 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         }
     }
 
+    private void initImpostazioni() {
+        spnDomandeAPartita.setValue(SettingsRepository.getInstance().domandeAPartita());
+        chbDifficolta.setSelected(SettingsRepository.getInstance().puoScegliereDomandeAPartita());
+    }
+
     public PannelloDiAmministrazione() {
         initComponents();
         initTabella();
+        initImpostazioni();
         setLocationRelativeTo(null);
     }
 
@@ -97,9 +108,9 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         lblImporta = new javax.swing.JLabel();
         btnImporta = new javax.swing.JButton();
         chbDifficolta = new javax.swing.JCheckBox();
-        jTextField1 = new javax.swing.JTextField();
         lblNumeroDomande = new javax.swing.JLabel();
         btnSalva = new javax.swing.JButton();
+        spnDomandeAPartita = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -133,12 +144,22 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         lblImporta.setText("Importa domande da file esterno");
 
         btnImporta.setText("Importa");
+        btnImporta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportaActionPerformed(evt);
+            }
+        });
 
         chbDifficolta.setText("Permetti all'utente di selezionare il livello di difficoltà");
 
         lblNumeroDomande.setText("Domande a partita");
 
         btnSalva.setText("Salva");
+        btnSalva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,9 +178,10 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                             .addComponent(chbDifficolta)
                             .addComponent(lblImporta)
                             .addComponent(btnImporta)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNumeroDomande)
-                            .addComponent(btnSalva))
+                            .addComponent(btnSalva)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblNumeroDomande, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -181,56 +203,82 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblNumeroDomande)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnSalva)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbOpzioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpzioniActionPerformed
-        switch(cmbOpzioni.getSelectedItem().toString()){
+        switch (cmbOpzioni.getSelectedItem().toString()) {
             case "Aggiungi":
                 new AggiungiHub(tblDomande).setVisible(true);
                 break;
-                
+
             case "Cancella":
                 int selectedRow = tblDomande.getSelectedRow();
-                if (selectedRow >= 0){
+                if (selectedRow >= 0) {
                     RepositoryDomande.getInstance().rimuoviDomanda(RepositoryDomande.getInstance().getDomande().get(selectedRow));
-                    
+
                     DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
                     model.removeRow(selectedRow);
                     tblDomande.setModel(model);
                 }
                 break;
+
+            case "Esporta": {
+                try {
+                    RepositoryDomande.getInstance().esporta(this);
+                } catch (Exception ex) {
+                    Logger.getLogger(PannelloDiAmministrazione.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
         }
     }//GEN-LAST:event_cmbOpzioniActionPerformed
 
     private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
         int selectedRow = tblDomande.getSelectedRow();
         TableModel model = tblDomande.getModel();
-        
+
         if (selectedRow >= 0) {
             int idDomanda = Integer.parseInt(model.getValueAt(selectedRow, INDICE_TABELLA_ID).toString());
             switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) {
                 case DomandaChiusa.labelTipo:
                     DomandaChiusa domandaChiusa = (DomandaChiusa) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaChiusa(domandaChiusa, tblDomande).setVisible(true);
+                    new AggiungiModificaDomandaChiusa(domandaChiusa, tblDomande, selectedRow).setVisible(true);
                     break;
                 case DomandaPerdiTutto.labelTipo:
                     DomandaPerdiTutto domandaPerdiTutto = (DomandaPerdiTutto) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto, tblDomande).setVisible(true);
+                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto, tblDomande, selectedRow).setVisible(true);
                     break;
                 case DomandaATempo.labelTipo:
                     DomandaATempo domandaATempo = (DomandaATempo) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaATempo(domandaATempo, tblDomande).setVisible(true);
+                    new AggiungiModificaDomandaATempo(domandaATempo, tblDomande, selectedRow).setVisible(true);
                     break;
             }
         }
     }//GEN-LAST:event_btnModificaActionPerformed
+
+    private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
+        boolean puoSceglere = chbDifficolta.isSelected();
+        int domandeAPartita = Integer.valueOf(spnDomandeAPartita.getValue().toString());
+
+        SettingsRepository.getInstance().modificaDomandaAPartita(domandeAPartita);
+        SettingsRepository.getInstance().modificaPuoScegliereDomandeAPartita(puoSceglere);
+    }//GEN-LAST:event_btnSalvaActionPerformed
+
+    private void btnImportaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportaActionPerformed
+        try {
+            SettingsRepository.getInstance().importaDomande(this);
+            this.initTabella();
+        } catch (Exception ignored) {
+            JOptionPane.showMessageDialog(this, "Errore durante l'importazione del file", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnImportaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,9 +323,9 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     private javax.swing.JCheckBox chbDifficolta;
     private javax.swing.JComboBox<String> cmbOpzioni;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImporta;
     private javax.swing.JLabel lblNumeroDomande;
+    private javax.swing.JSpinner spnDomandeAPartita;
     private javax.swing.JTable tblDomande;
     // End of variables declaration//GEN-END:variables
 }
