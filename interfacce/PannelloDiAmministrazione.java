@@ -19,6 +19,9 @@ import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.OpzioneDomandaChiusa;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -54,8 +57,6 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             
             if (d instanceof DomandaChiusa) {
                 DomandaChiusa dc = (DomandaChiusa) d;
-                
-
                 tblDomande.getModel().setValueAt(GUIzUtils.formatOpzioni(dc.getOpzioni()), riga, INDICE_TABELLA_OPZIONI);
             }
 
@@ -140,6 +141,11 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         lblImporta.setText("Importa domande da file esterno");
 
         btnImporta.setText("Importa");
+        btnImporta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportaActionPerformed(evt);
+            }
+        });
 
         chbDifficolta.setText("Permetti all'utente di selezionare il livello di difficoltà");
 
@@ -252,6 +258,15 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         SettingsRepository.getInstance().modificaDomandaAPartita(domandeAPartita);
         SettingsRepository.getInstance().modificaPuoScegliereDomandeAPartita(puoSceglere);
     }//GEN-LAST:event_btnSalvaActionPerformed
+
+    private void btnImportaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportaActionPerformed
+        try {
+            SettingsRepository.getInstance().importaDomande(this);
+            this.initTabella();
+        } catch (Exception ignored) {
+            JOptionPane.showMessageDialog(this, "Errore durante l'importazione del file", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnImportaActionPerformed
 
     /**
      * @param args the command line arguments

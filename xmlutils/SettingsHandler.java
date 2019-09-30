@@ -1,8 +1,13 @@
 package guiz.xmlutils;
 
+import guiz.RepositoryDomande;
+import guiz.modelli.Domanda;
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -82,6 +87,17 @@ public class SettingsHandler {
         salva();
     }
 
+    public void importaDomande(Component caller) throws Exception{
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("XML FILES", "xml", "xml");
+        fileChooser.setFileFilter(filter);
+        fileChooser.showOpenDialog(caller);
+        
+        File f = fileChooser.getSelectedFile();
+        XMLHandler xmlHandler = new XMLHandler(f.getAbsolutePath());
+        RepositoryDomande.getInstance().aggiungiDomande(xmlHandler.leggiDomande());
+    }
+    
     private void salva() {
 
         try {

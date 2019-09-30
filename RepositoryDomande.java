@@ -4,6 +4,9 @@ import guiz.modelli.Domanda;
 import java.util.ArrayList;
 import guiz.xmlutils.XMLHandler;
 import java.util.Comparator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RepositoryDomande {
     private static RepositoryDomande INSTANCE;
@@ -40,6 +43,15 @@ public class RepositoryDomande {
         domanda.setId(idDaInserire());
         domande.add(domanda);
         handler.aggiungiDomanda(domanda);
+    }
+    
+    public void aggiungiDomande(List<Domanda> domandeDaAggiungere) throws Exception{
+        long idDaInserire = idDaInserire();
+        for (Domanda d : domandeDaAggiungere){
+            d.setId(idDaInserire++);
+            domande.add(d);
+        }
+        handler.aggiungiDomande(domande);
     }
     
     public void rimuoviDomanda(Domanda domanda){

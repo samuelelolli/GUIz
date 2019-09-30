@@ -132,6 +132,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Importa"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImportaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chbDifficolta">
       <Properties>

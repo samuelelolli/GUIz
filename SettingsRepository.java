@@ -6,6 +6,7 @@
 package guiz;
 
 import guiz.xmlutils.SettingsHandler;
+import java.awt.Component;
 
 public class SettingsRepository {
     private static final SettingsRepository INSTANCE = new SettingsRepository();
@@ -38,6 +39,10 @@ public class SettingsRepository {
     public void modificaDomandaAPartita(int numeroDomande){
         this.domandeAPartita = numeroDomande;
         handler.modificaDomandaAPartita(numeroDomande);
+    }
+    
+    public void importaDomande(Component caller) throws Exception{
+        handler.importaDomande(caller);
     }
     
 }
