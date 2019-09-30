@@ -17,10 +17,13 @@ import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaChiusa;
 import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.OpzioneDomandaChiusa;
+import java.io.File;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -54,7 +57,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             tblDomande.getModel().setValueAt(d.getId(), riga, INDICE_TABELLA_ID);
             tblDomande.getModel().setValueAt(d.getTesto(), riga, INDICE_TABELLA_TESTO);
             tblDomande.getModel().setValueAt(d.getTipo(), riga, INDICE_TABELLA_TIPO);
-            
+
             if (d instanceof DomandaChiusa) {
                 DomandaChiusa dc = (DomandaChiusa) d;
                 tblDomande.getModel().setValueAt(GUIzUtils.formatOpzioni(dc.getOpzioni()), riga, INDICE_TABELLA_OPZIONI);
@@ -76,11 +79,11 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         }
     }
 
-    private void initImpostazioni(){
+    private void initImpostazioni() {
         spnDomandeAPartita.setValue(SettingsRepository.getInstance().domandeAPartita());
         chbDifficolta.setSelected(SettingsRepository.getInstance().puoScegliereDomandeAPartita());
     }
-    
+
     public PannelloDiAmministrazione() {
         initComponents();
         initTabella();
@@ -210,28 +213,37 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbOpzioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpzioniActionPerformed
-        switch(cmbOpzioni.getSelectedItem().toString()){
+        switch (cmbOpzioni.getSelectedItem().toString()) {
             case "Aggiungi":
                 new AggiungiHub(tblDomande).setVisible(true);
                 break;
-                
+
             case "Cancella":
                 int selectedRow = tblDomande.getSelectedRow();
-                if (selectedRow >= 0){
+                if (selectedRow >= 0) {
                     RepositoryDomande.getInstance().rimuoviDomanda(RepositoryDomande.getInstance().getDomande().get(selectedRow));
-                    
+
                     DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
                     model.removeRow(selectedRow);
                     tblDomande.setModel(model);
                 }
                 break;
+
+            case "Esporta": {
+                try {
+                    RepositoryDomande.getInstance().esporta(this);
+                } catch (Exception ex) {
+                    Logger.getLogger(PannelloDiAmministrazione.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
         }
     }//GEN-LAST:event_cmbOpzioniActionPerformed
 
     private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
         int selectedRow = tblDomande.getSelectedRow();
         TableModel model = tblDomande.getModel();
-        
+
         if (selectedRow >= 0) {
             int idDomanda = Integer.parseInt(model.getValueAt(selectedRow, INDICE_TABELLA_ID).toString());
             switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) {
@@ -254,7 +266,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
         boolean puoSceglere = chbDifficolta.isSelected();
         int domandeAPartita = Integer.valueOf(spnDomandeAPartita.getValue().toString());
-        
+
         SettingsRepository.getInstance().modificaDomandaAPartita(domandeAPartita);
         SettingsRepository.getInstance().modificaPuoScegliereDomandeAPartita(puoSceglere);
     }//GEN-LAST:event_btnSalvaActionPerformed
