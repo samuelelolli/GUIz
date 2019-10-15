@@ -13,11 +13,11 @@ import javax.swing.JOptionPane;
  */
 public class LoginPannello extends javax.swing.JFrame {
 
-    private String password = "";
+    private String password = "";  //definiamo la password come una variabile stringa per semplicità
     
-    public LoginPannello() {
+    public LoginPannello() {  //costruttore del login al pannello, vengono inizializzati componenti del pannello
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);  //centra la finestra sullo schermo
     }
 
     /**
@@ -77,31 +77,33 @@ public class LoginPannello extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean validatePassword(String passwordTyped){
-        return password.equals(passwordTyped);
+    private boolean convalidaPassword(String passwordDigitata){ //metodo booleano, ritorna vero se la password digitata è giusta
+        return password.equals(passwordDigitata); 
     }
     
-    private void goToPanel(){
-        new PannelloDiAmministrazione().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+    private void vaiAlPannello(){ //metodo per entrare nel pannello di amministrazione dopo il login
+        new PannelloDiAmministrazione().setVisible(true); //rende visibile la finestra del pannello di amministrazione
+        this.setVisible(false); //rende NON più visibile la finestrina del login 
+        this.dispose(); //fa sì che la finestra venga distrutta e ripulita dal sistema operativo. 
     }
     
+    //metodo per gestire il click sul bottone "OK" dopo aver digitato la password
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        if (validatePassword(String.valueOf(txtPassword.getPassword()))){
-            goToPanel();
+        if (convalidaPassword(String.valueOf(txtPassword.getPassword()))){ //se la password digitata corrisponde a quella giusta
+            vaiAlPannello(); // entra nel pannello
         }
-        else
+        else  //altrimenti mostra una finestrella di errore, permettendo di digitare nuovamente la password
             JOptionPane.showMessageDialog(this, "Password sbagliata", "Errore", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnOKActionPerformed
 
+    //metodo per gestire il clic sul pulsante "invio" per confermare la password
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
-        if (evt.getKeyChar() == '\n')
+        if (evt.getKeyChar() == '\n')  //se si clicca su invio dopo aver digitata la password
         {
-            if (validatePassword(String.valueOf(txtPassword.getPassword()))){
-                goToPanel();
+            if (convalidaPassword(String.valueOf(txtPassword.getPassword()))){  //viene verificata la correttezza della password
+                vaiAlPannello(); //nel caso sia corretta entra nel pannello
             }
-            else
+            else  //altrimenti mostra una finestrella di errore, permettendo di digitare nuovamente la password
                 JOptionPane.showMessageDialog(this, "Password sbagliata", "Errore", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
@@ -109,7 +111,7 @@ public class LoginPannello extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {   //MAIN
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -134,7 +136,7 @@ public class LoginPannello extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {  //crea e visualizza il login del pannello
             public void run() {
                 new LoginPannello().setVisible(true);
             }

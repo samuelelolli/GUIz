@@ -14,10 +14,9 @@ public class RegoleDelGioco extends javax.swing.JFrame {
     /**
      * Creates new form RegoleDelGioco
      */
-    public RegoleDelGioco() {
-        initComponents();
-        jLabel1.setText("Regole del gioco");
-        setLocationRelativeTo(null);
+    public RegoleDelGioco() {  //costruttore 
+        initComponents();      //inizializzo i componenti
+        setLocationRelativeTo(null);   //centro la finestra nello schermo
     }
 
     /**
@@ -29,32 +28,33 @@ public class RegoleDelGioco extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        jLabel1.setText("jLabel1");
-        jScrollPane1.setViewportView(jLabel1);
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(java.awt.Color.lightGray);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
+        jTextArea1.setForeground(java.awt.Color.blue);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("REGOLE DEL GIOCO:\n\n1- REGOLA 1\n\n2-\n\n3-\n\n4-\n\n5-\n\n6-\n\n7-\n\n8- \n\n");
+        jTextArea1.setCaretColor(java.awt.Color.red);
+        jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -67,7 +67,7 @@ public class RegoleDelGioco extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

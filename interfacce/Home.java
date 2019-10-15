@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package guiz.interfacce;
+package guiz.interfacce; 
 
 /**
  *
  * @author notebook
  */
-public class Home extends javax.swing.JFrame {
+public class Home extends javax.swing.JFrame { 
 
     /**
      * Creates new form Home
      */
-    public Home() {
+    public Home() {  
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -85,15 +85,15 @@ public class Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //creato bottone "Nuova Partita", reso visibile
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new NuovaPartita().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    //creato bottone "Regole del Gioco", reso visibile
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new RegoleDelGioco().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    //creato bottone "Pannello di amministrazione", reso visibile
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         new LoginPannello().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -101,7 +101,7 @@ public class Home extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {    //MAIN
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -126,13 +126,12 @@ public class Home extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() { //crea e visualizza la home iniziale
             public void run() {
                 new Home().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

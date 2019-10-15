@@ -1,19 +1,20 @@
 package guiz.modelli;
 
-public class DomandaPerdiTutto extends Domanda {
+public class DomandaPerdiTutto extends Domanda { //implementiamo la classe astratta domanda
     public static final String labelTipo = "Perdi tutto";
     
-    private String risposta;
+    private String risposta;  //variabile che mi serve per domanda perditutto
+                              //oltre quelle gia inizializzate nella classe astratta domanda
 
-    public DomandaPerdiTutto() {
+    public DomandaPerdiTutto() {  //costruttore vuoto
     }
     
-    public DomandaPerdiTutto(String testo, String risposta) {
+    public DomandaPerdiTutto(String testo, String risposta) { //costruttore
         this.testo = testo;
         this.risposta = risposta;
     }
 
-    public String getRisposta() {
+    public String getRisposta() { //metodi set() & get()
         return risposta;
     }
 
@@ -22,7 +23,7 @@ public class DomandaPerdiTutto extends Domanda {
     }
 
     @Override
-    public String getTipo() {
-        return labelTipo;
+    public String getTipo() { //sovrascritto il metodo astratto della classe domanda
+        return labelTipo;     
     }
 }

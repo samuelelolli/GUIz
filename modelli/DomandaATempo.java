@@ -2,22 +2,22 @@ package guiz.modelli;
 
 import java.time.Duration;
 
-public class DomandaATempo extends Domanda {
-    public static final String labelTipo = "A tempo";
+public class DomandaATempo extends Domanda {    //implementiamo la classe astratta domanda 
+    public static final String labelTipo = "A tempo";   
     
-    private String risposta;
-    private Duration tempo;
+    private String risposta;  //variabili solo per la domanda a tempo
+    private Duration tempo;   
 
-    public DomandaATempo() {
+    public DomandaATempo() {  //costruttore vuoto
     }
     
-    public DomandaATempo(String testo, String risposta, Duration tempo) {
+    public DomandaATempo(String testo, String risposta, Duration tempo) {  //costruttore 
         this.testo = testo;
         this.risposta = risposta;
         this.tempo = tempo;
     }
 
-    public String getRisposta() {
+    public String getRisposta() {   //metodi set() & get()
         return risposta;
     }
 
@@ -33,9 +33,9 @@ public class DomandaATempo extends Domanda {
         this.tempo = tempo;
     }
 
-    @Override
-    public String getTipo() {
-        return labelTipo;
+    @Override        
+    public String getTipo() {   //sovrascritto il metodo astratto della classe domanda
+        return labelTipo;       //ritorna la stringa col tipo della domanda
     }
     
     

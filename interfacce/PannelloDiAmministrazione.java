@@ -16,14 +16,9 @@ import guiz.modelli.Domanda;
 import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaChiusa;
 import guiz.modelli.DomandaPerdiTutto;
-import guiz.modelli.OpzioneDomandaChiusa;
-import java.io.File;
-import java.nio.file.Files;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -33,13 +28,14 @@ import javax.swing.table.TableModel;
  * @author notebook
  */
 public class PannelloDiAmministrazione extends javax.swing.JFrame {
-
-    public final static int INDICE_TABELLA_ID = 0;
-    public final static int INDICE_TABELLA_TESTO = 1;
-    public final static int INDICE_TABELLA_TIPO = 2;
-    public final static int INDICE_TABELLA_RISPOSTA = 3;
-    public final static int INDICE_TABELLA_OPZIONI = 4;
-    public final static int INDICE_TABELLA_TEMPO = 5;
+ 
+    //associo ad ogni campo delle domande un indice
+    public final static int INDICE_TABELLA_ID = 0;     //campo comune a tutte le domande
+    public final static int INDICE_TABELLA_TESTO = 1;  //campo comune a tutte le domande
+    public final static int INDICE_TABELLA_TIPO = 2;   //campo comune a tutte le domande
+    public final static int INDICE_TABELLA_RISPOSTA = 3;   //solo per domanda perditutto e a tempo
+    public final static int INDICE_TABELLA_OPZIONI = 4;     //solo per domanda chiusa
+    public final static int INDICE_TABELLA_TEMPO = 5;       //solo per domanda a tempo
 
     private void initTableRowCount(int count) {
         DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
