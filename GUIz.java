@@ -14,7 +14,7 @@ import guiz.interfacce.Home;
 
 public class GUIz extends JApplet {
     
-    private static final int JFXPANEL_WIDTH_INT = 300;
+    private static final int JFXPANEL_WIDTH_INT = 300; //misure delle finestre
     private static final int JFXPANEL_HEIGHT_INT = 250;
     private static JFXPanel fxContainer;
 
@@ -22,7 +22,7 @@ public class GUIz extends JApplet {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {  //lancia la home dell'applicazione
             
             @Override
             public void run() {

@@ -37,54 +37,55 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     public final static int INDICE_TABELLA_OPZIONI = 4;     //solo per domanda chiusa
     public final static int INDICE_TABELLA_TEMPO = 5;       //solo per domanda a tempo
 
-    private void initTableRowCount(int count) {
-        DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
-        model.setRowCount(count);
-        tblDomande.setModel(model);
+    private void initTableRowCount(int count) { 
+        DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();//DefaultTableModel utilizza un vettore di vettori per memorizzare gli oggetti valore di cella.
+        model.setRowCount(count); //Imposta il numero di righe nel modello
+        tblDomande.setModel(model); //Imposta il modello per questa tabella.
+        
     }
 
     private void initTabella() {
-        ArrayList<Domanda> domande = RepositoryDomande.getInstance().getDomande();
+        ArrayList<Domanda> domande = RepositoryDomande.getInstance().getDomande(); //lista che contiene tutte le domande del GUIz
 
-        initTableRowCount(domande.size());
+        initTableRowCount(domande.size()); //richiama il metodo che inizializza il numero delle righe pari al numero delle domande
 
         int riga = 0;
-        for (Domanda d : domande) {
-            tblDomande.getModel().setValueAt(d.getId(), riga, INDICE_TABELLA_ID);
-            tblDomande.getModel().setValueAt(d.getTesto(), riga, INDICE_TABELLA_TESTO);
-            tblDomande.getModel().setValueAt(d.getTipo(), riga, INDICE_TABELLA_TIPO);
+        for (Domanda d : domande) {  //cicla su tutte le domande "generiche" dentro alla lista
+            tblDomande.getModel().setValueAt(d.getId(), riga, INDICE_TABELLA_ID); //setta l'ID delle domande nella tabella, alla giusta riga e nella colonna dell'indice giusto
+            tblDomande.getModel().setValueAt(d.getTesto(), riga, INDICE_TABELLA_TESTO); //setta il testo delle domande nella tabella, alla giusta riga e nella colonna dell'indice giusto
+            tblDomande.getModel().setValueAt(d.getTipo(), riga, INDICE_TABELLA_TIPO);  //setta il tipo delle domande nella tabella, alla giusta riga e nella colonna dell'indice giusto
 
-            if (d instanceof DomandaChiusa) {
-                DomandaChiusa dc = (DomandaChiusa) d;
-                tblDomande.getModel().setValueAt(GUIzUtils.formatOpzioni(dc.getOpzioni()), riga, INDICE_TABELLA_OPZIONI);
+            if (d instanceof DomandaChiusa) { //se d è un'istanza di domanda chiusa = se la domanda è una domanda chiusa
+                DomandaChiusa dc = (DomandaChiusa) d; //assegno a dc la domanda d CASTATA a domanda chiusa, in altre parole assegno la domanda d a una domanda chiusa dc
+                tblDomande.getModel().setValueAt(GUIzUtils.formatOpzioni(dc.getOpzioni()), riga, INDICE_TABELLA_OPZIONI); //setta le opzioni alla giusta riga e alla giusta colonna
             }
 
-            if (d instanceof DomandaPerdiTutto) {
-                DomandaPerdiTutto dpt = (DomandaPerdiTutto) d;
-                tblDomande.getModel().setValueAt(dpt.getRisposta(), riga, INDICE_TABELLA_RISPOSTA);
+            if (d instanceof DomandaPerdiTutto) { //se la domanda è una domanda perditutto
+                DomandaPerdiTutto dpt = (DomandaPerdiTutto) d; //assegno a dpt la domanda d CASTATA a domanda perditutto
+                tblDomande.getModel().setValueAt(dpt.getRisposta(), riga, INDICE_TABELLA_RISPOSTA); //setto la risposta alla giusta riga e alla giusta colonna
             }
 
-            if (d instanceof DomandaATempo) {
-                DomandaATempo dt = (DomandaATempo) d;
-                tblDomande.getModel().setValueAt(dt.getRisposta(), riga, INDICE_TABELLA_RISPOSTA);
-                long durataSecondi = dt.getTempo().toMillis() / 1000;
-                tblDomande.getModel().setValueAt(durataSecondi + " second" + (durataSecondi > 1 ? "i" : "o"), riga, INDICE_TABELLA_TEMPO);
+            if (d instanceof DomandaATempo) { //se la domanda è una domanda a tempo
+                DomandaATempo dt = (DomandaATempo) d; //assegno a dt la domanda d CASTATA a domanda a tempo
+                tblDomande.getModel().setValueAt(dt.getRisposta(), riga, INDICE_TABELLA_RISPOSTA); //setto la risposta alla giusta riga e colonna
+                long durataSecondi = dt.getTempo().toMillis() / 1000; //memorizzo in una variabile la durata della domanda in millisecondi e la converto in secondi
+                tblDomande.getModel().setValueAt(durataSecondi + " second" + (durataSecondi > 1 ? "i" : "o"), riga, INDICE_TABELLA_TEMPO); //setto il tempo alla giusta riga e alla giusta colonna
             }
 
-            riga++;
+            riga++;   //faccio scorrere le righe
         }
     }
 
     private void initImpostazioni() {
-        spnDomandeAPartita.setValue(SettingsRepository.getInstance().domandeAPartita());
-        chbDifficolta.setSelected(SettingsRepository.getInstance().puoScegliereDomandeAPartita());
+        spnDomandeAPartita.setValue(SettingsRepository.getInstance().domandeAPartita());   //setto uno spinner con il numero delle domande a partita
+        chbDifficolta.setSelected(SettingsRepository.getInstance().puoScegliereDomandeAPartita()); //setto una checkbox a seconda di se posso scegliere o meno la difficoltà ad inizio partita
     }
 
-    public PannelloDiAmministrazione() {
-        initComponents();
-        initTabella();
-        initImpostazioni();
-        setLocationRelativeTo(null);
+    public PannelloDiAmministrazione() {  //costruttore
+        initComponents();   //inizializzo i componenti
+        initTabella();  //inizializzo la tabella
+        initImpostazioni(); //inizializzo le impostazioni
+        setLocationRelativeTo(null);  //centro la finestra nello schermo
     }
 
     /**
@@ -207,71 +208,71 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+       //evento sulla combobox
     private void cmbOpzioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOpzioniActionPerformed
-        switch (cmbOpzioni.getSelectedItem().toString()) {
+        switch (cmbOpzioni.getSelectedItem().toString()) { //sfrutto lo switch all'interno della combobox a seconda della scelta dell'utente
             case "Aggiungi":
-                new AggiungiHub(tblDomande).setVisible(true);
+                new AggiungiHub(tblDomande).setVisible(true); //viene caricata l'hub di scelta del tipo di domanda per poi aggiungerla
                 break;
 
-            case "Cancella":
-                int selectedRow = tblDomande.getSelectedRow();
-                if (selectedRow >= 0) {
-                    RepositoryDomande.getInstance().rimuoviDomanda(RepositoryDomande.getInstance().getDomande().get(selectedRow));
+            case "Cancella":  
+                int selectedRow = tblDomande.getSelectedRow();  //salvo in una variabile la riga selezionata che l'utente vuole cancellare
+                if (selectedRow >= 0) {  //se la riga è 0 o maggiore
+                    RepositoryDomande.getInstance().rimuoviDomanda(RepositoryDomande.getInstance().getDomande().get(selectedRow)); //viene rimossa la domanda dal repository
 
                     DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();
-                    model.removeRow(selectedRow);
-                    tblDomande.setModel(model);
+                    model.removeRow(selectedRow);  //viene rimossa la riga della domanda selezionata
+                    tblDomande.setModel(model);  //viene ri-settato il modello senza la riga cancellata
                 }
                 break;
 
             case "Esporta": {
                 try {
-                    RepositoryDomande.getInstance().esporta(this);
-                } catch (Exception ex) {
+                    RepositoryDomande.getInstance().esporta(this); //viene richiamata la funzione esporta del repository che permette di salvare su un file esterno le domande
+                } catch (Exception ex) {  //gestione eccezioni
                     Logger.getLogger(PannelloDiAmministrazione.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             break;
         }
     }//GEN-LAST:event_cmbOpzioniActionPerformed
-
+   //evento quando si clicca sul bottone "modifica" avendo selezionato la domanda da modificare
     private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
-        int selectedRow = tblDomande.getSelectedRow();
-        TableModel model = tblDomande.getModel();
+        int selectedRow = tblDomande.getSelectedRow(); //viene salvato in una variabile l'indice della riga selezionata nella tabella
+        TableModel model = tblDomande.getModel();  
 
-        if (selectedRow >= 0) {
-            int idDomanda = Integer.parseInt(model.getValueAt(selectedRow, INDICE_TABELLA_ID).toString());
-            switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) {
-                case DomandaChiusa.labelTipo:
+        if (selectedRow >= 0) { //se la riga selezionata è maggiore o = a 0
+            int idDomanda = Integer.parseInt(model.getValueAt(selectedRow, INDICE_TABELLA_ID).toString()); //salva in una variabile l'id della domanda selezionata
+            switch (model.getValueAt(selectedRow, INDICE_TABELLA_TIPO).toString()) { //uso uno switch per distinguere il tipo di domanda e collegarlo all'interfaccia di modifica corrispondente
+                case DomandaChiusa.labelTipo: // se è una domanda chiusa
                     DomandaChiusa domandaChiusa = (DomandaChiusa) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaChiusa(domandaChiusa, tblDomande, selectedRow).setVisible(true);
+                    new AggiungiModificaDomandaChiusa(domandaChiusa, tblDomande, selectedRow).setVisible(true);  //apro l'interfaccia di modifica di questo tipo di domanda
                     break;
-                case DomandaPerdiTutto.labelTipo:
+                case DomandaPerdiTutto.labelTipo: //se è una domanda perditutto
                     DomandaPerdiTutto domandaPerdiTutto = (DomandaPerdiTutto) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto, tblDomande, selectedRow).setVisible(true);
+                    new AggiungiModificaDomandaPerdiTutto(domandaPerdiTutto, tblDomande, selectedRow).setVisible(true); //apro l'interfaccia di modifica di questo tipo di domanda
                     break;
-                case DomandaATempo.labelTipo:
+                case DomandaATempo.labelTipo: //se è una domanda a tempo
                     DomandaATempo domandaATempo = (DomandaATempo) RepositoryDomande.getInstance().getDomandaWhereIdIs(idDomanda);
-                    new AggiungiModificaDomandaATempo(domandaATempo, tblDomande, selectedRow).setVisible(true);
+                    new AggiungiModificaDomandaATempo(domandaATempo, tblDomande, selectedRow).setVisible(true); //apro l'interfaccia di modifica di questo tipo di domanda
                     break;
             }
         }
     }//GEN-LAST:event_btnModificaActionPerformed
-
+    //evento al clic del bottone salva
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
-        boolean puoSceglere = chbDifficolta.isSelected();
-        int domandeAPartita = Integer.valueOf(spnDomandeAPartita.getValue().toString());
+        boolean puoSceglere = chbDifficolta.isSelected(); //salvo in una variabile booleana la scelta della difficoltà nella checkbox, true se l'utente può scegliere, false se non può.
+        int domandeAPartita = Integer.valueOf(spnDomandeAPartita.getValue().toString()); //salvo in una variabile il numero delle domande a partita selezionate nello spinner
 
-        SettingsRepository.getInstance().modificaDomandaAPartita(domandeAPartita);
+        SettingsRepository.getInstance().modificaDomandaAPartita(domandeAPartita);   //richiamati metodi che vanno a modificare nel repository il numero delle domande e la scelta
         SettingsRepository.getInstance().modificaPuoScegliereDomandeAPartita(puoSceglere);
     }//GEN-LAST:event_btnSalvaActionPerformed
-
+    //evento sul clic del bottone "Importa"
     private void btnImportaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportaActionPerformed
         try {
-            SettingsRepository.getInstance().importaDomande(this);
+            SettingsRepository.getInstance().importaDomande(this);  //richiamato il metodo per importare la domanda.
             this.initTabella();
-        } catch (Exception ignored) {
+        } catch (Exception ignored) {  //gestione eccezione con messaggio di errore in caso di errore nell'importazione
             JOptionPane.showMessageDialog(this, "Errore durante l'importazione del file", "Errore", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImportaActionPerformed
@@ -279,7 +280,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) {   //MAIN
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -304,7 +305,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {   //creo e visualizzo l'interfaccia del pannello di amministrazione
             public void run() {
                 new PannelloDiAmministrazione().setVisible(true);
             }

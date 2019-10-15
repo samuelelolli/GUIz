@@ -24,12 +24,12 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
     private JTable tableToUpdate;
     private int rowToUpdate;
 
-    private AggiungiModificaDomandaATempo() {
+    private AggiungiModificaDomandaATempo() { //costruttore
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table) {
+    public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table) { //costruttore
         this();
         domanda = d;
         tableToUpdate = table;

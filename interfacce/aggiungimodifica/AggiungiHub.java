@@ -19,10 +19,10 @@ public class AggiungiHub extends javax.swing.JFrame {
     
     JTable tableToUpdate;
     
-    public AggiungiHub(JTable table) {
+    public AggiungiHub(JTable table) {  //costruttore
         initComponents();
-        tableToUpdate = table;
-        setLocationRelativeTo(null);
+        tableToUpdate = table; //assegno la tabella alla nuova tabella da aggiornare
+        setLocationRelativeTo(null);  //centro la finestra nello schermo
     }
 
     /**
@@ -87,17 +87,17 @@ public class AggiungiHub extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //bottone domanda a tempo, se ci si clicca si apre interfaccia di modifica di questo tipo di domanda
     private void btnDomandaATempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomandaATempoActionPerformed
         new AggiungiModificaDomandaATempo(null, tableToUpdate).setVisible(true);
-        this.dispose();
+        this.dispose();  //libero risorse
     }//GEN-LAST:event_btnDomandaATempoActionPerformed
-
+    //bottone domanda perditutto, se ci si clicca si apre interfaccia di modifica di questo tipo di domanda
     private void btnDomandaPerdiTuttoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomandaPerdiTuttoActionPerformed
         new AggiungiModificaDomandaPerdiTutto(null, tableToUpdate).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDomandaPerdiTuttoActionPerformed
-
+    //bottone domanda chiusa, se ci si clicca si apre interfaccia di modifica di questo tipo di domanda
     private void btnDomandaChiusaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomandaChiusaActionPerformed
         new AggiungiModificaDomandaChiusa(null, tableToUpdate).setVisible(true);
         this.dispose();
