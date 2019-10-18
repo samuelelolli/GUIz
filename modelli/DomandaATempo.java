@@ -11,10 +11,11 @@ public class DomandaATempo extends Domanda {    //implementiamo la classe astrat
     public DomandaATempo() {  //costruttore vuoto
     }
     
-    public DomandaATempo(String testo, String risposta, Duration tempo) {  //costruttore 
+    public DomandaATempo(String testo, String risposta, Duration tempo, Difficolta difficolta) {  //costruttore 
         this.testo = testo;
         this.risposta = risposta;
         this.tempo = tempo;
+        this.difficolta = difficolta;
     }
 
     public String getRisposta() {   //metodi set() & get()

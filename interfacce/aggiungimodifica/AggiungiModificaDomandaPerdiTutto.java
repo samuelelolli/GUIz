@@ -5,13 +5,10 @@
  */
 package guiz.interfacce.aggiungimodifica;
 
+import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
 import guiz.interfacce.PannelloDiAmministrazione;
-import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaPerdiTutto;
-import java.time.Duration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,6 +37,7 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
         if (inModifica) {
             txtTesto.setText(domanda.getTesto());
             txtRisposta.setText(domanda.getRisposta());
+            cmbDifficolta.setSelectedItem(domanda.getDifficolta().toString());
         }
     }
 
@@ -62,6 +60,8 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
         btnSalva = new javax.swing.JButton();
         txtRisposta = new javax.swing.JTextField();
         lblRisposta = new javax.swing.JLabel();
+        lblDifficolta = new javax.swing.JLabel();
+        cmbDifficolta = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -76,6 +76,10 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
 
         lblRisposta.setText("Risposta");
 
+        lblDifficolta.setText("Difficolta");
+
+        cmbDifficolta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "facile", "media", "difficile"}));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,15 +88,17 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTesto)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 457, Short.MAX_VALUE)
-                        .addComponent(btnSalva))
                     .addComponent(txtRisposta)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTesto)
-                            .addComponent(lblRisposta))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(lblRisposta)
+                            .addComponent(lblDifficolta))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbDifficolta, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                        .addComponent(btnSalva)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -106,9 +112,13 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
                 .addComponent(lblRisposta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalva)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(lblDifficolta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbDifficolta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalva))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,18 +130,17 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
         }
 
         DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
-        DomandaPerdiTutto nuovaDomanda = new DomandaPerdiTutto(txtTesto.getText(), txtRisposta.getText());
+        DomandaPerdiTutto nuovaDomanda = new DomandaPerdiTutto(txtTesto.getText(), txtRisposta.getText(), GUIzUtils.estraiDifficolta(cmbDifficolta.getSelectedItem().toString()));
 
         try {
             if (!inModifica) {
-                
-
                 RepositoryDomande.getInstance().aggiungiDomanda(nuovaDomanda);
                 String[] row = new String[6];
 
                 row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(nuovaDomanda.getId());
                 row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = nuovaDomanda.getRisposta();
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = nuovaDomanda.getTesto();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_DIFFICOLTA] = nuovaDomanda.getDifficolta().toString();
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = nuovaDomanda.getTipo();
 
                 model.addRow(row);
@@ -141,7 +150,7 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
                 RepositoryDomande.getInstance().modificaDomanda(nuovaDomanda);
                 model.setValueAt(nuovaDomanda.getTesto(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_TESTO);
                 model.setValueAt(nuovaDomanda.getRisposta(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA);
-
+                model.setValueAt(nuovaDomanda.getDifficolta().toString(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_DIFFICOLTA);
             }
         } catch (Exception ignored) {
         }
@@ -152,6 +161,8 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalva;
+    private javax.swing.JComboBox<String> cmbDifficolta;
+    private javax.swing.JLabel lblDifficolta;
     private javax.swing.JLabel lblRisposta;
     private javax.swing.JLabel lblTesto;
     private javax.swing.JTextField txtRisposta;

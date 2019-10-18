@@ -9,9 +9,10 @@ public class DomandaPerdiTutto extends Domanda { //implementiamo la classe astra
     public DomandaPerdiTutto() {  //costruttore vuoto
     }
     
-    public DomandaPerdiTutto(String testo, String risposta) { //costruttore
+    public DomandaPerdiTutto(String testo, String risposta, Difficolta difficolta) { //costruttore
         this.testo = testo;
         this.risposta = risposta;
+        this.difficolta = difficolta;
     }
 
     public String getRisposta() { //metodi set() & get()

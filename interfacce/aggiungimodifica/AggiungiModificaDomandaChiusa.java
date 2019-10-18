@@ -43,6 +43,7 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
 
         if (inModifica) {
             txtTesto.setText(domanda.getTesto());
+            cmbDifficolta.setSelectedItem(domanda.getDifficolta().toString());
             for (OpzioneDomandaChiusa opzione : domanda.getOpzioni()) {
                 model.addElement(opzione.getTesto());
             }
@@ -89,6 +90,8 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
         btnPiu = new javax.swing.JButton();
         btnMeno = new javax.swing.JButton();
         btnModifica = new javax.swing.JButton();
+        lblDifficolta = new javax.swing.JLabel();
+        cmbDifficolta = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -132,6 +135,10 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
             }
         });
 
+        lblDifficolta.setText("Difficolta");
+
+        cmbDifficolta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "facile", "media", "difficile" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,28 +146,28 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTesto)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTesto)
-                        .addGap(172, 172, 172))
+                        .addGap(43, 43, 43)
+                        .addComponent(btnMeno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 380, Short.MAX_VALUE)
+                        .addComponent(btnSalva))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTesto)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(btnMeno)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 380, Short.MAX_VALUE)
-                                .addComponent(btnSalva))
+                            .addComponent(lblTesto)
+                            .addComponent(lblDifficolta)
+                            .addComponent(cmbDifficolta, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnPiu)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnModifica))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(chbCorretta)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                .addComponent(chbCorretta)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,12 +176,15 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
                 .addComponent(lblTesto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblDifficolta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbDifficolta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
+                        .addGap(53, 53, 53)
                         .addComponent(chbCorretta)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -182,7 +192,7 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
                     .addComponent(btnMeno)
                     .addComponent(btnPiu)
                     .addComponent(btnSalva))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,16 +234,18 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
         domanda.setTesto(txtTesto.getText());
+        domanda.setDifficolta(GUIzUtils.estraiDifficolta(cmbDifficolta.getSelectedItem().toString()));
         
         try {
             if (!inModifica) {
                 RepositoryDomande.getInstance().aggiungiDomanda(domanda);
 
-                String[] row = new String[6];
+                String[] row = new String[7];
 
                 row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(domanda.getId());
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = domanda.getTesto();
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = domanda.getTipo();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_DIFFICOLTA] = domanda.getDifficolta().toString();
                 row[PannelloDiAmministrazione.INDICE_TABELLA_OPZIONI] = GUIzUtils.formatOpzioni(domanda.getOpzioni());
                 model.addRow(row);
                 tableToUpdate.setModel(model);
@@ -242,6 +254,7 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
                 RepositoryDomande.getInstance().modificaDomanda(domanda);
                 model.setValueAt(domanda.getTesto(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_TESTO);
                 model.setValueAt(GUIzUtils.formatOpzioni(domanda.getOpzioni()), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_OPZIONI);
+                model.setValueAt(domanda.getDifficolta().toString(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_DIFFICOLTA);
             }
         } catch (Exception ignored) {
         }
@@ -255,7 +268,9 @@ public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
     private javax.swing.JButton btnPiu;
     private javax.swing.JButton btnSalva;
     private javax.swing.JCheckBox chbCorretta;
+    private javax.swing.JComboBox<String> cmbDifficolta;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDifficolta;
     private javax.swing.JLabel lblTesto;
     private javax.swing.JList<String> lstOpzioni;
     private javax.swing.JTextField txtTesto;

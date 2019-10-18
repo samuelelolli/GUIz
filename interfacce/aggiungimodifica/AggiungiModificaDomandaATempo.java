@@ -8,6 +8,7 @@ package guiz.interfacce.aggiungimodifica;
 import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
 import guiz.interfacce.PannelloDiAmministrazione;
+import guiz.modelli.Domanda;
 import guiz.modelli.DomandaATempo;
 import java.time.Duration;
 import javax.swing.JTable;
@@ -39,6 +40,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
             txtTesto.setText(domanda.getTesto());
             txtRisposta.setText(domanda.getRisposta());
             spnTempo.setValue(domanda.getTempo().toMillis());
+            cmbDifficolta.setSelectedItem(domanda.getDifficolta().toString());
         }
     }
 
@@ -63,6 +65,8 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtRisposta = new javax.swing.JTextField();
         lblRisposta = new javax.swing.JLabel();
+        lblDifficolta = new javax.swing.JLabel();
+        cmbDifficolta = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,6 +83,10 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
 
         lblRisposta.setText("Risposta");
 
+        lblDifficolta.setText("Difficolta");
+
+        cmbDifficolta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "facile", "media", "difficile"}));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,17 +95,19 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTesto)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(spnTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 358, Short.MAX_VALUE)
-                        .addComponent(btnSalva))
                     .addComponent(txtRisposta)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTesto)
                             .addComponent(jLabel2)
-                            .addComponent(lblRisposta))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(lblRisposta)
+                            .addComponent(lblDifficolta)
+                            .addComponent(cmbDifficolta, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 304, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(spnTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalva)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -111,13 +121,17 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
                 .addComponent(lblRisposta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(lblDifficolta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbDifficolta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalva))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,7 +145,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
             return;
         }
 
-        DomandaATempo nuovaDomanda = new DomandaATempo(txtTesto.getText(), txtRisposta.getText(), Duration.ofMillis(Long.parseLong(spnTempo.getValue().toString())));
+        DomandaATempo nuovaDomanda = new DomandaATempo(txtTesto.getText(), txtRisposta.getText(), Duration.ofMillis(Long.parseLong(spnTempo.getValue().toString())), GUIzUtils.estraiDifficolta(cmbDifficolta.getSelectedItem().toString()));
         DefaultTableModel model = (DefaultTableModel) tableToUpdate.getModel();
 
         try {
@@ -139,9 +153,10 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
 
                 RepositoryDomande.getInstance().aggiungiDomanda(nuovaDomanda);
 
-                String[] row = new String[6];
+                String[] row = new String[7];
                 row[PannelloDiAmministrazione.INDICE_TABELLA_ID] = String.valueOf(nuovaDomanda.getId());
                 row[PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA] = nuovaDomanda.getRisposta();
+                row[PannelloDiAmministrazione.INDICE_TABELLA_DIFFICOLTA] = nuovaDomanda.getDifficolta().toString();
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TEMPO] = GUIzUtils.formatTempo(nuovaDomanda.getTempo());
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TESTO] = nuovaDomanda.getTesto();
                 row[PannelloDiAmministrazione.INDICE_TABELLA_TIPO] = nuovaDomanda.getTipo();
@@ -152,9 +167,11 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
                 RepositoryDomande.getInstance().modificaDomanda(nuovaDomanda);
                 model.setValueAt(nuovaDomanda.getTesto(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_TESTO);
                 model.setValueAt(nuovaDomanda.getRisposta(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_RISPOSTA);
+                model.setValueAt(nuovaDomanda.getDifficolta().toString(), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_DIFFICOLTA);
                 model.setValueAt(GUIzUtils.formatTempo(nuovaDomanda.getTempo()), rowToUpdate, PannelloDiAmministrazione.INDICE_TABELLA_TEMPO);
             }
         } catch (Exception ignored) {
+            ignored.printStackTrace();
         }
 
         tableToUpdate.setModel(model);
@@ -163,7 +180,9 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalva;
+    private javax.swing.JComboBox<String> cmbDifficolta;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblDifficolta;
     private javax.swing.JLabel lblRisposta;
     private javax.swing.JLabel lblTesto;
     private javax.swing.JSpinner spnTempo;

@@ -1,6 +1,8 @@
 package guiz.xmlutils;
 
+import guiz.GUIzUtils;
 import guiz.modelli.Domanda;
+import guiz.modelli.Domanda.Difficolta;
 import guiz.modelli.DomandaATempo;
 import guiz.modelli.DomandaChiusa;
 import guiz.modelli.DomandaPerdiTutto;
@@ -59,12 +61,15 @@ public class XMLHandler {
         }
     }
 
+
+    
     private DomandaChiusa estraiDomandaChiusa(Node node) {
         NodeList proprietaDomandaChiusa = node.getChildNodes();
         DomandaChiusa domandaChiusa = new DomandaChiusa();
+        domandaChiusa.setDifficolta(Difficolta.sconosciuta);
         for (int j = 0; j < proprietaDomandaChiusa.getLength(); j++) {
             Node proprieta = proprietaDomandaChiusa.item(j);
-            if (!"id".equals(proprieta.getNodeName()) && !"testo".equals(proprieta.getNodeName()) && !"opzioni".equals(proprieta.getNodeName())) {
+            if (!"difficolta".equals(proprieta.getNodeName()) && !"id".equals(proprieta.getNodeName()) && !"testo".equals(proprieta.getNodeName()) && !"opzioni".equals(proprieta.getNodeName())) {
                 continue;
             }
 
@@ -74,6 +79,12 @@ public class XMLHandler {
 
             if ("testo".equals(proprieta.getNodeName())) {
                 domandaChiusa.setTesto(proprieta.getFirstChild().getNodeValue());
+            }
+            
+            if ("difficolta".equals(proprieta.getNodeName())) {
+                String testoDifficolta = proprieta.getFirstChild().getNodeValue();
+                
+                domandaChiusa.setDifficolta(GUIzUtils.estraiDifficolta(testoDifficolta));
             }
 
             if ("opzioni".equals(proprieta.getNodeName())) {
@@ -100,9 +111,11 @@ public class XMLHandler {
     private DomandaATempo estraiDomandaATempo(Node node) {
         NodeList proprietaDomandaATempo = node.getChildNodes();
         DomandaATempo domandaATempo = new DomandaATempo();
+        domandaATempo.setDifficolta(Difficolta.sconosciuta);
+        
         for (int k = 0; k < proprietaDomandaATempo.getLength(); k++) {
             Node proprieta = proprietaDomandaATempo.item(k);
-            if (!"id".equals(proprieta.getNodeName()) && !"tempo".equals(proprieta.getNodeName()) && !"testo".equals(proprieta.getNodeName()) && !"risposta".equals(proprieta.getNodeName())) {
+            if (!"difficolta".equals(proprieta.getNodeName()) && !"id".equals(proprieta.getNodeName()) && !"tempo".equals(proprieta.getNodeName()) && !"testo".equals(proprieta.getNodeName()) && !"risposta".equals(proprieta.getNodeName())) {
                 continue;
             }
 
@@ -122,6 +135,13 @@ public class XMLHandler {
             if ("risposta".equals(proprieta.getNodeName())) {
                 domandaATempo.setRisposta(proprieta.getFirstChild().getNodeValue());
             }
+            
+                        
+            if ("difficolta".equals(proprieta.getNodeName())) {
+                String testoDifficolta = proprieta.getFirstChild().getNodeValue();
+                
+                domandaATempo.setDifficolta(GUIzUtils.estraiDifficolta(testoDifficolta));
+            }
         }
 
         return domandaATempo;
@@ -130,9 +150,11 @@ public class XMLHandler {
     private DomandaPerdiTutto estraiDomandaPerdiTutto(Node node) {
         NodeList proprietaDomandaPerdiTutto = node.getChildNodes();
         DomandaPerdiTutto domandaPerdiTutto = new DomandaPerdiTutto();
+        domandaPerdiTutto.setDifficolta(Difficolta.sconosciuta);
+        
         for (int k = 0; k < proprietaDomandaPerdiTutto.getLength(); k++) {
             Node proprieta = proprietaDomandaPerdiTutto.item(k);
-            if (!"id".equals(proprieta.getNodeName()) && !"testo".equals(proprieta.getNodeName()) && !"risposta".equals(proprieta.getNodeName())) {
+            if (!"difficolta".equals(proprieta.getNodeName()) && !"id".equals(proprieta.getNodeName()) && !"testo".equals(proprieta.getNodeName()) && !"risposta".equals(proprieta.getNodeName())) {
                 continue;
             }
 
@@ -146,6 +168,12 @@ public class XMLHandler {
 
             if ("risposta".equals(proprieta.getNodeName())) {
                 domandaPerdiTutto.setRisposta(proprieta.getFirstChild().getNodeValue());
+            }
+            
+            if ("difficolta".equals(proprieta.getNodeName())) {
+                String testoDifficolta = proprieta.getFirstChild().getNodeValue();
+                
+                domandaPerdiTutto.setDifficolta(GUIzUtils.estraiDifficolta(testoDifficolta));
             }
         }
 
@@ -188,9 +216,12 @@ public class XMLHandler {
         id.appendChild(doc.createTextNode(String.valueOf(domanda.getId())));
         Element testo = doc.createElement("testo");
         testo.appendChild(doc.createTextNode(domanda.getTesto()));
-
+        Element difficolta = doc.createElement("difficolta");
+        difficolta.appendChild(doc.createTextNode(domanda.getDifficolta().toString()));
+        
         nuovaDomanda.appendChild(id);
-        nuovaDomanda.appendChild(testo);
+        nuovaDomanda.appendChild(testo);       
+        nuovaDomanda.appendChild(difficolta);
         nuovaDomanda.setAttribute("tipo", domanda.getTipo());
 
         if (domanda instanceof DomandaChiusa) {

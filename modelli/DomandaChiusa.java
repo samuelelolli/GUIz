@@ -12,8 +12,9 @@ public class DomandaChiusa extends Domanda { //implementiamo la classe astratta 
         this.opzioni = new ArrayList<>(10);
     }    
     
-    public DomandaChiusa(ArrayList<OpzioneDomandaChiusa> opzioni) { //costruttore, se gli passo la lista con le opzioni domanda chiusa
-        this.opzioni = opzioni;                                  
+    public DomandaChiusa(ArrayList<OpzioneDomandaChiusa> opzioni, Difficolta difficolta) { //costruttore, se gli passo la lista con le opzioni domanda chiusa
+        this.opzioni = opzioni;    
+        this.difficolta = difficolta;                              
     }
     
     public ArrayList<OpzioneDomandaChiusa> getOpzioni() {  //metodi get() & set()

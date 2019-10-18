@@ -33,9 +33,10 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     public final static int INDICE_TABELLA_ID = 0;     //campo comune a tutte le domande
     public final static int INDICE_TABELLA_TESTO = 1;  //campo comune a tutte le domande
     public final static int INDICE_TABELLA_TIPO = 2;   //campo comune a tutte le domande
-    public final static int INDICE_TABELLA_RISPOSTA = 3;   //solo per domanda perditutto e a tempo
-    public final static int INDICE_TABELLA_OPZIONI = 4;     //solo per domanda chiusa
-    public final static int INDICE_TABELLA_TEMPO = 5;       //solo per domanda a tempo
+    public final static int INDICE_TABELLA_DIFFICOLTA = 3;   //campo comune a tutte le domande    
+    public final static int INDICE_TABELLA_RISPOSTA = 4;   //solo per domanda perditutto e a tempo
+    public final static int INDICE_TABELLA_OPZIONI = 5;     //solo per domanda chiusa
+    public final static int INDICE_TABELLA_TEMPO = 6;       //solo per domanda a tempo
 
     private void initTableRowCount(int count) { 
         DefaultTableModel model = (DefaultTableModel) tblDomande.getModel();//DefaultTableModel utilizza un vettore di vettori per memorizzare gli oggetti valore di cella.
@@ -54,7 +55,8 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             tblDomande.getModel().setValueAt(d.getId(), riga, INDICE_TABELLA_ID); //setta l'ID delle domande nella tabella, alla giusta riga e nella colonna dell'indice giusto
             tblDomande.getModel().setValueAt(d.getTesto(), riga, INDICE_TABELLA_TESTO); //setta il testo delle domande nella tabella, alla giusta riga e nella colonna dell'indice giusto
             tblDomande.getModel().setValueAt(d.getTipo(), riga, INDICE_TABELLA_TIPO);  //setta il tipo delle domande nella tabella, alla giusta riga e nella colonna dell'indice giusto
-
+            tblDomande.getModel().setValueAt(d.getDifficolta().toString(), riga, INDICE_TABELLA_DIFFICOLTA);
+            
             if (d instanceof DomandaChiusa) { //se d è un'istanza di domanda chiusa = se la domanda è una domanda chiusa
                 DomandaChiusa dc = (DomandaChiusa) d; //assegno a dc la domanda d CASTATA a domanda chiusa, in altre parole assegno la domanda d a una domanda chiusa dc
                 tblDomande.getModel().setValueAt(GUIzUtils.formatOpzioni(dc.getOpzioni()), riga, INDICE_TABELLA_OPZIONI); //setta le opzioni alla giusta riga e alla giusta colonna
@@ -119,7 +121,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Testo", "Tipo", "Risposta", "Opzioni", "Tempo",
+                "Id", "Testo", "Tipo", "Difficolta",  "Risposta", "Opzioni", "Tempo",
             }
         ));
         jScrollPane1.setViewportView(tblDomande);
