@@ -5,21 +5,25 @@
  */
 package guiz.interfacce;
 
+import guiz.interfacce.aggiungimodifica.AggiungiModificaUtente;
+import guiz.modelli.Domanda;
+import guiz.modelli.Domanda.Difficolta;
+import guiz.modelli.Utente;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+
 /**
  *
  * @author notebook
  */
-public class NuovaPartita extends javax.swing.JFrame {
-
-    /**
-     * Creates new form NuovaPartita
-     */
+public class NuovaPartita extends javax.swing.JFrame {    
     public NuovaPartita() {     //costruttore
         initComponents();       //inizializza i componenti
-        jLabel1.setText("<html>Ciao"+
-    "a tutti</html>");
-        setLocationRelativeTo(null);  //centra la finestra sullo schermo
-          
+        setLocationRelativeTo(null);
+        
+        DefaultListModel<String> model = new DefaultListModel<>();
+        lstUtenti.setModel(model);
     }
 
     /**
@@ -31,31 +35,158 @@ public class NuovaPartita extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblUtenti = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstUtenti = new javax.swing.JList<>();
+        cmbDifficolta = new javax.swing.JComboBox<>();
+        lblDifficolta = new javax.swing.JLabel();
+        btnAggiungi = new javax.swing.JButton();
+        btnElimina = new javax.swing.JButton();
+        btnModifica = new javax.swing.JButton();
+        btnModificaPartita = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        lblUtenti.setText("Utenti");
+
+        lstUtenti.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {  };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(lstUtenti);
+
+        cmbDifficolta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Facile", "Media", "Difficile"}));
+
+        lblDifficolta.setText("Difficoltà");
+
+        btnAggiungi.setText("+");
+        btnAggiungi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAggiungiActionPerformed(evt);
+            }
+        });
+
+        btnElimina.setText("-");
+        btnElimina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminaActionPerformed(evt);
+            }
+        });
+
+        btnModifica.setText("Modifica");
+        btnModifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificaActionPerformed(evt);
+            }
+        });
+
+        btnModificaPartita.setText("Inizia partita");
+        btnModificaPartita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificaPartitaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbDifficolta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDifficolta)
+                            .addComponent(lblUtenti))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAggiungi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnElimina)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnModifica)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnModificaPartita)
+                .addGap(164, 164, 164))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(lblDifficolta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbDifficolta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(lblUtenti)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAggiungi)
+                    .addComponent(btnElimina)
+                    .addComponent(btnModifica))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnModificaPartita)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAggiungiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggiungiActionPerformed
+        new AggiungiModificaUtente(lstUtenti, null).setVisible(true);
+    }//GEN-LAST:event_btnAggiungiActionPerformed
+
+    private void btnEliminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminaActionPerformed
+        int selectedIndex = lstUtenti.getSelectedIndex();
+        
+        if (selectedIndex >= 0){
+            ListModel<String> listModel = lstUtenti.getModel();
+            DefaultListModel<String> model = (DefaultListModel<String>) listModel;
+            
+            model.remove(selectedIndex);
+        }
+    }//GEN-LAST:event_btnEliminaActionPerformed
+
+    private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
+        int selectedIndex = lstUtenti.getSelectedIndex();
+        
+        if (selectedIndex >= 0){
+            new AggiungiModificaUtente(lstUtenti, new Utente(lstUtenti.getSelectedValue()), selectedIndex).setVisible(true);
+        }
+    }//GEN-LAST:event_btnModificaActionPerformed
+
+    private void btnModificaPartitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaPartitaActionPerformed
+        ArrayList<Utente> utenti = new ArrayList<>();
+        ListModel<String> listModel = lstUtenti.getModel();
+        DefaultListModel<String> model = (DefaultListModel<String>) listModel;
+        
+        Difficolta difficoltaScelta;
+        
+        if (model.getSize() > 0){
+            for (int i = 0; i < model.getSize(); i++)
+                utenti.add(new Utente(model.get(i)));
+        }
+        
+        switch (cmbDifficolta.getSelectedIndex()){
+            case 0:
+                difficoltaScelta = Domanda.Difficolta.facile;
+                break;
+                
+            case 1:
+                difficoltaScelta = Domanda.Difficolta.media;
+                break;
+                
+            case 2:
+                difficoltaScelta = Domanda.Difficolta.difficile;
+                break;
+        }
+    }//GEN-LAST:event_btnModificaPartitaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,6 +224,14 @@ public class NuovaPartita extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnAggiungi;
+    private javax.swing.JButton btnElimina;
+    private javax.swing.JButton btnModifica;
+    private javax.swing.JButton btnModificaPartita;
+    private javax.swing.JComboBox<String> cmbDifficolta;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDifficolta;
+    private javax.swing.JLabel lblUtenti;
+    private javax.swing.JList<String> lstUtenti;
     // End of variables declaration//GEN-END:variables
 }
