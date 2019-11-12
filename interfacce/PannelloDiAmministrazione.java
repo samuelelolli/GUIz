@@ -100,18 +100,22 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDomande = new javax.swing.JTable();
-        cmbOpzioni = new javax.swing.JComboBox<>();
         btnModifica = new javax.swing.JButton();
-        lblImporta = new javax.swing.JLabel();
         btnImporta = new javax.swing.JButton();
+        lblImporta = new javax.swing.JLabel();
         chbDifficolta = new javax.swing.JCheckBox();
+        spnDomandeAPartita = new javax.swing.JSpinner();
         lblNumeroDomande = new javax.swing.JLabel();
         btnSalva = new javax.swing.JButton();
-        spnDomandeAPartita = new javax.swing.JSpinner();
+        cmbOpzioni = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         tblDomande.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,21 +130,13 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblDomande);
 
-        cmbOpzioni.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancella", "Aggiungi", "Esporta" }));
-        cmbOpzioni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbOpzioniActionPerformed(evt);
-            }
-        });
-
+        btnModifica.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
         btnModifica.setText("Modifica");
         btnModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificaActionPerformed(evt);
             }
         });
-
-        lblImporta.setText("Importa domande da file esterno");
 
         btnImporta.setText("Importa");
         btnImporta.addActionListener(new java.awt.event.ActionListener() {
@@ -149,9 +145,15 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             }
         });
 
+        lblImporta.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        lblImporta.setText("Importa domande da file esterno:");
+
+        chbDifficolta.setBackground(new java.awt.Color(204, 255, 204));
+        chbDifficolta.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         chbDifficolta.setText("Permetti all'utente di selezionare il livello di difficoltà");
 
-        lblNumeroDomande.setText("Domande a partita");
+        lblNumeroDomande.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        lblNumeroDomande.setText("Domande a partita:");
 
         btnSalva.setText("Salva");
         btnSalva.addActionListener(new java.awt.event.ActionListener() {
@@ -160,52 +162,89 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
             }
         });
 
+        cmbOpzioni.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
+        cmbOpzioni.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancella", "Aggiungi", "Esporta" }));
+        cmbOpzioni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbOpzioniActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        jLabel1.setText("PANNELLO DI AMMINISTRAZIONE");
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(214, 214, 214)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblNumeroDomande)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblImporta)
+                            .addComponent(btnImporta)
+                            .addComponent(chbDifficolta))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnModifica)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbOpzioni, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalva)
+                .addGap(389, 389, 389))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModifica)
+                    .addComponent(cmbOpzioni, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(lblNumeroDomande)
+                .addGap(18, 18, 18)
+                .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(lblImporta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnImporta)
+                .addGap(30, 30, 30)
+                .addComponent(chbDifficolta)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalva)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnModifica)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbOpzioni, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chbDifficolta)
-                            .addComponent(lblImporta)
-                            .addComponent(btnImporta)
-                            .addComponent(btnSalva)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNumeroDomande, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbOpzioni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModifica))
-                .addGap(33, 33, 33)
-                .addComponent(lblImporta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnImporta)
-                .addGap(18, 18, 18)
-                .addComponent(chbDifficolta)
-                .addGap(18, 18, 18)
-                .addComponent(lblNumeroDomande)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalva)
-                .addContainerGap(78, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -321,6 +360,8 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chbDifficolta;
     private javax.swing.JComboBox<String> cmbOpzioni;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImporta;
     private javax.swing.JLabel lblNumeroDomande;
