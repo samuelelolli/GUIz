@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package guiz.interfacce;
+
 import guiz.interfacce.partita.prePartita;
 
 import guiz.interfacce.aggiungimodifica.AggiungiModificaUtente;
@@ -18,11 +19,12 @@ import javax.swing.ListModel;
  *
  * @author notebook
  */
-public class NuovaPartita extends javax.swing.JFrame {    
+public class NuovaPartita extends javax.swing.JFrame {
+
     public NuovaPartita() {     //costruttore
         initComponents();       //inizializza i componenti
         setLocationRelativeTo(null);
-        
+
         DefaultListModel<String> model = new DefaultListModel<>();
         lstUtenti.setModel(model);
     }
@@ -145,19 +147,19 @@ public class NuovaPartita extends javax.swing.JFrame {
 
     private void btnEliminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminaActionPerformed
         int selectedIndex = lstUtenti.getSelectedIndex();
-        
-        if (selectedIndex >= 0){
+
+        if (selectedIndex >= 0) {
             ListModel<String> listModel = lstUtenti.getModel();
             DefaultListModel<String> model = (DefaultListModel<String>) listModel;
-            
+
             model.remove(selectedIndex);
         }
     }//GEN-LAST:event_btnEliminaActionPerformed
 
     private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
         int selectedIndex = lstUtenti.getSelectedIndex();
-        
-        if (selectedIndex >= 0){
+
+        if (selectedIndex >= 0) {
             new AggiungiModificaUtente(lstUtenti, new Utente(lstUtenti.getSelectedValue()), selectedIndex).setVisible(true);
         }
     }//GEN-LAST:event_btnModificaActionPerformed
@@ -166,23 +168,26 @@ public class NuovaPartita extends javax.swing.JFrame {
         ArrayList<Utente> utenti = new ArrayList<>();
         ListModel<String> listModel = lstUtenti.getModel();
         DefaultListModel<String> model = (DefaultListModel<String>) listModel;
-        
+
         Difficolta difficoltaScelta;
-        
-        if (model.getSize() > 0){
-            for (int i = 0; i < model.getSize(); i++)
-                utenti.add(new Utente(model.get(i)));
+
+        if (model.getSize() < 2) {
+            return;
         }
-        
-        switch (cmbDifficolta.getSelectedIndex()){
+
+        for (int i = 0; i < model.getSize(); i++) {
+            utenti.add(new Utente(model.get(i)));
+        }
+
+        switch (cmbDifficolta.getSelectedIndex()) {
             case 0:
                 difficoltaScelta = Domanda.Difficolta.facile;
                 break;
-                
+
             case 1:
                 difficoltaScelta = Domanda.Difficolta.media;
                 break;
-                
+
             case 2:
                 difficoltaScelta = Domanda.Difficolta.difficile;
                 break;
@@ -219,7 +224,7 @@ public class NuovaPartita extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {  //crea e visualizza la nuova partita
             public void run() {
-                
+
             }
         });
     }
