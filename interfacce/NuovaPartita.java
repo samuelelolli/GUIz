@@ -5,13 +5,21 @@
  */
 package guiz.interfacce;
 
-import guiz.interfacce.partita.prePartita;
-
+import guiz.RepositoryDomande;
+import guiz.SettingsRepository;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaUtente;
+import guiz.interfacce.partita.domandaChiusa;
+import guiz.interfacce.partita.domandaPT;
+import guiz.interfacce.partita.domandaTempo;
 import guiz.modelli.Domanda;
 import guiz.modelli.Domanda.Difficolta;
+import guiz.modelli.DomandaATempo;
+import guiz.modelli.DomandaChiusa;
+import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.Utente;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
@@ -169,7 +177,7 @@ public class NuovaPartita extends javax.swing.JFrame {
         ListModel<String> listModel = lstUtenti.getModel();
         DefaultListModel<String> model = (DefaultListModel<String>) listModel;
 
-        Difficolta difficoltaScelta;
+        Difficolta difficoltaScelta = Domanda.Difficolta.media;
 
         if (model.getSize() < 2) {
             return;
@@ -192,6 +200,37 @@ public class NuovaPartita extends javax.swing.JFrame {
                 difficoltaScelta = Domanda.Difficolta.difficile;
                 break;
         }
+
+        Integer numeroDiDomande = SettingsRepository.getInstance().domandeAPartita();
+        ArrayList<Domanda> tutteLeDomande = RepositoryDomande.getInstance().getDomande();
+
+        ArrayList<Domanda> domandeConsiderate = new ArrayList<>();
+        for (Domanda d : tutteLeDomande) {
+            if (difficoltaScelta.equals(d.getDifficolta())) {
+                domandeConsiderate.add(d);
+            }
+        }
+
+        if (numeroDiDomande > domandeConsiderate.size()) {
+            numeroDiDomande = domandeConsiderate.size();
+        }
+
+        List<Domanda> domandeEstratte = domandeConsiderate.subList(0, numeroDiDomande);
+        Collections.shuffle(domandeEstratte);
+
+        switch (domandeEstratte.get(0).getTipo()) {
+            case DomandaATempo.labelTipo:
+                new domandaTempo(utenti, domandeEstratte, 0, 0).setVisible(true);
+                break;
+            case DomandaPerdiTutto.labelTipo:
+                new domandaPT(utenti, domandeEstratte, 0, 0).setVisible(true);
+                break;
+            case DomandaChiusa.labelTipo:
+                new domandaChiusa(utenti, domandeEstratte, 0, 0).setVisible(true);
+                break;
+        }
+
+        this.dispose();
     }//GEN-LAST:event_btnModificaPartitaActionPerformed
 
     /**

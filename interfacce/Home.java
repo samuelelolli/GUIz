@@ -4,12 +4,6 @@
  * and open the template in the editor.
  */
 package guiz.interfacce; 
-import guiz.interfacce.partita.prePartita;
-
-/**
- *
- * @author notebook
- */
 public class Home extends javax.swing.JFrame { 
 
     /**
