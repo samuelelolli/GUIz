@@ -173,7 +173,6 @@
             </Property>
             <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="RISPOSTA GIOCATORE:&#xa;Metodo dalla definizione in base canonica, metodo di Horner, metodo di Ruffini e complessit&#xe0; computazionale."/>
           </Properties>
         </Component>
       </SubComponents>

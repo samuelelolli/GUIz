@@ -26,20 +26,21 @@ public class InterfacciaDomanda extends JFrame {
     }
     
     public void successiva() {
-        if (indiceDomandaCorrente >= domande.size() - 1) {
+        indiceDomandaCorrente++;
+        indiceUtenteCorrente++;
+        
+        if (indiceDomandaCorrente >= domande.size()) {
             concludi();
             return;
         }
         
-        indiceUtenteCorrente++;
         if (indiceUtenteCorrente >= utenti.size())
             indiceUtenteCorrente = 0;
-
-        indiceDomandaCorrente++;
+        
         Domanda successiva = domande.get(indiceDomandaCorrente);
         switch (successiva.getTipo()) {
             case DomandaPerdiTutto.labelTipo:
-                new domandaChiusa(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente).setVisible(true);
+                new domandaPT(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente).setVisible(true);
                 break;
 
             case DomandaATempo.labelTipo:

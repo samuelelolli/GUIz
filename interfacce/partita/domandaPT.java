@@ -11,11 +11,33 @@ package guiz.interfacce.partita;
  */
 
 import guiz.modelli.Domanda;
+import guiz.modelli.DomandaChiusa;
+import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.Utente;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class domandaPT extends InterfacciaDomanda {
 
+    DomandaPerdiTutto domanda;
+    
+    boolean isAnswerCorrect() {
+        return domanda.getRisposta().trim().toLowerCase().equals(txtRisposta.getText().trim().toLowerCase());
+    }
+
+    void evaluateAndProceed() {
+        if (isAnswerCorrect()) {
+            JOptionPane.showMessageDialog(rootPane, "Risposta esatta! +10 punti");
+            utenti.get(indiceUtenteCorrente).setPunteggio(utenti.get(indiceUtenteCorrente).getPunteggio() + 10);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Risposta sbagliata! Perdi tutti i punti");
+            utenti.get(indiceUtenteCorrente).setPunteggio(0);
+        }
+
+        this.dispose();
+        this.successiva();
+    }
+    
     public domandaPT(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
         super(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente);
         initComponents();
@@ -23,6 +45,8 @@ public class domandaPT extends InterfacciaDomanda {
         lblTurno.setText("E' IL TURNO DI " + utenti.get(indiceUtenteCorrente).getNome());
         txtTesto.setText(domande.get(indiceDomandaCorrente).getTesto());
         lblPunteggio.setText(String.valueOf(utenti.get(indiceUtenteCorrente).getPunteggio()));
+        
+        domanda = (DomandaPerdiTutto) domande.get(indiceDomandaCorrente);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,7 +103,6 @@ public class domandaPT extends InterfacciaDomanda {
         txtRisposta.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         txtRisposta.setLineWrap(true);
         txtRisposta.setRows(5);
-        txtRisposta.setText("RISPOSTA GIOCATORE:\nMetodo dalla definizione in base canonica, metodo di Horner, metodo di Ruffini e complessità computazionale.");
         jScrollPane4.setViewportView(txtRisposta);
 
         btnRisposta.setActionCommand("RISPOSTA DEFINITIVA!");
@@ -145,7 +168,7 @@ public class domandaPT extends InterfacciaDomanda {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRispostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRispostaActionPerformed
-        // TODO add your handling code here:
+        evaluateAndProceed();
         
     }//GEN-LAST:event_btnRispostaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
