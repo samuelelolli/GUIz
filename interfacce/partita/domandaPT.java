@@ -9,15 +9,21 @@ package guiz.interfacce.partita;
  *
  * @author notebook
  */
-public class domandaPT extends javax.swing.JFrame {
 
-    /**
-     * Creates new form domandaPT
-     */
-    public domandaPT() {
+import guiz.modelli.Domanda;
+import guiz.modelli.Utente;
+import java.util.List;
+
+public class domandaPT extends InterfacciaDomanda {
+
+    public domandaPT(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
+        super(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente);
         initComponents();
-    }
 
+        lblTurno.setText("E' IL TURNO DI " + utenti.get(indiceUtenteCorrente).getNome());
+        txtTesto.setText(domande.get(indiceDomandaCorrente).getTesto());
+        lblPunteggio.setText(String.valueOf(utenti.get(indiceUtenteCorrente).getPunteggio()));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,62 +34,62 @@ public class domandaPT extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        lblTurno = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane2 = new javax.swing.JTextPane();
+        lblPunteggio = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtTesto = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        button1 = new java.awt.Button();
+        txtRisposta = new javax.swing.JTextArea();
+        btnRisposta = new java.awt.Button();
         label1 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DomandaPerditutto");
         setBackground(java.awt.Color.orange);
 
-        jTextPane1.setEditable(false);
-        jTextPane1.setBackground(java.awt.Color.orange);
-        jTextPane1.setBorder(new javax.swing.border.MatteBorder(null));
-        jTextPane1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jTextPane1.setText("ORA E' IL TURNO DI:\n     GIOCATORE N");
-        jTextPane1.setAlignmentX(3.0F);
-        jTextPane1.setAlignmentY(3.0F);
-        jScrollPane1.setViewportView(jTextPane1);
+        lblTurno.setEditable(false);
+        lblTurno.setBackground(java.awt.Color.orange);
+        lblTurno.setBorder(new javax.swing.border.MatteBorder(null));
+        lblTurno.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        lblTurno.setText("ORA E' IL TURNO DI:\n     GIOCATORE N");
+        lblTurno.setAlignmentX(3.0F);
+        lblTurno.setAlignmentY(3.0F);
+        jScrollPane1.setViewportView(lblTurno);
 
-        jTextPane2.setEditable(false);
-        jTextPane2.setBackground(java.awt.Color.orange);
-        jTextPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextPane2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jTextPane2.setText("PUNTEGGIO ATTUALE:\n          150 PUNTI");
-        jScrollPane2.setViewportView(jTextPane2);
+        lblPunteggio.setEditable(false);
+        lblPunteggio.setBackground(java.awt.Color.orange);
+        lblPunteggio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblPunteggio.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        lblPunteggio.setText("PUNTEGGIO ATTUALE:\n          150 PUNTI");
+        jScrollPane2.setViewportView(lblPunteggio);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(java.awt.Color.orange);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("TESTO DOMANDA:\n\nRipresa stima di E_IN; esempio su sqrt(1-x). Generalizzazione della stima di E_IN nel caso di problemi f:R^n->R; numero/i di condizione. \nEsempi sulle operazioni aritmetiche di moltiplicazione e addizione fra numeri reali. \nEsempio: sqrt(x_1+x_2) - sqrt(x_1). Esempio: radici di un'equazione di secondo grado.\nRichiami sulle funzioni polinomiali. Valutazione numerica di una funzione polinomiale.");
-        jTextArea1.setToolTipText("");
-        jScrollPane3.setViewportView(jTextArea1);
+        txtTesto.setEditable(false);
+        txtTesto.setBackground(java.awt.Color.orange);
+        txtTesto.setColumns(20);
+        txtTesto.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
+        txtTesto.setLineWrap(true);
+        txtTesto.setRows(5);
+        txtTesto.setText("TESTO DOMANDA:\n\nRipresa stima di E_IN; esempio su sqrt(1-x). Generalizzazione della stima di E_IN nel caso di problemi f:R^n->R; numero/i di condizione. \nEsempi sulle operazioni aritmetiche di moltiplicazione e addizione fra numeri reali. \nEsempio: sqrt(x_1+x_2) - sqrt(x_1). Esempio: radici di un'equazione di secondo grado.\nRichiami sulle funzioni polinomiali. Valutazione numerica di una funzione polinomiale.");
+        txtTesto.setToolTipText("");
+        jScrollPane3.setViewportView(txtTesto);
 
-        jTextArea2.setBackground(java.awt.Color.orange);
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setRows(5);
-        jTextArea2.setText("RISPOSTA GIOCATORE:\nMetodo dalla definizione in base canonica, metodo di Horner, metodo di Ruffini e complessità computazionale.");
-        jScrollPane4.setViewportView(jTextArea2);
+        txtRisposta.setBackground(java.awt.Color.orange);
+        txtRisposta.setColumns(20);
+        txtRisposta.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
+        txtRisposta.setLineWrap(true);
+        txtRisposta.setRows(5);
+        txtRisposta.setText("RISPOSTA GIOCATORE:\nMetodo dalla definizione in base canonica, metodo di Horner, metodo di Ruffini e complessità computazionale.");
+        jScrollPane4.setViewportView(txtRisposta);
 
-        button1.setActionCommand("RISPOSTA DEFINITIVA!");
-        button1.setBackground(java.awt.Color.orange);
-        button1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        button1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        button1.setLabel("RISPOSTA DEFINITIVA!");
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        btnRisposta.setActionCommand("RISPOSTA DEFINITIVA!");
+        btnRisposta.setBackground(java.awt.Color.orange);
+        btnRisposta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRisposta.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnRisposta.setLabel("RISPOSTA DEFINITIVA!");
+        btnRisposta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                btnRispostaActionPerformed(evt);
             }
         });
 
@@ -110,7 +116,7 @@ public class domandaPT extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(282, 282, 282))
             .addGroup(layout.createSequentialGroup()
                 .addGap(160, 160, 160)
@@ -131,63 +137,27 @@ public class domandaPT extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    private void btnRispostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRispostaActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_button1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(domandaPT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(domandaPT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(domandaPT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(domandaPT.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new domandaPT().setVisible(true);
-            }
-        });
-    }
-
+    }//GEN-LAST:event_btnRispostaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button1;
+    private java.awt.Button btnRisposta;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextPane jTextPane2;
     private java.awt.Label label1;
+    private javax.swing.JTextPane lblPunteggio;
+    private javax.swing.JTextPane lblTurno;
+    private javax.swing.JTextArea txtRisposta;
+    private javax.swing.JTextArea txtTesto;
     // End of variables declaration//GEN-END:variables
 }
