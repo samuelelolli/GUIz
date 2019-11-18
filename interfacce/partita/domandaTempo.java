@@ -127,7 +127,7 @@ public class domandaTempo extends InterfacciaDomanda {
         txtRisposta.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         txtRisposta.setLineWrap(true);
         txtRisposta.setRows(5);
-        jScrollPane4.setViewportView(txtRisposta);
+        txtRisposta.setText("RISPOSTA GIOCATORE:\nMetodo dalla definizione in base canonica, metodo di Horner, metodo di Ruffini e complessità computazionale.");
 
         btnRisposta.setActionCommand("RISPOSTA DEFINITIVA!");
         btnRisposta.setBackground(java.awt.Color.cyan);
