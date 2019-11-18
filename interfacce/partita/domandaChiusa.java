@@ -6,8 +6,13 @@
 package guiz.interfacce.partita;
 
 import guiz.modelli.Domanda;
+import guiz.modelli.DomandaATempo;
+import guiz.modelli.DomandaChiusa;
+import guiz.modelli.OpzioneDomandaChiusa;
 import guiz.modelli.Utente;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +20,24 @@ import java.util.List;
  */
 public class domandaChiusa extends InterfacciaDomanda {
 
+    DomandaChiusa domanda;
+    
+    boolean isAnswerCorrect() {
+        return domanda.getOpzioni().get(cmbRisposte.getSelectedIndex()).isEsatta();
+    }
+
+    void evaluateAndProceed() {
+        if (isAnswerCorrect()) {
+            JOptionPane.showMessageDialog(rootPane, "Risposta esatta! +10 punti");
+            utenti.get(indiceUtenteCorrente).setPunteggio(utenti.get(indiceUtenteCorrente).getPunteggio() + 10);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Risposta sbagliata!");
+        }
+
+        this.dispose();
+        this.successiva();
+    }
+    
     public domandaChiusa(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
         super(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente);
         initComponents();
@@ -22,6 +45,13 @@ public class domandaChiusa extends InterfacciaDomanda {
         lblTurno.setText("E' IL TURNO DI " + utenti.get(indiceUtenteCorrente).getNome());
         txtTesto.setText(domande.get(indiceDomandaCorrente).getTesto());
         lblPunteggio.setText(String.valueOf(utenti.get(indiceUtenteCorrente).getPunteggio()));
+        
+        domanda = ((DomandaChiusa) domande.get(indiceDomandaCorrente));
+        
+        for (OpzioneDomandaChiusa opzione : domanda.getOpzioni()){
+            DefaultComboBoxModel model = (DefaultComboBoxModel) cmbRisposte.getModel();
+            model.addElement(opzione.getTesto());
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,12 +70,7 @@ public class domandaChiusa extends InterfacciaDomanda {
         jScrollPane2 = new javax.swing.JScrollPane();
         lblPunteggio = new javax.swing.JTextPane();
         btnRisposta = new java.awt.Button();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jEditorPane2 = new javax.swing.JEditorPane();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jEditorPane3 = new javax.swing.JEditorPane();
+        cmbRisposte = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,20 +114,7 @@ public class domandaChiusa extends InterfacciaDomanda {
             }
         });
 
-        jEditorPane1.setEditable(false);
-        jEditorPane1.setBackground(java.awt.Color.pink);
-        jEditorPane1.setText("OPZIONE A:\nDIO LADRO\n");
-        jScrollPane4.setViewportView(jEditorPane1);
-
-        jEditorPane2.setEditable(false);
-        jEditorPane2.setBackground(java.awt.Color.pink);
-        jEditorPane2.setText("OPZIONE A:\nDIO LADRO\n");
-        jScrollPane5.setViewportView(jEditorPane2);
-
-        jEditorPane3.setEditable(false);
-        jEditorPane3.setBackground(java.awt.Color.pink);
-        jEditorPane3.setText("OPZIONE A:\nDIO LADRO\n");
-        jScrollPane6.setViewportView(jEditorPane3);
+        cmbRisposte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,23 +127,18 @@ public class domandaChiusa extends InterfacciaDomanda {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(76, 76, 76)
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(74, 74, 74)
-                                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(189, 189, 189)
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(264, 264, 264)
-                                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbRisposte, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(189, 189, 189)
+                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(264, 264, 264)
+                                    .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(69, 69, 69)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 75, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -139,23 +146,16 @@ public class domandaChiusa extends InterfacciaDomanda {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane2))
-                        .addGap(15, 15, 15)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2))
+                .addGap(15, 15, 15)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(cmbRisposte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
                 .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -164,21 +164,16 @@ public class domandaChiusa extends InterfacciaDomanda {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRispostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRispostaActionPerformed
-        // TODO add your handling code here:
+        evaluateAndProceed();
     }//GEN-LAST:event_btnRispostaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnRisposta;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JEditorPane jEditorPane2;
-    private javax.swing.JEditorPane jEditorPane3;
+    private javax.swing.JComboBox<String> cmbRisposte;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private java.awt.Label label1;
     private javax.swing.JTextPane lblPunteggio;
     private javax.swing.JTextPane lblTurno;
