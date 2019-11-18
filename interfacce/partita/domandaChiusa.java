@@ -9,7 +9,6 @@ package guiz.interfacce.partita;
  *
  * @author notebook
  */
-<<<<<<< Updated upstream
 public class domandaChiusa extends javax.swing.JFrame {
 
     /**
@@ -17,17 +16,6 @@ public class domandaChiusa extends javax.swing.JFrame {
      */
     public domandaChiusa() {
         initComponents();
-=======
-public class domandaChiusa extends InterfacciaDomanda {
-
-    public domandaChiusa(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
-        super(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente);
-        initComponents();
-
-        lblTurno.setText("E' IL TURNO DI " + utenti.get(indiceUtenteCorrente).getNome());
-        txtTesto.setText(domande.get(indiceDomandaCorrente).getTesto());
-        lblPunteggio.setText(String.valueOf(utenti.get(indiceUtenteCorrente).getPunteggio()));
->>>>>>> Stashed changes
     }
 
     /**

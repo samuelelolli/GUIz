@@ -5,7 +5,6 @@
  */
 package guiz.interfacce.partita;
 
-<<<<<<< Updated upstream
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -22,71 +21,6 @@ public class domandaTempo extends javax.swing.JFrame {
      */
     public domandaTempo() {
         initComponents();
-=======
-import guiz.modelli.Domanda;
-import guiz.modelli.DomandaATempo;
-import guiz.modelli.Utente;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
-
-public class domandaTempo extends InterfacciaDomanda {
-
-    Timer t;
-    long tempoRimanente; //Gestita non come Duration per alleggerire il carico
-    boolean tempoScaduto = false;
-
-    boolean isAnswerCorrect() {
-        String risposta = txtRisposta.getText().trim().toLowerCase();
-        String rispostaEsatta = ((DomandaATempo) domande.get(indiceDomandaCorrente)).getRisposta().trim().toLowerCase();
-
-        return risposta.equals(rispostaEsatta);
-    }
-
-    void evaluateAndProceed() {
-        if (isAnswerCorrect()) {
-            JOptionPane.showMessageDialog(rootPane, "Risposta esatta! +10 punti");
-            utenti.get(indiceUtenteCorrente).setPunteggio(utenti.get(indiceUtenteCorrente).getPunteggio() + 10);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Risposta sbagliata!");
-        }
-
-        t.stop();
-        this.dispose();
-        this.successiva();
-    }
-
-    void createTimeTimer() {
-        ActionListener azione = (ActionEvent evt2) -> {
-            lblTempo.setText(Long.toString(tempoRimanente / 1000));
-            tempoRimanente -= 1000;
-            if (tempoRimanente <= 0) {
-                tempoScaduto = true;
-                t.stop();
-                evaluateAndProceed();
-            }
-        };
-        t = new Timer(1000, azione);
-        t.setRepeats(true);
-        t.start();
-    }
-
-    public domandaTempo(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
-        super(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente);
-        initComponents();
-
-        lblTurno.setText("E' IL TURNO DI " + utenti.get(indiceUtenteCorrente).getNome());
-        txtTesto.setText(domande.get(indiceDomandaCorrente).getTesto());
-        lblPunteggio.setText("PT: " + String.valueOf(utenti.get(indiceUtenteCorrente).getPunteggio()));
-        tempoRimanente = ((DomandaATempo) domande.get(indiceDomandaCorrente)).getTempo().toMillis();
-        lblTempo.setText(Long.toString(tempoRimanente / 1000));
-
-        createTimeTimer();
->>>>>>> Stashed changes
     }
     
     
@@ -100,38 +34,23 @@ public class domandaTempo extends InterfacciaDomanda {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< Updated upstream
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane2 = new javax.swing.JTextPane();
-=======
-        jPanel1 = new javax.swing.JPanel();
-        lblTempo = new javax.swing.JTextField();
-        label1 = new java.awt.Label();
->>>>>>> Stashed changes
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-<<<<<<< Updated upstream
         jTextArea2 = new javax.swing.JTextArea();
         button1 = new java.awt.Button();
         label1 = new java.awt.Label();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-=======
-        txtRisposta = new javax.swing.JTextArea();
-        btnRisposta = new java.awt.Button();
-        lblPunteggio = new javax.swing.JLabel();
-        lblTurno = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
->>>>>>> Stashed changes
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DomandaPerditutto");
         setBackground(java.awt.Color.orange);
 
-<<<<<<< Updated upstream
         jTextPane1.setEditable(false);
         jTextPane1.setBackground(java.awt.Color.cyan);
         jTextPane1.setBorder(new javax.swing.border.MatteBorder(null));
@@ -176,128 +95,26 @@ public class domandaTempo extends InterfacciaDomanda {
                 button1ActionPerformed(evt);
             }
         });
-=======
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
-
-        lblTempo.setEditable(false);
-        lblTempo.setBackground(java.awt.Color.cyan);
-        lblTempo.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        lblTempo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        lblTempo.setText("TIMER");
->>>>>>> Stashed changes
 
         label1.setAlignment(java.awt.Label.CENTER);
         label1.setBackground(java.awt.Color.cyan);
         label1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         label1.setText("DOMANDA A TEMPO!");
 
-<<<<<<< Updated upstream
         jButton1.setBackground(java.awt.Color.cyan);
         jButton1.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
         jButton1.setText("PARTI!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
-=======
-        txtTesto.setEditable(false);
-        txtTesto.setBackground(java.awt.Color.cyan);
-        txtTesto.setColumns(20);
-        txtTesto.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
-        txtTesto.setLineWrap(true);
-        txtTesto.setRows(5);
-        txtTesto.setText("Ripresa stima di E_IN; esempio su sqrt(1-x). Generalizzazione della stima di E_IN nel caso di problemi f:R^n->R; numero/i di condizione. \nEsempi sulle operazioni aritmetiche di moltiplicazione e addizione fra numeri reali. \nEsempio: sqrt(x_1+x_2) - sqrt(x_1). Esempio: radici di un'equazione di secondo grado.\nRichiami sulle funzioni polinomiali. Valutazione numerica di una funzione polinomiale.");
-        txtTesto.setToolTipText("");
-        jScrollPane3.setViewportView(txtTesto);
-
-        txtRisposta.setBackground(java.awt.Color.cyan);
-        txtRisposta.setColumns(20);
-        txtRisposta.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
-        txtRisposta.setLineWrap(true);
-        txtRisposta.setRows(5);
-        txtRisposta.setText("\n");
-        jScrollPane4.setViewportView(txtRisposta);
-
-        btnRisposta.setActionCommand("RISPOSTA DEFINITIVA!");
-        btnRisposta.setBackground(java.awt.Color.cyan);
-        btnRisposta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnRisposta.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        btnRisposta.setLabel("RISPOSTA DEFINITIVA!");
-        btnRisposta.addActionListener(new java.awt.event.ActionListener() {
->>>>>>> Stashed changes
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-<<<<<<< Updated upstream
         jTextField1.setEditable(false);
         jTextField1.setBackground(java.awt.Color.cyan);
         jTextField1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("TIMER");
-=======
-        lblPunteggio.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        lblPunteggio.setText("PUNTEGGIO ATTUALE: 150 PT");
-        lblPunteggio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        lblTurno.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        lblTurno.setText("<html> ORA E' IL TURNO DI: <br>GIOCATORE N   </html>\n\n");
-        lblTurno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel1.setText("Risposta:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(214, 214, 214)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                                    .addComponent(lblTempo))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                        .addComponent(lblPunteggio, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(147, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(188, 188, 188))))
-                .addGap(127, 127, 127))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPunteggio, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
->>>>>>> Stashed changes
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -355,7 +172,6 @@ public class domandaTempo extends InterfacciaDomanda {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< Updated upstream
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
         
@@ -424,25 +240,5 @@ public class domandaTempo extends InterfacciaDomanda {
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane2;
     private java.awt.Label label1;
-=======
-    private void btnRispostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRispostaActionPerformed
-        if (!tempoScaduto) {
-            evaluateAndProceed();
-        }
-    }//GEN-LAST:event_btnRispostaActionPerformed
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button btnRisposta;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private java.awt.Label label1;
-    private javax.swing.JLabel lblPunteggio;
-    private javax.swing.JTextField lblTempo;
-    private javax.swing.JLabel lblTurno;
-    private javax.swing.JTextArea txtRisposta;
-    private javax.swing.JTextArea txtTesto;
->>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 }
