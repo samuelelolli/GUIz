@@ -86,11 +86,11 @@ public class domandaTempo extends InterfacciaDomanda {
         lblPunteggio = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtTesto = new javax.swing.JTextArea();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        txtRisposta = new javax.swing.JTextArea();
         btnRisposta = new java.awt.Button();
         label1 = new java.awt.Label();
         lblTempo = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtRisposta = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DomandaPerditutto");
@@ -122,13 +122,6 @@ public class domandaTempo extends InterfacciaDomanda {
         txtTesto.setToolTipText("");
         jScrollPane3.setViewportView(txtTesto);
 
-        txtRisposta.setBackground(java.awt.Color.cyan);
-        txtRisposta.setColumns(20);
-        txtRisposta.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
-        txtRisposta.setLineWrap(true);
-        txtRisposta.setRows(5);
-        txtRisposta.setText("RISPOSTA GIOCATORE:\nMetodo dalla definizione in base canonica, metodo di Horner, metodo di Ruffini e complessità computazionale.");
-
         btnRisposta.setActionCommand("RISPOSTA DEFINITIVA!");
         btnRisposta.setBackground(java.awt.Color.cyan);
         btnRisposta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -151,6 +144,10 @@ public class domandaTempo extends InterfacciaDomanda {
         lblTempo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblTempo.setText("TIMER");
 
+        txtRisposta.setColumns(20);
+        txtRisposta.setRows(5);
+        jScrollPane5.setViewportView(txtRisposta);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,14 +166,14 @@ public class domandaTempo extends InterfacciaDomanda {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -194,9 +191,9 @@ public class domandaTempo extends InterfacciaDomanda {
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -218,7 +215,7 @@ public class domandaTempo extends InterfacciaDomanda {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private java.awt.Label label1;
     private javax.swing.JTextPane lblPunteggio;
     private javax.swing.JTextField lblTempo;
