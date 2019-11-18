@@ -186,6 +186,8 @@ public class NuovaPartita extends javax.swing.JFrame {
         for (int i = 0; i < model.getSize(); i++) {
             utenti.add(new Utente(model.get(i)));
         }
+        
+        Collections.shuffle(utenti);
 
         switch (cmbDifficolta.getSelectedIndex()) {
             case 0:

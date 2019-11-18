@@ -5,35 +5,25 @@
  */
 package guiz.interfacce.partita;
 
-import guiz.modelli.Domanda;
-import guiz.modelli.Utente;
-import java.util.List;
-
 /**
  *
  * @author notebook
  */
+
+import guiz.modelli.Domanda;
+import guiz.modelli.Utente;
+import java.util.List;
+
 public class domandaPT extends InterfacciaDomanda {
 
-    static final String labelTipo = "DomandaPerdiTutto";
-
     public domandaPT(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
+        super(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente);
         initComponents();
-        setLocationRelativeTo(null);
-
-        this.utenti = utenti;
-        this.domande = domande;
-        this.indiceDomandaCorrente = indiceDomandaCorrente;
-        this.indiceUtenteCorrente = indiceUtenteCorrente;
 
         lblTurno.setText("E' IL TURNO DI " + utenti.get(indiceUtenteCorrente).getNome());
+        txtTesto.setText(domande.get(indiceDomandaCorrente).getTesto());
+        lblPunteggio.setText(String.valueOf(utenti.get(indiceUtenteCorrente).getPunteggio()));
     }
-
-    @Override
-    public String getTipo() {
-        return labelTipo;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,26 +33,36 @@ public class domandaPT extends InterfacciaDomanda {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        label1 = new java.awt.Label();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lblTurno = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lblPunteggio = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtTesto = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtRisposta = new javax.swing.JTextArea();
         btnRisposta = new java.awt.Button();
-        lblTurno = new javax.swing.JLabel();
-        lblPunteggio = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DomandaPerditutto");
         setBackground(java.awt.Color.orange);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 102));
+        lblTurno.setEditable(false);
+        lblTurno.setBackground(java.awt.Color.orange);
+        lblTurno.setBorder(new javax.swing.border.MatteBorder(null));
+        lblTurno.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        lblTurno.setText("ORA E' IL TURNO DI:\n     GIOCATORE N");
+        lblTurno.setAlignmentX(3.0F);
+        lblTurno.setAlignmentY(3.0F);
+        jScrollPane1.setViewportView(lblTurno);
 
-        label1.setAlignment(java.awt.Label.CENTER);
-        label1.setBackground(java.awt.Color.orange);
-        label1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        label1.setText("DOMANDA PERDITUTTO!");
+        lblPunteggio.setEditable(false);
+        lblPunteggio.setBackground(java.awt.Color.orange);
+        lblPunteggio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblPunteggio.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        lblPunteggio.setText("PUNTEGGIO ATTUALE:\n          150 PUNTI");
+        jScrollPane2.setViewportView(lblPunteggio);
 
         txtTesto.setEditable(false);
         txtTesto.setBackground(java.awt.Color.orange);
@@ -79,7 +79,7 @@ public class domandaPT extends InterfacciaDomanda {
         txtRisposta.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         txtRisposta.setLineWrap(true);
         txtRisposta.setRows(5);
-        txtRisposta.setText("RISPOSTA GIOCATORE:\n\n");
+        txtRisposta.setText("RISPOSTA GIOCATORE:\nMetodo dalla definizione in base canonica, metodo di Horner, metodo di Ruffini e complessità computazionale.");
         jScrollPane4.setViewportView(txtRisposta);
 
         btnRisposta.setActionCommand("RISPOSTA DEFINITIVA!");
@@ -93,84 +93,70 @@ public class domandaPT extends InterfacciaDomanda {
             }
         });
 
-        lblTurno.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        lblTurno.setText("<html> ORA E' IL TURNO DI: <br>GIOCATORE N   </html>\n\n");
-        lblTurno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        lblPunteggio.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        lblPunteggio.setText("PUNTEGGIO ATTUALE: 150 PT");
-        lblPunteggio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(lblPunteggio))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(97, 97, 97)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane4)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(338, 338, 338)
-                                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPunteggio, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+        label1.setAlignment(java.awt.Label.CENTER);
+        label1.setBackground(java.awt.Color.orange);
+        label1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        label1.setText("DOMANDA PERDITUTTO!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(282, 282, 282))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(240, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2))
+                .addGap(7, 7, 7)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRispostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRispostaActionPerformed
-        this.successiva();
-        this.dispose();
+        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnRispostaActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnRisposta;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private java.awt.Label label1;
-    private javax.swing.JLabel lblPunteggio;
-    private javax.swing.JLabel lblTurno;
+    private javax.swing.JTextPane lblPunteggio;
+    private javax.swing.JTextPane lblTurno;
     private javax.swing.JTextArea txtRisposta;
     private javax.swing.JTextArea txtTesto;
     // End of variables declaration//GEN-END:variables

@@ -8,14 +8,23 @@ import guiz.modelli.Utente;
 import java.util.List;
 import javax.swing.JFrame;
 
-public abstract class InterfacciaDomanda extends JFrame {
+public class InterfacciaDomanda extends JFrame {
     protected List<Utente> utenti;
     protected List<Domanda> domande;
     protected int indiceDomandaCorrente;
     protected int indiceUtenteCorrente;
 
-    protected abstract String getTipo();
-
+    
+    public InterfacciaDomanda(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
+        
+        setLocationRelativeTo(null);
+        
+        this.utenti = utenti;
+        this.domande = domande;
+        this.indiceDomandaCorrente = indiceDomandaCorrente;
+        this.indiceUtenteCorrente = indiceUtenteCorrente;
+    }
+    
     public void successiva() {
         if (indiceDomandaCorrente >= domande.size() - 1) {
             concludi();
@@ -23,7 +32,7 @@ public abstract class InterfacciaDomanda extends JFrame {
         }
         
         indiceUtenteCorrente++;
-        if (indiceUtenteCorrente >= utenti.size() - 1)
+        if (indiceUtenteCorrente >= utenti.size())
             indiceUtenteCorrente = 0;
 
         indiceDomandaCorrente++;
