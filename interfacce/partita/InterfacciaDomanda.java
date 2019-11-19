@@ -55,7 +55,7 @@ public class InterfacciaDomanda extends JFrame {
     }
 
     public void concludi() {
-        System.out.println("Fine");
+        new ReportFinePartita(this.utenti).setVisible(true);
     }
 
     public List<Domanda> getDomande() {
