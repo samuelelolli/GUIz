@@ -219,6 +219,11 @@ public class NuovaPartita extends javax.swing.JFrame {
 
         List<Domanda> domandeEstratte = domandeConsiderate.subList(0, numeroDiDomande);
         Collections.shuffle(domandeEstratte);
+        if (domandeEstratte.size() % 2 != 0) 
+        {
+            domandeEstratte.remove(0);
+            numeroDiDomande--;
+        }
 
         switch (domandeEstratte.get(0).getTipo()) {
             case DomandaATempo.labelTipo:

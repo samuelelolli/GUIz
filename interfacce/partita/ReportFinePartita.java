@@ -5,8 +5,10 @@
  */
 package guiz.interfacce.partita;
 
+import guiz.GUIzUtils;
 import guiz.modelli.Utente;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,6 +17,7 @@ import java.util.List;
 public class ReportFinePartita extends javax.swing.JFrame {
 
     List<Utente> utenti;
+
     /**
      * Creates new form ReportPartita
      */
@@ -22,12 +25,39 @@ public class ReportFinePartita extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
-    public ReportFinePartita(List<Utente> utenti){
+
+    public ReportFinePartita(List<Utente> utenti) {
         this();
         this.utenti = utenti;
+
+        this.utenti = GUIzUtils.orderByPoints(utenti);
+        String[] values = new String[3];
+        int i = 1;
+        for (Utente u : this.utenti) {
+            values[0] = String.valueOf(i);
+            values[1] = u.getNome();
+            values[2] = String.valueOf(u.getPunteggio());
+
+            ((DefaultTableModel) tlbClassifica.getModel()).addRow(values);
+            i++;
+        }
+        
+        if (this.utenti.get(0).getPunteggio() > this.utenti.get(1).getPunteggio())
+            lblVincitore.setText("Complimenti " + this.utenti.get(0).getNome() + ": hai vinto!");
+        else
+        {
+            StringBuilder builder = new StringBuilder("Pareggio tra ");
+            int j = 0;
+            while (j < this.utenti.size() && this.utenti.get(j).getPunteggio() == this.utenti.get(j + 1).getPunteggio()){
+                builder.append(this.utenti.get(j).getNome()).append(", ").append(this.utenti.get(j + 1).getNome()).append(", ");
+                j += 2;
+            }
+            
+            builder.deleteCharAt(builder.length() - 1);
+            builder.deleteCharAt(builder.length() - 1);
+            lblVincitore.setText(builder.toString());
+        }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,18 +73,14 @@ public class ReportFinePartita extends javax.swing.JFrame {
         tlbClassifica = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblVincitore = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tlbClassifica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
             },
             new String [] {
                 "Posizione", "Giocatore", "Punteggio"
@@ -66,7 +92,7 @@ public class ReportFinePartita extends javax.swing.JFrame {
 
         jLabel3.setText("Classifica");
 
-        jLabel4.setText("Complimenti Dio Salvini: hai vinto!");
+        lblVincitore.setText("Complimenti Dio Sgangherato: hai vinto!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,7 +112,7 @@ public class ReportFinePartita extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(130, 130, 130)
-                .addComponent(jLabel4)
+                .addComponent(lblVincitore)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,7 +125,7 @@ public class ReportFinePartita extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addComponent(lblVincitore)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -109,8 +135,8 @@ public class ReportFinePartita extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblVincitore;
     private javax.swing.JTable tlbClassifica;
     // End of variables declaration//GEN-END:variables
 }

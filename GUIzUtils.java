@@ -2,8 +2,11 @@ package guiz;
 
 import guiz.modelli.Domanda;
 import guiz.modelli.OpzioneDomandaChiusa;
+import guiz.modelli.Utente;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class GUIzUtils {
 
@@ -39,5 +42,26 @@ public class GUIzUtils {
         }
 
         return Domanda.Difficolta.sconosciuta;
+    }
+
+    public static List<Utente> orderByPoints(List<Utente> u) {
+        ArrayList utenti = new ArrayList<>(u);
+
+        Comparator comparator = new Comparator<Utente>() {
+            @Override
+            public int compare(Utente u1, Utente u2) {
+                if (u1.getPunteggio() > u2.getPunteggio())
+                    return -1;
+                else
+                    if (u1.getPunteggio() == u2.getPunteggio())
+                        return 0;
+                    else
+                        return 1;
+            }
+        };
+        
+        utenti.sort(comparator);
+        
+        return utenti;
     }
 }
