@@ -9,9 +9,12 @@ import guiz.xmlutils.SettingsHandler;
 import java.awt.Component;
 
 public class SettingsRepository {
+    public static final String baseSaveUrl = System.getProperty("user.home");
+    public static final String saveDirectory = "Documents\\GUIz\\";
+    
     private static final SettingsRepository INSTANCE = new SettingsRepository();
     
-    SettingsHandler handler = new SettingsHandler("C:\\GUIz\\impostazioni.xml");
+    SettingsHandler handler = new SettingsHandler(getSaveUrl() + "impostazioni.xml");
     
     int domandeAPartita;
     boolean puoModificareDomandeAPartita;
@@ -45,4 +48,7 @@ public class SettingsRepository {
         handler.importaDomande(caller);
     }
     
+    public String getSaveUrl(){
+        return baseSaveUrl + "\\" + saveDirectory;
+    }
 }

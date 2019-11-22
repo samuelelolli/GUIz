@@ -22,7 +22,9 @@ public class RepositoryDomande {
     private XMLHandler handler;
 
     private RepositoryDomande() {
-        handler = new XMLHandler("C:\\GUIz\\domande.xml");
+        String saveUrl = SettingsRepository.getInstance().getSaveUrl() + "domande.xml";
+        
+        handler = new XMLHandler(saveUrl);
         domande = handler.leggiDomande();
         domande.sort(new Comparator<Domanda>() {
             @Override
@@ -105,12 +107,14 @@ public class RepositoryDomande {
     }
     
     public void esporta(Component caller) throws Exception {
+        String saveUrl = SettingsRepository.getInstance().getSaveUrl() + "domande.xml";
+        
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.showOpenDialog(caller);
         File dstDir = chooser.getSelectedFile();
         File dstFile = new File(dstDir.getAbsolutePath() + "\\GUIz_export.xml");
         if (!dstFile.exists()) dstFile.createNewFile();
-        Files.copy(Paths.get("C:\\GUIz\\domande.xml"), Paths.get(dstFile.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Paths.get(saveUrl), Paths.get(dstFile.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
     }
 }
