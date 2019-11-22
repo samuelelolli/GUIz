@@ -5,6 +5,7 @@
  */
 package guiz.interfacce;
 
+import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
 import guiz.SettingsRepository;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaUtente;
@@ -35,6 +36,12 @@ public class NuovaPartita extends javax.swing.JFrame {
 
         DefaultListModel<String> model = new DefaultListModel<>();
         lstUtenti.setModel(model);
+        
+        if (!SettingsRepository.getInstance().puoScegliereDomandeAPartita())
+        {
+            cmbDifficolta.setSelectedIndex(1);
+            cmbDifficolta.setEnabled(false);
+        }
     }
 
     /**
