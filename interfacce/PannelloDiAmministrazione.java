@@ -114,6 +114,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("PANNELLO DI AMMINISTRAZIONE");
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 

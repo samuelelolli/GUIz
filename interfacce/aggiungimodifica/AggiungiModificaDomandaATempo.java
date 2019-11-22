@@ -8,7 +8,6 @@ package guiz.interfacce.aggiungimodifica;
 import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
 import guiz.interfacce.PannelloDiAmministrazione;
-import guiz.modelli.Domanda;
 import guiz.modelli.DomandaATempo;
 import java.time.Duration;
 import javax.swing.JTable;
@@ -30,7 +29,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table) { //costruttore
+    public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table) { //costruttore per AGGIUNGERE domanda nuova
         this();
         domanda = d;
         tableToUpdate = table;
@@ -44,7 +43,7 @@ public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
         }
     }
 
-    public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table, int rowToUpdate) {
+    public AggiungiModificaDomandaATempo(DomandaATempo d, JTable table, int rowToUpdate) {  //costruttore per MODIFICARE domanda esistente
         this(d, table);
         this.rowToUpdate = rowToUpdate;
     }

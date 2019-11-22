@@ -33,6 +33,8 @@ public class LoginPannello extends javax.swing.JFrame {
         lblPassword = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
 
+        setTitle("LOGIN");
+
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyPressed(evt);

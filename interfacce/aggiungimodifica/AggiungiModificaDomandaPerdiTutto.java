@@ -28,8 +28,8 @@ public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    AggiungiModificaDomandaPerdiTutto(DomandaPerdiTutto d, JTable table) {
-        this();
+    public AggiungiModificaDomandaPerdiTutto(DomandaPerdiTutto d, JTable table) {
+       this();
         domanda = d;
         inModifica = (d != null);
         tableToUpdate = table;
