@@ -1,6 +1,7 @@
 package guiz.xmlutils;
 
 import guiz.GUIzUtils;
+import guiz.SettingsRepository;
 import guiz.modelli.Domanda;
 import guiz.modelli.Domanda.Difficolta;
 import guiz.modelli.DomandaATempo;
@@ -8,16 +9,12 @@ import guiz.modelli.DomandaChiusa;
 import guiz.modelli.DomandaPerdiTutto;
 import guiz.modelli.OpzioneDomandaChiusa;
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -27,7 +24,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 public class XMLHandler {
 
@@ -35,8 +31,15 @@ public class XMLHandler {
     private Document doc;
 
     public XMLHandler(String filePath) {
+        
+        
         this.filePath = filePath;
         try {
+            File baseDir = new File(SettingsRepository.getSaveUrl());
+        
+            if (!baseDir.exists()) 
+                baseDir.mkdir();
+            
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             File file = new File(filePath);

@@ -1,7 +1,7 @@
 package guiz.xmlutils;
 
 import guiz.RepositoryDomande;
-import guiz.modelli.Domanda;
+import guiz.SettingsRepository;
 import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +30,11 @@ public class SettingsHandler {
     public SettingsHandler(String filePath) {
         this.filePath = filePath;
         try {
+            File baseDir = new File(SettingsRepository.getSaveUrl());
+        
+            if (!baseDir.exists()) 
+                baseDir.mkdir();
+            
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 

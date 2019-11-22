@@ -6,13 +6,9 @@ import guiz.xmlutils.XMLHandler;
 import java.awt.Component;
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 public class RepositoryDomande {
@@ -21,18 +17,14 @@ public class RepositoryDomande {
     private final ArrayList<Domanda> domande;
     private XMLHandler handler;
 
-    private RepositoryDomande() {
-        String saveUrl = SettingsRepository.getInstance().getSaveUrl() + "domande.xml";
+    private RepositoryDomande() {        
+        String saveUrl = SettingsRepository.getSaveUrl() + "domande.xml";
         
         handler = new XMLHandler(saveUrl);
         domande = handler.leggiDomande();
-        domande.sort(new Comparator<Domanda>() {
-            @Override
-            public int compare(Domanda d1, Domanda d2) {
-                Long id1 = d1.getId(), id2 = d2.getId();
-                return id1.compareTo(id2);
-            }
-
+        domande.sort((Domanda d1, Domanda d2) -> {
+            Long id1 = d1.getId(), id2 = d2.getId();
+            return id1.compareTo(id2);
         });
     }
 
@@ -107,7 +99,7 @@ public class RepositoryDomande {
     }
     
     public void esporta(Component caller) throws Exception {
-        String saveUrl = SettingsRepository.getInstance().getSaveUrl() + "domande.xml";
+        String saveUrl = SettingsRepository.getSaveUrl() + "domande.xml";
         
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
