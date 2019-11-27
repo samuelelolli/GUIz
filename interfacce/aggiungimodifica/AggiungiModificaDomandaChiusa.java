@@ -10,7 +10,6 @@ import guiz.RepositoryDomande;
 import guiz.interfacce.PannelloDiAmministrazione;
 import guiz.modelli.DomandaChiusa;
 import guiz.modelli.OpzioneDomandaChiusa;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;

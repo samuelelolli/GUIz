@@ -41,7 +41,7 @@ public class domandaChiusa extends InterfacciaDomanda {
     public domandaChiusa(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
         super(utenti, domande, indiceDomandaCorrente, indiceUtenteCorrente);
         initComponents();
-
+        setLocationRelativeTo(null);
         lblTurno.setText("E' IL TURNO DI " + utenti.get(indiceUtenteCorrente).getNome());
         txtTesto.setText(domande.get(indiceDomandaCorrente).getTesto());
         lblPunteggio.setText(String.valueOf(utenti.get(indiceUtenteCorrente).getPunteggio()));
@@ -62,33 +62,24 @@ public class domandaChiusa extends InterfacciaDomanda {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane3 = new javax.swing.JScrollPane();
-        txtTesto = new javax.swing.JTextArea();
-        label1 = new java.awt.Label();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lblTurno = new javax.swing.JTextPane();
+        label1 = new java.awt.Label();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtTesto = new javax.swing.JTextArea();
+        cmbRisposte = new javax.swing.JComboBox<>();
+        btnRisposta = new java.awt.Button();
         jScrollPane2 = new javax.swing.JScrollPane();
         lblPunteggio = new javax.swing.JTextPane();
-        btnRisposta = new java.awt.Button();
-        cmbRisposte = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DOMANDA CHIUSA");
 
-        txtTesto.setBackground(java.awt.Color.pink);
-        txtTesto.setColumns(20);
-        txtTesto.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
-        txtTesto.setLineWrap(true);
-        txtTesto.setRows(5);
-        txtTesto.setText("TESTO DOMANDA:\n\nRipresa stima di E_IN; esempio su sqrt(1-x). Generalizzazione della stima di E_IN nel caso di problemi f:R^n->R; numero/i di condizione. \nEsempi sulle operazioni aritmetiche di moltiplicazione e addizione fra numeri reali. \nEsempio: sqrt(x_1+x_2) - sqrt(x_1). Esempio: radici di un'equazione di secondo grado.\nRichiami sulle funzioni polinomiali. Valutazione numerica di una funzione polinomiale.");
-        jScrollPane3.setViewportView(txtTesto);
-
-        label1.setAlignment(java.awt.Label.CENTER);
-        label1.setBackground(java.awt.Color.pink);
-        label1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        label1.setText("DOMANDA CHIUSA!");
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         lblTurno.setEditable(false);
-        lblTurno.setBackground(java.awt.Color.pink);
+        lblTurno.setBackground(new java.awt.Color(153, 153, 255));
         lblTurno.setBorder(new javax.swing.border.MatteBorder(null));
         lblTurno.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         lblTurno.setText("ORA E' IL TURNO DI:\n     GIOCATORE N");
@@ -96,15 +87,25 @@ public class domandaChiusa extends InterfacciaDomanda {
         lblTurno.setAlignmentY(3.0F);
         jScrollPane1.setViewportView(lblTurno);
 
-        lblPunteggio.setEditable(false);
-        lblPunteggio.setBackground(java.awt.Color.pink);
-        lblPunteggio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblPunteggio.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        lblPunteggio.setText("PUNTEGGIO ATTUALE:\n          150 PUNTI");
-        jScrollPane2.setViewportView(lblPunteggio);
+        label1.setAlignment(java.awt.Label.CENTER);
+        label1.setBackground(new java.awt.Color(153, 153, 255));
+        label1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        label1.setText("DOMANDA CHIUSA!");
+
+        txtTesto.setEditable(false);
+        txtTesto.setBackground(new java.awt.Color(153, 153, 255));
+        txtTesto.setColumns(20);
+        txtTesto.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
+        txtTesto.setLineWrap(true);
+        txtTesto.setRows(5);
+        txtTesto.setText("TESTO DOMANDA:\n\nRipresa stima di E_IN; esempio su sqrt(1-x). Generalizzazione della stima di E_IN nel caso di problemi f:R^n->R; numero/i di condizione. \nEsempi sulle operazioni aritmetiche di moltiplicazione e addizione fra numeri reali. \nEsempio: sqrt(x_1+x_2) - sqrt(x_1). Esempio: radici di un'equazione di secondo grado.\nRichiami sulle funzioni polinomiali. Valutazione numerica di una funzione polinomiale.");
+        jScrollPane3.setViewportView(txtTesto);
+
+        cmbRisposte.setEditable(true);
+        cmbRisposte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
 
         btnRisposta.setActionCommand("RISPOSTA DEFINITIVA!");
-        btnRisposta.setBackground(java.awt.Color.pink);
+        btnRisposta.setBackground(new java.awt.Color(153, 153, 255));
         btnRisposta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnRisposta.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         btnRisposta.setLabel("RISPOSTA DEFINITIVA!");
@@ -114,50 +115,61 @@ public class domandaChiusa extends InterfacciaDomanda {
             }
         });
 
-        cmbRisposte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        lblPunteggio.setEditable(false);
+        lblPunteggio.setBackground(new java.awt.Color(153, 153, 255));
+        lblPunteggio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblPunteggio.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        lblPunteggio.setText("PUNTEGGIO ATTUALE:\n          150 PUNTI");
+        jScrollPane2.setViewportView(lblPunteggio);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbRisposte, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(261, 261, 261)
+                        .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cmbRisposte, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmbRisposte, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(189, 189, 189)
-                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(264, 264, 264)
-                                    .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(69, 69, 69)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 75, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2))
-                .addGap(15, 15, 15)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(cmbRisposte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(btnRisposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -171,6 +183,7 @@ public class domandaChiusa extends InterfacciaDomanda {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnRisposta;
     private javax.swing.JComboBox<String> cmbRisposte;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
