@@ -47,11 +47,9 @@ public class ReportFinePartita extends javax.swing.JFrame {
         else
         {
             StringBuilder builder = new StringBuilder("Pareggio tra ");
-            int j = 0;
-            while (j < this.utenti.size() && this.utenti.get(j).getPunteggio() == this.utenti.get(j + 1).getPunteggio()){
+            
+            for (int j = 0; j < this.utenti.size() - 1 && this.utenti.get(j).getPunteggio() == this.utenti.get(j + 1).getPunteggio(); j += 2)
                 builder.append(this.utenti.get(j).getNome()).append(", ").append(this.utenti.get(j + 1).getNome()).append(", ");
-                j += 2;
-            }
             
             builder.deleteCharAt(builder.length() - 1);
             builder.deleteCharAt(builder.length() - 1);
@@ -96,7 +94,7 @@ public class ReportFinePartita extends javax.swing.JFrame {
         jLabel2.setText("FINE PARTITA!");
 
         lblVincitore.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        lblVincitore.setText("Complimenti Dio: hai vinto!");
+        lblVincitore.setText("Complimenti : hai vinto!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,9 +118,9 @@ public class ReportFinePartita extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(lblVincitore)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
