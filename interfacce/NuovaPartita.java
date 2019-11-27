@@ -21,6 +21,7 @@ import guiz.modelli.Utente;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
@@ -36,6 +37,10 @@ public class NuovaPartita extends javax.swing.JFrame {
 
         DefaultListModel<String> model = new DefaultListModel<>();
         lstUtenti.setModel(model);
+        
+        ((DefaultComboBoxModel) cmbDifficolta.getModel()).addElement(Domanda.Difficolta.facile);
+        ((DefaultComboBoxModel) cmbDifficolta.getModel()).addElement(Domanda.Difficolta.media);
+        ((DefaultComboBoxModel) cmbDifficolta.getModel()).addElement(Domanda.Difficolta.difficile);
         
         if (!SettingsRepository.getInstance().puoScegliereDomandeAPartita())
         {
@@ -55,7 +60,6 @@ public class NuovaPartita extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         lblDifficolta = new javax.swing.JLabel();
-        cmbDifficolta = new javax.swing.JComboBox<>();
         lblUtenti = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstUtenti = new javax.swing.JList<>();
@@ -63,6 +67,7 @@ public class NuovaPartita extends javax.swing.JFrame {
         btnElimina = new javax.swing.JButton();
         btnModifica = new javax.swing.JButton();
         btnModificaPartita = new javax.swing.JButton();
+        cmbDifficolta = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PRE-PARTITA");
@@ -70,14 +75,6 @@ public class NuovaPartita extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
         lblDifficolta.setText("Difficoltà");
-
-        cmbDifficolta.setBackground(new java.awt.Color(204, 255, 255));
-        cmbDifficolta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Facile", "Media", "Difficile"}));
-        cmbDifficolta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbDifficoltaActionPerformed(evt);
-            }
-        });
 
         lblUtenti.setText("Utenti");
 
@@ -116,6 +113,13 @@ public class NuovaPartita extends javax.swing.JFrame {
             }
         });
 
+        cmbDifficolta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+        cmbDifficolta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDifficoltaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -126,9 +130,6 @@ public class NuovaPartita extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblDifficolta)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cmbDifficolta, 0, 363, Short.MAX_VALUE)
-                        .addGap(67, 67, 67))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                         .addContainerGap())
@@ -147,7 +148,11 @@ public class NuovaPartita extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(173, 173, 173)
                 .addComponent(btnModificaPartita)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 164, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbDifficolta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,8 +258,9 @@ public class NuovaPartita extends javax.swing.JFrame {
             numeroDiDomande = domandeConsiderate.size();
         }
 
+        Collections.shuffle(domandeConsiderate);
         List<Domanda> domandeEstratte = domandeConsiderate.subList(0, numeroDiDomande);
-        Collections.shuffle(domandeEstratte);
+        
         if (domandeEstratte.size() % 2 != 0) 
         {
             domandeEstratte.remove(0);
@@ -275,6 +281,10 @@ public class NuovaPartita extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_btnModificaPartitaActionPerformed
+
+    private void cmbDifficoltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDifficoltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDifficoltaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

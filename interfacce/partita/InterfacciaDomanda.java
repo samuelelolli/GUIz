@@ -15,10 +15,7 @@ public class InterfacciaDomanda extends JFrame {
     protected int indiceUtenteCorrente;
 
     
-    public InterfacciaDomanda(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {
-        
-        setLocationRelativeTo(null);
-        
+    public InterfacciaDomanda(List<Utente> utenti, List<Domanda> domande, int indiceDomandaCorrente, int indiceUtenteCorrente) {       
         this.utenti = utenti;
         this.domande = domande;
         this.indiceDomandaCorrente = indiceDomandaCorrente;
