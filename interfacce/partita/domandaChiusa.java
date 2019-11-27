@@ -54,7 +54,7 @@ public class domandaChiusa extends InterfacciaDomanda {
         }
         
         cmbRisposte.setEditable(false);
-        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     /**
      * This method is called from within the constructor to initialize the form.

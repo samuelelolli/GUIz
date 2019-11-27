@@ -67,6 +67,7 @@ public class domandaTempo extends InterfacciaDomanda {
         lblTempo.setText(Long.toString(tempoRimanente / 1000));
 
         createTimeTimer();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
     

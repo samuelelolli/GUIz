@@ -47,6 +47,7 @@ public class domandaPT extends InterfacciaDomanda {
         lblPunteggio.setText(String.valueOf(utenti.get(indiceUtenteCorrente).getPunteggio()));
         
         domanda = (DomandaPerdiTutto) domande.get(indiceDomandaCorrente);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     /**
      * This method is called from within the constructor to initialize the form.
