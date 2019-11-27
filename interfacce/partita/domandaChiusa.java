@@ -52,6 +52,9 @@ public class domandaChiusa extends InterfacciaDomanda {
             DefaultComboBoxModel model = (DefaultComboBoxModel) cmbRisposte.getModel();
             model.addElement(opzione.getTesto());
         }
+        
+        cmbRisposte.setEditable(false);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
