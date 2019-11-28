@@ -37,13 +37,12 @@ public class NuovaPartita extends javax.swing.JFrame {
 
         DefaultListModel<String> model = new DefaultListModel<>();
         lstUtenti.setModel(model);
-        
+
         ((DefaultComboBoxModel) cmbDifficolta.getModel()).addElement(Domanda.Difficolta.facile);
         ((DefaultComboBoxModel) cmbDifficolta.getModel()).addElement(Domanda.Difficolta.media);
         ((DefaultComboBoxModel) cmbDifficolta.getModel()).addElement(Domanda.Difficolta.difficile);
-        
-        if (!SettingsRepository.getInstance().puoScegliereDomandeAPartita())
-        {
+
+        if (!SettingsRepository.getInstance().puoScegliereDomandePerUtente()) {
             cmbDifficolta.setSelectedIndex(1);
             cmbDifficolta.setEnabled(false);
         }
@@ -217,7 +216,6 @@ public class NuovaPartita extends javax.swing.JFrame {
         ArrayList<Utente> utenti = new ArrayList<>();
         ListModel<String> listModel = lstUtenti.getModel();
         DefaultListModel<String> model = (DefaultListModel<String>) listModel;
-
         Difficolta difficoltaScelta = Domanda.Difficolta.media;
 
         if (model.getSize() < 2) {
@@ -227,7 +225,7 @@ public class NuovaPartita extends javax.swing.JFrame {
         for (int i = 0; i < model.getSize(); i++) {
             utenti.add(new Utente(model.get(i)));
         }
-        
+
         Collections.shuffle(utenti);
 
         switch (cmbDifficolta.getSelectedIndex()) {
@@ -244,7 +242,7 @@ public class NuovaPartita extends javax.swing.JFrame {
                 break;
         }
 
-        Integer numeroDiDomande = SettingsRepository.getInstance().domandeAPartita();
+        Integer numeroDiDomandePerUtente = SettingsRepository.getInstance().domandePerUtente();
         ArrayList<Domanda> tutteLeDomande = RepositoryDomande.getInstance().getDomande();
 
         ArrayList<Domanda> domandeConsiderate = new ArrayList<>();
@@ -254,18 +252,13 @@ public class NuovaPartita extends javax.swing.JFrame {
             }
         }
 
-        if (numeroDiDomande > domandeConsiderate.size()) {
-            numeroDiDomande = domandeConsiderate.size();
+        int numeroDiDomandeTotali = numeroDiDomandePerUtente * utenti.size();
+        if (numeroDiDomandeTotali > domandeConsiderate.size()) {
+            numeroDiDomandeTotali = domandeConsiderate.size();
         }
 
         Collections.shuffle(domandeConsiderate);
-        List<Domanda> domandeEstratte = domandeConsiderate.subList(0, numeroDiDomande);
-        
-        if (domandeEstratte.size() % 2 != 0) 
-        {
-            domandeEstratte.remove(0);
-            numeroDiDomande--;
-        }
+        List<Domanda> domandeEstratte = domandeConsiderate.subList(0, numeroDiDomandeTotali);
 
         switch (domandeEstratte.get(0).getTipo()) {
             case DomandaATempo.labelTipo:

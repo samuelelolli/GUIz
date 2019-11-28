@@ -79,8 +79,8 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     }
 
     private void initImpostazioni() {
-        spnDomandeAPartita.setValue(SettingsRepository.getInstance().domandeAPartita());   //setto uno spinner con il numero delle domande a partita
-        chbDifficolta.setSelected(SettingsRepository.getInstance().puoScegliereDomandeAPartita()); //setto una checkbox a seconda di se posso scegliere o meno la difficoltà ad inizio partita
+        spnDomandePerUtente.setValue(SettingsRepository.getInstance().domandePerUtente());   //setto uno spinner con il numero delle domande per utente
+        chbDifficolta.setSelected(SettingsRepository.getInstance().puoScegliereDomandePerUtente()); //setto una checkbox a seconda di se posso scegliere o meno la difficoltà ad inizio partita
     }
 
     public PannelloDiAmministrazione() {  //costruttore
@@ -107,7 +107,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         btnImporta = new javax.swing.JButton();
         lblImporta = new javax.swing.JLabel();
         chbDifficolta = new javax.swing.JCheckBox();
-        spnDomandeAPartita = new javax.swing.JSpinner();
+        spnDomandePerUtente = new javax.swing.JSpinner();
         lblNumeroDomande = new javax.swing.JLabel();
         btnSalva = new javax.swing.JButton();
         cmbOpzioni = new javax.swing.JComboBox<>();
@@ -154,7 +154,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
         chbDifficolta.setText("Permetti all'utente di selezionare il livello di difficoltà");
 
         lblNumeroDomande.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        lblNumeroDomande.setText("Domande a partita:");
+        lblNumeroDomande.setText("Domande per utente:");
 
         btnSalva.setText("Salva");
         btnSalva.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +196,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spnDomandePerUtente, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblImporta)
                             .addComponent(btnImporta)
                             .addComponent(chbDifficolta))
@@ -225,7 +225,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(lblNumeroDomande)
                 .addGap(18, 18, 18)
-                .addComponent(spnDomandeAPartita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spnDomandePerUtente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(lblImporta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -304,10 +304,10 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     //evento al clic del bottone salva
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
         boolean puoSceglere = chbDifficolta.isSelected(); //salvo in una variabile booleana la scelta della difficoltà nella checkbox, true se l'utente può scegliere, false se non può.
-        int domandeAPartita = Integer.valueOf(spnDomandeAPartita.getValue().toString()); //salvo in una variabile il numero delle domande a partita selezionate nello spinner
+        int domandePerUtente = Integer.valueOf(spnDomandePerUtente.getValue().toString()); //salvo in una variabile il numero delle domande per utente selezionate nello spinner
 
-        SettingsRepository.getInstance().modificaDomandaAPartita(domandeAPartita);   //richiamati metodi che vanno a modificare nel repository il numero delle domande e la scelta
-        SettingsRepository.getInstance().modificaPuoScegliereDomandeAPartita(puoSceglere);
+        SettingsRepository.getInstance().modificaDomandePerUtente(domandePerUtente);   //richiamati metodi che vanno a modificare nel repository il numero delle domande e la scelta
+        SettingsRepository.getInstance().modificaPuoScegliereDomandePerUtente(puoSceglere);
     }//GEN-LAST:event_btnSalvaActionPerformed
     //evento sul clic del bottone "Importa"
     private void btnImportaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportaActionPerformed
@@ -330,7 +330,7 @@ public class PannelloDiAmministrazione extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImporta;
     private javax.swing.JLabel lblNumeroDomande;
-    private javax.swing.JSpinner spnDomandeAPartita;
+    private javax.swing.JSpinner spnDomandePerUtente;
     private javax.swing.JTable tblDomande;
     // End of variables declaration//GEN-END:variables
 }

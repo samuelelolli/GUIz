@@ -42,7 +42,7 @@ public class SettingsHandler {
             if (!file.exists()) {
                 file.createNewFile();
                 try (PrintWriter out = new PrintWriter(file)) {
-                    out.print("<impostazioni><domande_a_partita>10</domande_a_partita><utente_sceglie_domande_a_partita>no</utente_sceglie_domande_a_partita></impostazioni>");
+                    out.print("<impostazioni><domande_per_utente>10</domande_per_utente><utente_sceglie_domande_per_utente>no</utente_sceglie_domande_per_utente></impostazioni>");
                 }
             }
             doc = dBuilder.parse(file);
@@ -51,8 +51,8 @@ public class SettingsHandler {
         }
     }
 
-    public Boolean puoScegliereDomandeAPartita() {
-        NodeList nList = doc.getElementsByTagName("utente_sceglie_domande_a_partita");
+    public Boolean puoScegliereDomandePerUtente() {
+        NodeList nList = doc.getElementsByTagName("utente_sceglie_domande_per_utente");
         if (nList.getLength() <= 0) {
             return null;
         }
@@ -62,8 +62,8 @@ public class SettingsHandler {
         return "si".equals(node.getFirstChild().getNodeValue());
     }
 
-    public Integer domandeAPartita() {
-        NodeList nList = doc.getElementsByTagName("domande_a_partita");
+    public Integer domandePerUtente() {
+        NodeList nList = doc.getElementsByTagName("domande_per_utente");
         if (nList.getLength() <= 0) {
             return null;
         }
@@ -72,8 +72,8 @@ public class SettingsHandler {
         return Integer.parseInt(node.getFirstChild().getNodeValue());
     }
 
-    public void modificaPuoScegliereDomandeAPartita(boolean b) {
-        NodeList nList = doc.getElementsByTagName("utente_sceglie_domande_a_partita");
+    public void modificaPuoScegliereDomandePerUtente(boolean b) {
+        NodeList nList = doc.getElementsByTagName("utente_sceglie_domande_per_utente");
         if (nList.getLength() <= 0) {
             return;
         }
@@ -82,8 +82,8 @@ public class SettingsHandler {
         salva();
     }
 
-    public void modificaDomandaAPartita(int n) {
-        NodeList nList = doc.getElementsByTagName("domande_a_partita");
+    public void modificaDomandePerUtente(int n) {
+        NodeList nList = doc.getElementsByTagName("domande_per_utente");
         if (nList.getLength() <= 0) {
             return;
         }

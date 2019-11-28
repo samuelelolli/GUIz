@@ -17,8 +17,8 @@ public class SettingsRepository {
 
     SettingsHandler handler = new SettingsHandler(getSaveUrl() + "impostazioni.xml");
 
-    int domandeAPartita;
-    boolean puoModificareDomandeAPartita;
+    int domandePerUtente;
+    boolean puoModificareDomandePerUtente;
 
     private SettingsRepository() {
     }
@@ -27,22 +27,22 @@ public class SettingsRepository {
         return INSTANCE;
     }
 
-    public Boolean puoScegliereDomandeAPartita() {
-        return handler.puoScegliereDomandeAPartita();
+    public Boolean puoScegliereDomandePerUtente() {
+        return handler.puoScegliereDomandePerUtente();
     }
 
-    public Integer domandeAPartita() {
-        return handler.domandeAPartita();
+    public Integer domandePerUtente() {
+        return handler.domandePerUtente();
     }
 
-    public void modificaPuoScegliereDomandeAPartita(boolean puoScegliere) {
-        this.puoModificareDomandeAPartita = puoScegliere;
-        handler.modificaPuoScegliereDomandeAPartita(puoScegliere);
+    public void modificaPuoScegliereDomandePerUtente(boolean puoScegliere) {
+        this.puoModificareDomandePerUtente = puoScegliere;
+        handler.modificaPuoScegliereDomandePerUtente(puoScegliere);
     }
 
-    public void modificaDomandaAPartita(int numeroDomande) {
-        this.domandeAPartita = numeroDomande;
-        handler.modificaDomandaAPartita(numeroDomande);
+    public void modificaDomandePerUtente(int numeroDomande) {
+        this.domandePerUtente = numeroDomande;
+        handler.modificaDomandePerUtente(numeroDomande);
     }
 
     public void importaDomande(Component caller) throws Exception {
