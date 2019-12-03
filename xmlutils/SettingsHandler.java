@@ -22,32 +22,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class SettingsHandler {
-
-    private String filePath;
-    private Document doc;
+public class SettingsHandler extends XMLHandler {
 
     public SettingsHandler(String filePath) {
-        this.filePath = filePath;
-        try {
-            File baseDir = new File(SettingsRepository.getSaveUrl());
-        
-            if (!baseDir.exists()) 
-                baseDir.mkdir();
-            
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        super.init(filePath);
+    }
 
-            File file = new File(filePath);
-            if (!file.exists()) {
-                file.createNewFile();
-                try (PrintWriter out = new PrintWriter(file)) {
-                    out.print("<impostazioni><domande_per_utente>10</domande_per_utente><utente_sceglie_domande_per_utente>no</utente_sceglie_domande_per_utente></impostazioni>");
-                }
-            }
-            doc = dBuilder.parse(file);
-            doc.getDocumentElement().normalize();
-        } catch (IOException | ParserConfigurationException | SAXException ex) {
+    @Override
+    protected void initXMLFile() throws Exception {
+        try (PrintWriter out = new PrintWriter(new File(filePath))) {
+            out.print("<impostazioni><domande_per_utente>10</domande_per_utente><utente_sceglie_domande_per_utente>no</utente_sceglie_domande_per_utente></impostazioni>");
+            out.close();
         }
     }
 
@@ -92,33 +77,14 @@ public class SettingsHandler {
         salva();
     }
 
-    public void importaDomande(Component caller) throws Exception{
+    public void importaDomande(Component caller) throws Exception {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("XML FILES", "xml", "xml");
         fileChooser.setFileFilter(filter);
         fileChooser.showOpenDialog(caller);
-        
+
         File f = fileChooser.getSelectedFile();
-        XMLHandler xmlHandler = new XMLHandler(f.getAbsolutePath());
+        FileDomandeHandler xmlHandler = new FileDomandeHandler(f.getAbsolutePath());
         RepositoryDomande.getInstance().aggiungiDomande(xmlHandler.leggiDomande());
     }
-    
-    private void salva() {
-
-        try {
-            TransformerFactory transformerFactory = TransformerFactory
-                    .newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "5");
-
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(filePath));
-            transformer.transform(source, result);
-
-        } catch (IllegalArgumentException | TransformerException ignored) {
-        }
-    }
-
 }

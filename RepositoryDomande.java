@@ -2,7 +2,7 @@ package guiz;
 
 import guiz.modelli.Domanda;
 import java.util.ArrayList;
-import guiz.xmlutils.XMLHandler;
+import guiz.xmlutils.FileDomandeHandler;
 import java.awt.Component;
 import java.io.File;
 import java.nio.file.Files;
@@ -15,12 +15,12 @@ public class RepositoryDomande {
 
     private static RepositoryDomande INSTANCE;
     private final ArrayList<Domanda> domande;
-    private XMLHandler handler;
+    private FileDomandeHandler handler;
 
     private RepositoryDomande() {        
         String saveUrl = SettingsRepository.getSaveUrl() + "domande.xml";
         
-        handler = new XMLHandler(saveUrl);
+        handler = new FileDomandeHandler(saveUrl);
         domande = handler.leggiDomande();
         domande.sort((Domanda d1, Domanda d2) -> {
             Long id1 = d1.getId(), id2 = d2.getId();
