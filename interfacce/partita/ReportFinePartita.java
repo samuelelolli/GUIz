@@ -51,8 +51,12 @@ public class ReportFinePartita extends javax.swing.JFrame {
             for (int j = 0; j < this.utenti.size() - 1 && this.utenti.get(j).getPunteggio() == this.utenti.get(j + 1).getPunteggio(); j += 2)
                 builder.append(this.utenti.get(j).getNome()).append(", ").append(this.utenti.get(j + 1).getNome()).append(", ");
             
-            builder.deleteCharAt(builder.length() - 1);
-            builder.deleteCharAt(builder.length() - 1);
+            if (this.utenti.get(this.utenti.size() - 1).getPunteggio() == this.utenti.get(this.utenti.size() - 2).getPunteggio())
+                builder.append(this.utenti.get(this.utenti.size() - 1).getNome());
+            else{
+                builder.deleteCharAt(builder.length() - 1);
+                builder.deleteCharAt(builder.length() - 1);
+            }
             lblVincitore.setText(builder.toString());
         }
     }
