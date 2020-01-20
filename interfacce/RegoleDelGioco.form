@@ -103,7 +103,7 @@
                   <Font name="Arial Black" size="11" style="0"/>
                 </Property>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="Istruzione 1: &#xa;&#xa;Istruzione 2:&#xa;&#xa;Istruzione 3:&#xa;&#xa;Istruzione 4: &#xa;&#xa;Istruzione 5:&#xa;&#xa;Istruzione 6:&#xa;&#xa;Istruzione 7:&#xa;&#xa;&#xa;Regolamento:&#xa;"/>
+                <Property name="text" type="java.lang.String" value="Regolamento:&#xa;&#xa;Prima di ogni partita i giocatori sono invitati a scrivere il proprio nome o nick,&#xa;selezionare il livello di difficolt&#xe0; delle domande (facile, media, difficile) &#xa;e il numero di domande che vorranno affrontare.&#xa;&#xa;La partita &#xe8; composta da 3 tipi di domanda: &#xa;- domanda chiusa o a risposta multipla (3 risposte, solo 1 giusta opzionabile), &#xa;- domanda perditutto (il punteggio del giocatore torna a zero se la risposta viene&#xa; sbagliata - la risposta viene scritta su tastiera), &#xa;- domanda a tempo (i giocatori hanno 10 secondi di tempo per dare una risposta - scritta &#xa; su tastiera).&#xa;&#xa;Le domande saranno erogate in maniera casuale agli utenti che partecipano alla partita.&#xa;Ogni risposta corretta vale 10 punti e a fine partita i giocatori potranno vedere il resoconto della partita.&#xa;&#xa;Vince il giocatore che &#xe8; riuscito ad ottenere il punteggio pi&#xf9; alto. "/>
               </Properties>
             </Component>
           </SubComponents>

@@ -12,10 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListModel;
 
-/**
- *
- * @author daniele
- */
+
 public class AggiungiModificaOpzioneDomandaChiusa extends javax.swing.JFrame {
 
     private OpzioneDomandaChiusa opzione;

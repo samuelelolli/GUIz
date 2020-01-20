@@ -10,10 +10,6 @@ import guiz.modelli.Utente;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author daniele
- */
 public class ReportFinePartita extends javax.swing.JFrame {
 
     List<Utente> utenti;

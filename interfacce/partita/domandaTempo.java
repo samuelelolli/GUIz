@@ -18,7 +18,7 @@ import javax.swing.Timer;
 public class domandaTempo extends InterfacciaDomanda {
 
     Timer t;
-    long tempoRimanente; //Gestita non come Duration per alleggerire il carico
+    long tempoRimanente; //Gestita non come Duration
     boolean tempoScaduto = false;
 
     boolean isAnswerCorrect() {

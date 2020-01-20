@@ -12,10 +12,7 @@ import guiz.modelli.DomandaPerdiTutto;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author daniele
- */
+
 public class AggiungiModificaDomandaPerdiTutto extends javax.swing.JFrame {
 
     private DomandaPerdiTutto domanda;

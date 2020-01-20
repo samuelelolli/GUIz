@@ -5,10 +5,6 @@
  */
 package guiz.modelli;
 
-/**
- *
- * @author daniele
- */
 public class OpzioneDomandaChiusa {  //classe per le opzioni domanda chiusa
     private String testo;     //utilizzo due varibili che mi servono per la domanda chiusa: il testo della domanda
     private boolean esatta;   //e un boolean per la risposta giusta

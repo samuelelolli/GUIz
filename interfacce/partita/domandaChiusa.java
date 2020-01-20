@@ -14,10 +14,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author notebook
- */
 public class domandaChiusa extends InterfacciaDomanda {
 
     DomandaChiusa domanda;

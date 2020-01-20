@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guiz.interfacce;
 
-import guiz.GUIzUtils;
 import guiz.RepositoryDomande;
 import guiz.SettingsRepository;
 import guiz.interfacce.aggiungimodifica.AggiungiModificaUtente;
@@ -25,10 +19,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
-/**
- *
- * @author notebook
- */
 public class NuovaPartita extends javax.swing.JFrame {
 
     public NuovaPartita() {     //costruttore

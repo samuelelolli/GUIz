@@ -5,10 +5,7 @@
  */
 package guiz.interfacce;
 
-/**
- *
- * @author notebook
- */
+
 public class RegoleDelGioco extends javax.swing.JFrame {
 
     /**
@@ -48,7 +45,7 @@ public class RegoleDelGioco extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Istruzione 1: \n\nIstruzione 2:\n\nIstruzione 3:\n\nIstruzione 4: \n\nIstruzione 5:\n\nIstruzione 6:\n\nIstruzione 7:\n\n\nRegolamento:\n");
+        jTextArea1.setText("Regolamento:\n\nPrima di ogni partita i giocatori sono invitati a scrivere il proprio nome o nick,\nselezionare il livello di difficoltà delle domande (facile, media, difficile) \ne il numero di domande che vorranno affrontare.\n\nLa partita è composta da 3 tipi di domanda: \n- domanda chiusa o a risposta multipla (3 risposte, solo 1 giusta opzionabile), \n- domanda perditutto (il punteggio del giocatore torna a zero se la risposta viene\n sbagliata - la risposta viene scritta su tastiera), \n- domanda a tempo (i giocatori hanno 10 secondi di tempo per dare una risposta - scritta \n su tastiera).\n\nLe domande saranno erogate in maniera casuale agli utenti che partecipano alla partita.\nOgni risposta corretta vale 10 punti e a fine partita i giocatori potranno vedere il resoconto della partita.\n\nVince il giocatore che è riuscito ad ottenere il punteggio più alto. ");
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

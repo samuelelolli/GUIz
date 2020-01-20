@@ -14,10 +14,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListModel;
 
-/**
- *
- * @author daniele
- */
 public class AggiungiModificaUtente extends javax.swing.JFrame {
     private boolean inModifica;
     private JList<String> listToUpdate;

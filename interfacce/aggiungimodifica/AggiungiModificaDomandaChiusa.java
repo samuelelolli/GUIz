@@ -15,10 +15,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author daniele
- */
 public class AggiungiModificaDomandaChiusa extends javax.swing.JFrame {
 
     private DomandaChiusa domanda;

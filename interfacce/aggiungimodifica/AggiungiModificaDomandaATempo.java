@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guiz.interfacce.aggiungimodifica;
 
 import guiz.GUIzUtils;
@@ -13,10 +8,6 @@ import java.time.Duration;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author daniele
- */
 public class AggiungiModificaDomandaATempo extends javax.swing.JFrame {
 
     private DomandaATempo domanda;

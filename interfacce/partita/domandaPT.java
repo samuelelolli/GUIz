@@ -5,10 +5,6 @@
  */
 package guiz.interfacce.partita;
 
-/**
- *
- * @author notebook
- */
 
 import guiz.modelli.Domanda;
 import guiz.modelli.DomandaChiusa;

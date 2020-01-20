@@ -1,7 +1,7 @@
 package guiz.modelli;
 
 public abstract class Domanda {  //creiamo una classe astratta domanda che sarà implementata dai 3 tipi di domande
-    public enum Difficolta{
+    public enum Difficolta{  //enumerazione per la difficoltà
         facile,
         media,
         difficile,
@@ -12,7 +12,7 @@ public abstract class Domanda {  //creiamo una classe astratta domanda che sarà
     protected long id;
     protected Difficolta difficolta; 
     
-    public abstract String getTipo();   //verrà implementato nelle classi delle domande
+    public abstract String getTipo();   //verrà implementato nelle classi delle domande, permette di risalire al tipo della domanda in qualsiasi momento
     
     public String getTesto() {      //metoti set() & get()
         return testo;

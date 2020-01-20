@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guiz.interfacce;
 
 import guiz.GUIzUtils;
@@ -23,10 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/**
- *
- * @author notebook
- */
 public class PannelloDiAmministrazione extends javax.swing.JFrame {
  
     //associo ad ogni campo delle domande un indice
